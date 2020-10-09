@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *menuTitle;
 
+- (void) refresh;
 @end
 
 NS_ASSUME_NONNULL_END

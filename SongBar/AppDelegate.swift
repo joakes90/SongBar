@@ -29,9 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 options: .new) { (listner, title) in
             self.sysBar.title = title.newValue
         }
-        playbackListner.setValue("SongBar", forKey: "menuTitle")
-//        playbackListner.setValue("Test 123", forKey: "menuTitle")
-//        playbackListner.setValue("ABC 123", forKey: "menuTitle")
+        playbackListner.refresh()
     }
     
     func updateStatusBar() {

@@ -42,6 +42,10 @@
                                                           object:nil];
 }
 
+- (void)refresh {
+    [self updateMenuTitle];
+}
+
 - (void) updateMenuTitle {
     [self setValue:@"SongBar" forKey:@"menuTitle"];
     NSLog(@"I ran %@", self.menuTitle);
