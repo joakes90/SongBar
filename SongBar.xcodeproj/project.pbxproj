@@ -12,6 +12,7 @@
 		36491D3819F6F3330083A49D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3719F6F3330083A49D /* Images.xcassets */; };
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
 		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
+		D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */; };
 		D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0502ACB1B757770009A90BF /* StoreSearch.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +28,6 @@
 
 /* Begin PBXFileReference section */
 		36070F8F19F7695200E5B0CD /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		36070F9219F775CA00E5B0CD /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SongBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		36491D3019F6F3330083A49D /* SongBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36491D3419F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,7 +37,11 @@
 		36491D4019F6F3330083A49D /* SongBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SongBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36491D4519F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36491D4619F6F3330083A49D /* SongBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongBarTests.swift; sourceTree = "<group>"; };
-		D030C7021B34E0F3004D233D /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
+		D02A849E2530BD0600BDF7D6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		D02A84A12530D75A00BDF7D6 /* Music.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
+		D02A84A22530D76B00BDF7D6 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
+		D02A84AB2530DEEA00BDF7D6 /* PlaybackListner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackListner.h; sourceTree = "<group>"; };
+		D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListner.m; sourceTree = "<group>"; };
 		D0502ACB1B757770009A90BF /* StoreSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreSearch.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,15 +88,14 @@
 		36491D3219F6F3330083A49D /* SongBar */ = {
 			isa = PBXGroup;
 			children = (
+				D02A84B02530DEF000BDF7D6 /* Objective-C */,
 				D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */,
-				36070F9219F775CA00E5B0CD /* iTunes.h */,
-				D030C7021B34E0F3004D233D /* Spotify.h */,
-				36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */,
 				36491D3519F6F3330083A49D /* AppDelegate.swift */,
 				36491D3719F6F3330083A49D /* Images.xcassets */,
 				36491D3919F6F3330083A49D /* MainMenu.xib */,
 				36491D3319F6F3330083A49D /* Supporting Files */,
 				D0502ACB1B757770009A90BF /* StoreSearch.swift */,
+				D02A849E2530BD0600BDF7D6 /* README.md */,
 			);
 			path = SongBar;
 			sourceTree = "<group>";
@@ -120,6 +123,18 @@
 				36491D4519F6F3330083A49D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D02A84B02530DEF000BDF7D6 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				D02A84A12530D75A00BDF7D6 /* Music.h */,
+				D02A84A22530D76B00BDF7D6 /* Spotify.h */,
+				D02A84AB2530DEEA00BDF7D6 /* PlaybackListner.h */,
+				D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */,
+				36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */,
+			);
+			name = "Objective-C";
 			sourceTree = "<group>";
 		};
 		E6B49CA74133F3CF05D6312F /* Frameworks */ = {
@@ -175,7 +190,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = corpe;
 				TargetAttributes = {
 					36491D2F19F6F3330083A49D = {
@@ -195,10 +210,9 @@
 			};
 			buildConfigurationList = 36491D2B19F6F3330083A49D /* Build configuration list for PBXProject "SongBar" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -259,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
+				D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */,
 				D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,20 +316,33 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -343,13 +371,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -358,6 +397,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -367,6 +407,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -378,6 +419,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.5.2;
@@ -396,6 +438,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.5.2;
@@ -421,6 +464,7 @@
 				);
 				INFOPLIST_FILE = SongBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
 			};
@@ -437,6 +481,7 @@
 				);
 				INFOPLIST_FILE = SongBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
 			};
