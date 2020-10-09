@@ -15,7 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
-    let playbackListner = PlaybackListner()
+    var playbackListner = PlaybackListner()
+    private var playbackObserver: NSKeyValueObservation?
     var sysBar: NSStatusItem!
 
     //magic number
@@ -24,20 +25,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar.menu = menu;
-        updateStatusBar();
-        
-        DistributedNotificationCenter.default().addObserver(self,
-                                                            selector: #selector(updateiTuensFromNotification(aNotification:)),
-                                                                    name: NSNotification.Name(rawValue: "com.apple.iTunes.playerInfo"),
-                                                                      object: nil);
-        DistributedNotificationCenter.default().addObserver(self,
-                                                            selector: #selector(updateSpotifyFromNotification),
-                                                                    name: NSNotification.Name(rawValue: "com.spotify.client.PlaybackStateChanged"),
-                                                                      object: nil)
-    }
-
-    func applicationWillTerminate(aNotification: NSNotification) {
-        DistributedNotificationCenter.default().removeObserver(self);
+        playbackObserver = playbackListner.observe(\PlaybackListner.menuTitle,
+                                options: .new) { (listner, title) in
+            self.sysBar.title = title.newValue
+        }
+        playbackListner.setValue("SongBar", forKey: "menuTitle")
+//        playbackListner.setValue("Test 123", forKey: "menuTitle")
+//        playbackListner.setValue("ABC 123", forKey: "menuTitle")
     }
     
     func updateStatusBar() {
