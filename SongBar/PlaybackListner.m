@@ -62,14 +62,17 @@
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
     NSString *iTunesString;
     NSString *spotifyString;
-    if (iTunesOpen && self.musicApplication.playerState == MusicEPlSPlaying) {
+    if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
         iTunesString = [self getTrackFrom:_musicApplication];
+        [self updateMenuTitleWithString:iTunesString];
     }
-    if (spotifyOpen && self.spotifyApplication.playerState == SpotifyEPlSPlaying) {
+    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
         spotifyString = [self getTrackFrom:_spotifyApplication];
+        [self updateMenuTitleWithString:spotifyString];
     }
-
-    [self updateMenuTitleWithString:@"SongBar"];
+    if (!iTunesString && !spotifyString) {
+        [self updateMenuTitleWithString:@"SongBar"];
+    }
 }
 
 - (void) updateMenuTitleWithString:(NSString *)title {
@@ -85,7 +88,11 @@
 
 - (NSString *)getTrackFrom:(SBApplication *)application {
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
-    NSLog(@"%@", currentTrack);
-    return @"SongBar";
+    NSString *trackName = currentTrack.name;
+    NSString *artistName = currentTrack.artist;
+    if ([artistName length] > 0) {
+        return [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
+    }
+    return trackName;
 }
 @end
