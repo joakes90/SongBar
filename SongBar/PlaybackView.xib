@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="420"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fT9-e6-EMR">
+                    <rect key="frame" x="0.0" y="0.0" width="420" height="420"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="eBw-6w-6pN"/>
+                </imageView>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="QVl-mh-d8K">
+                    <rect key="frame" x="178" y="64" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="0FR-WB-Rv8"/>
+                        <constraint firstAttribute="width" constant="64" id="ayv-Oi-Lf8"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarPauseTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4Bv-Rr-OV1">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="l9s-YQ-vQi">
+                    <rect key="frame" x="252" y="72" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="5uX-xw-43k"/>
+                        <constraint firstAttribute="width" constant="48" id="Aaa-M4-IMQ"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarFastForwardTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Biq-eR-z9h">
+                    <rect key="frame" x="120" y="72" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="AgL-th-NZn"/>
+                        <constraint firstAttribute="height" constant="48" id="C7n-85-o4c"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarRewindTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="QVl-mh-d8K" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="L68-Vw-ka8"/>
+                <constraint firstItem="fT9-e6-EMR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="OqS-vr-ihl"/>
+                <constraint firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" id="QyU-wf-Bxk"/>
+                <constraint firstItem="Biq-eR-z9h" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="Y44-iA-hne"/>
+                <constraint firstItem="QVl-mh-d8K" firstAttribute="leading" secondItem="Biq-eR-z9h" secondAttribute="trailing" constant="10" symbolic="YES" id="e4b-sm-W8h"/>
+                <constraint firstAttribute="trailing" secondItem="fT9-e6-EMR" secondAttribute="trailing" id="hhN-s5-xf0"/>
+                <constraint firstItem="QVl-mh-d8K" firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" constant="-64" id="l28-Bu-2TL"/>
+                <constraint firstItem="l9s-YQ-vQi" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="lgE-U7-Ulk"/>
+                <constraint firstItem="l9s-YQ-vQi" firstAttribute="leading" secondItem="QVl-mh-d8K" secondAttribute="trailing" constant="10" symbolic="YES" id="slL-uU-4dZ"/>
+                <constraint firstItem="fT9-e6-EMR" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="wdY-ip-liS"/>
+            </constraints>
+            <point key="canvasLocation" x="-180.5" y="232"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSTouchBarFastForwardTemplate" width="22" height="30"/>
+        <image name="NSTouchBarPauseTemplate" width="11" height="30"/>
+        <image name="NSTouchBarRewindTemplate" width="22" height="30"/>
+    </resources>
+</document>

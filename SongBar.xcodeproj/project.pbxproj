@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,9 @@
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
 		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
 		D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */; };
+		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
+		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
+		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
 		D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0502ACB1B757770009A90BF /* StoreSearch.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +45,8 @@
 		D02A84A22530D76B00BDF7D6 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
 		D02A84AB2530DEEA00BDF7D6 /* PlaybackListner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackListner.h; sourceTree = "<group>"; };
 		D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListner.m; sourceTree = "<group>"; };
+		D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
+		D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		D0502ACB1B757770009A90BF /* StoreSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreSearch.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */,
 				36070F9019F7695200E5B0CD /* ScriptingBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +94,7 @@
 		36491D3219F6F3330083A49D /* SongBar */ = {
 			isa = PBXGroup;
 			children = (
+				D02A84BD2534FF7A00BDF7D6 /* Playback View */,
 				D02A84B02530DEF000BDF7D6 /* Objective-C */,
 				D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */,
 				36491D3519F6F3330083A49D /* AppDelegate.swift */,
@@ -137,6 +144,15 @@
 			name = "Objective-C";
 			sourceTree = "<group>";
 		};
+		D02A84BD2534FF7A00BDF7D6 /* Playback View */ = {
+			isa = PBXGroup;
+			children = (
+				D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */,
+				D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */,
+			);
+			name = "Playback View";
+			sourceTree = "<group>";
+		};
 		E6B49CA74133F3CF05D6312F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +177,9 @@
 			dependencies = (
 			);
 			name = SongBar;
+			packageProductDependencies = (
+				D02A84C72535037200BDF7D6 /* Kingfisher */,
+			);
 			productName = SongBar;
 			productReference = 36491D3019F6F3330083A49D /* SongBar.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +236,9 @@
 				Base,
 			);
 			mainGroup = 36491D2719F6F3330083A49D;
+			packageReferences = (
+				D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 36491D3119F6F3330083A49D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */,
 				36491D3819F6F3330083A49D /* Images.xcassets in Resources */,
 				36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */,
 			);
@@ -275,6 +298,7 @@
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
 				D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */,
 				D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */,
+				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +445,10 @@
 				DEFINES_MODULE = NO;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = SongBar/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -440,7 +467,10 @@
 				DEFINES_MODULE = NO;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = SongBar/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -463,7 +493,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SongBarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
@@ -480,7 +514,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SongBarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
@@ -518,6 +556,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D02A84C72535037200BDF7D6 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 36491D2819F6F3330083A49D /* Project object */;
 }
