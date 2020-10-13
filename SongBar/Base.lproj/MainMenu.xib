@@ -683,18 +683,8 @@
         </window>
         <menu id="La1-uj-7QE">
             <items>
-                <menuItem title="Play/Pause" id="JSz-HE-IOT">
+                <menuItem id="JSz-HE-IOT" customClass="PlaybackMenuItem" customModule="SongBar" customModuleProvider="target">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Find in iTunes Store" id="Q2B-G7-tox">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="aAY-th-uYa"/>
-                <menuItem title="Quit" id="mte-z0-mG2">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="terminate:" target="-1" id="WJY-gN-JVG"/>
-                    </connections>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="-91" y="245.5"/>
