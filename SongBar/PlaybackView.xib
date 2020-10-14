@@ -24,7 +24,7 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fT9-e6-EMR">
                     <rect key="frame" x="0.0" y="0.0" width="420" height="420"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="eBw-6w-6pN"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="eBw-6w-6pN"/>
                 </imageView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="QVl-mh-d8K">
                     <rect key="frame" x="178" y="64" width="64" height="64"/>

@@ -22,6 +22,7 @@ class PlaybackView: NSView {
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
     private var spotifyArtworkObserver: NSKeyValueObservation?
+    private var iTunesArtworkObserver: NSKeyValueObservation?
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -57,6 +58,11 @@ class PlaybackView: NSView {
                                                             }
                                                             self.imageView.kf.setImage(with: URL(string: url))
                                                          })
+        iTunesArtworkObserver = playbackListner.observe(\PlaybackListner.iTunesArt,
+                                                        options: .new,
+                                                        changeHandler: { (listner, image) in
+                                                            self.imageView.image = image.newValue
+                                                        })
     }
     private func loadFromNib() {
         var nibObjects: NSArray?

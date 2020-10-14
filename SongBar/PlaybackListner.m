@@ -66,6 +66,7 @@
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
     } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
         [self setTrackInfoFrom:_musicApplication];
+        [self setiTunesArtUsing:_musicApplication];
     } else {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
@@ -101,14 +102,16 @@
     SpotifyTrack *currentTrack = application.currentTrack;
     NSString *artworkURL = currentTrack.artworkUrl;
     [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
-    [self setValue:nil forKey:@"iTunesArt"];
 }
 
 - (void) setiTunesArtUsing:(MusicApplication *)application {
     MusicTrack *currentTrack = application.currentTrack;
-    NSImage *artwork = currentTrack.artworks.firstObject.data;
-    [self setValue:artwork forKey:@"iTunesArt"];
-    [self setValue:nil forKey:@"spotifyArtworkURL"];
+    
+    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
+    if ([artwork.data isKindOfClass:[NSImage class]]) {
+        NSImage *image = artwork.data;
+        [self setValue:image forKey:@"iTunesArt"];
+    }
 }
 
 @end
