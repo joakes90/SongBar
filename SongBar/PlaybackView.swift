@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Kingfisher
 
 class PlaybackView: NSView {
     
@@ -20,7 +21,8 @@ class PlaybackView: NSView {
     private let playbackListner = PlaybackListner()
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
-
+    private var spotifyArtworkObserver: NSKeyValueObservation?
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         commonInit()
@@ -46,6 +48,15 @@ class PlaybackView: NSView {
                                                   changeHandler: { (listner, artist) in
                                                     self.artistTextField.stringValue = artist.newValue ?? ""
                                                   })
+        spotifyArtworkObserver = playbackListner.observe(\PlaybackListner.spotifyArtworkURL,
+                                                         options: .new,
+                                                         changeHandler: { (listner, url) in
+                                                            guard let url = url.newValue else {
+                                                                self.imageView.image = nil
+                                                                return
+                                                            }
+                                                            self.imageView.kf.setImage(with: URL(string: url))
+                                                         })
     }
     private func loadFromNib() {
         var nibObjects: NSArray?

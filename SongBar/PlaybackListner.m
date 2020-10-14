@@ -63,6 +63,7 @@
 
     if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
         [self setTrackInfoFrom:_spotifyApplication];
+        [self setSpotifyArtworkURLUsing:_spotifyApplication];
     } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
         [self setTrackInfoFrom:_musicApplication];
     } else {
@@ -82,14 +83,32 @@
 - (void)setTrackInfoFrom:(SBApplication *)application {
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
     NSString *trackName = currentTrack.name;
-    [self setValue:trackName forKey:@"trackName"];
     NSString *artistName = currentTrack.artist;
+
+    [self setValue:trackName forKey:@"trackName"];
     [self setValue:artistName forKey:@"artistName"];
+
     if ([artistName length] > 0) {
         NSString *menuTitle = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
         [self setValue:menuTitle forKey:@"menuTitle"];
         return;
     }
+
     [self setValue:trackName forKey:@"menuTitle"];
 }
+
+- (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
+    SpotifyTrack *currentTrack = application.currentTrack;
+    NSString *artworkURL = currentTrack.artworkUrl;
+    [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
+    [self setValue:nil forKey:@"iTunesArt"];
+}
+
+- (void) setiTunesArtUsing:(MusicApplication *)application {
+    MusicTrack *currentTrack = application.currentTrack;
+    NSImage *artwork = currentTrack.artworks.firstObject.data;
+    [self setValue:artwork forKey:@"iTunesArt"];
+    [self setValue:nil forKey:@"spotifyArtworkURL"];
+}
+
 @end

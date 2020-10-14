@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, readonly) NSString *menuTitle;
 @property (strong, readonly) NSString *trackName;
 @property (strong, readonly) NSString *artistName;
+@property (strong, readonly) NSImage *iTunesArt;
+@property (strong, readonly) NSString *spotifyArtworkURL;
 
 @property( class, copy ) NSString* musicBundleIdentifier;
 @property( class, copy ) NSString* spotifyBundleIdentifier;
