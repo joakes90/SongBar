@@ -13,7 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaybackListner : NSObject
 
-@property (strong, nonatomic) NSString *menuTitle;
+@property (strong, readonly) NSString *menuTitle;
+@property (strong, readonly) NSString *trackName;
+@property (strong, readonly) NSString *artistName;
+
 @property( class, copy ) NSString* musicBundleIdentifier;
 @property( class, copy ) NSString* spotifyBundleIdentifier;
 

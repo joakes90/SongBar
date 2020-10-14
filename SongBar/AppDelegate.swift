@@ -16,16 +16,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
     var playbackListner = PlaybackListner()
-    private var playbackObserver: NSKeyValueObservation?
     var sysBar: NSStatusItem!
-
+    private var menuTitleObserver: NSKeyValueObservation?
     //magic number
     let variableStatusItemLength: CGFloat = -1;
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar.menu = menu;
-        playbackObserver = playbackListner.observe(\PlaybackListner.menuTitle,
+        menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
                                 options: .new) { (listner, title) in
             self.sysBar.title = title.newValue
         }

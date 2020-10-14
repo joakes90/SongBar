@@ -60,23 +60,16 @@
 - (void)refresh {
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
-    NSString *iTunesString;
-    NSString *spotifyString;
-    if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
-        iTunesString = [self getTrackFrom:_musicApplication];
-        [self updateMenuTitleWithString:iTunesString];
-    }
-    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
-        spotifyString = [self getTrackFrom:_spotifyApplication];
-        [self updateMenuTitleWithString:spotifyString];
-    }
-    if (!iTunesString && !spotifyString) {
-        [self updateMenuTitleWithString:@"SongBar"];
-    }
-}
 
-- (void) updateMenuTitleWithString:(NSString *)title {
-    [self setValue:title forKey:@"menuTitle"];
+    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
+        [self setTrackInfoFrom:_spotifyApplication];
+    } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
+        [self setTrackInfoFrom:_musicApplication];
+    } else {
+        [self setValue:@"SongBar" forKey:@"menuTitle"];
+        [self setValue:nil forKey:@"trackName"];
+        [self setValue:nil forKey:@"artistName"];
+    }
 }
 
 - (BOOL)applicationOpenWithBundleId:(NSString *)bundleId {
@@ -86,13 +79,17 @@
     return ([runningAplications count] > 0);
 }
 
-- (NSString *)getTrackFrom:(SBApplication *)application {
+- (void)setTrackInfoFrom:(SBApplication *)application {
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
     NSString *trackName = currentTrack.name;
+    [self setValue:trackName forKey:@"trackName"];
     NSString *artistName = currentTrack.artist;
+    [self setValue:artistName forKey:@"artistName"];
     if ([artistName length] > 0) {
-        return [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
+        NSString *menuTitle = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
+        [self setValue:menuTitle forKey:@"menuTitle"];
+        return;
     }
-    return trackName;
+    [self setValue:trackName forKey:@"menuTitle"];
 }
 @end
