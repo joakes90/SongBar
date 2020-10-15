@@ -25,7 +25,7 @@
     if (self) {
         _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner musicBundleIdentifier]];
         _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner spotifyBundleIdentifier]];
-        [self refresh];
+        [self refreshWithNotification:nil];
         [self configureObservers];
     }
     return self;
@@ -48,16 +48,19 @@
     
 - (void) configureObservers {
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(refresh)
+                                                        selector:@selector(refreshWithNotification:)
                                                             name:@"com.apple.iTunes.playerInfo"
                                                           object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                        selector:@selector(refresh)
+                                                        selector:@selector(refreshWithNotification:)
                                                             name:@"com.spotify.client.PlaybackStateChanged"
                                                           object:nil];
 }
 
-- (void)refresh {
+- (void)refreshWithNotification:(nullable NSNotification *)notification {
+    
+    NSDictionary *userInfo = notification.userInfo;
+    
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
 

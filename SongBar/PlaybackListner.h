@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property( class, copy ) NSString* musicBundleIdentifier;
 @property( class, copy ) NSString* spotifyBundleIdentifier;
 
-- (void) refresh;
+- (void) refreshWithNotification:(nullable NSNotification *)notification;
 
 @end
 
