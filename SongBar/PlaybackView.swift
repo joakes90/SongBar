@@ -42,12 +42,14 @@ class PlaybackView: NSView {
         songTitleObserver = playbackListner.observe(\PlaybackListner.trackName,
                                                      options: .new,
                                                      changeHandler: { (listner, name) in
-                                                        self.titleTextField.stringValue = name.newValue ?? ""
+                                                        let attributedTitle = self.attributedText(from: name.newValue ?? "")
+                                                        self.titleTextField.attributedStringValue = attributedTitle
                                                      })
         artistObserver = playbackListner.observe(\PlaybackListner.artistName,
                                                   options: .new,
                                                   changeHandler: { (listner, artist) in
-                                                    self.artistTextField.stringValue = artist.newValue ?? ""
+                                                    let attributeedArtist = self.attributedText(from: artist.newValue ?? "", withSize: 18.0)
+                                                    self.artistTextField.attributedStringValue = attributeedArtist
                                                   })
         spotifyArtworkObserver = playbackListner.observe(\PlaybackListner.spotifyArtworkURL,
                                                          options: .new,
@@ -73,4 +75,15 @@ class PlaybackView: NSView {
         addSubview(view)
     }
     
+    private func attributedText(from string: String, withSize fontSize: CGFloat = 24.0) -> NSAttributedString {
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.alignment = .center
+        let attributedString = NSAttributedString(string: string,
+                                                  attributes: [.strokeWidth : -1.0,
+                                                               .strokeColor : NSColor.white,
+                                                               .foregroundColor : NSColor.black,
+                                                               .paragraphStyle : pStyle,
+                                                               .font : NSFont.boldSystemFont(ofSize: fontSize)])
+        return attributedString
+    }
 }
