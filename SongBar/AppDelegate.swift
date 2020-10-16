@@ -23,7 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
-        sysBar.menu = menu;
+        sysBar.title = "SongBar"
+        sysBar.menu = menu
         menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
                                 options: .new) { (listner, title) in
             self.sysBar.title = title.newValue

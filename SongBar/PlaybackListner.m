@@ -61,10 +61,10 @@
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
 
-    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
+    if (spotifyOpen) {
         [self setTrackInfoFrom:_spotifyApplication];
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
-    } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
+    } else if (iTunesOpen) {
         [self setTrackInfoFrom:_musicApplication];
         [self setiTunesArtUsing:_musicApplication];
     } else {
@@ -78,20 +78,7 @@
     
     NSDictionary *userInfo = notification.userInfo;
     
-//    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
-//    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
-//
-//    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
-//        [self setTrackInfoFrom:_spotifyApplication];
-//        [self setSpotifyArtworkURLUsing:_spotifyApplication];
-//    } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
-//        [self setTrackInfoFrom:_musicApplication];
-//        [self setiTunesArtUsing:_musicApplication];
-//    } else {
-//        [self setValue:@"SongBar" forKey:@"menuTitle"];
-//        [self setValue:nil forKey:@"trackName"];
-//        [self setValue:nil forKey:@"artistName"];
-//    }
+
 }
 
 - (BOOL)applicationOpenWithBundleId:(NSString *)bundleId {
@@ -104,7 +91,7 @@
 - (void)setTrackInfoFrom:(SBApplication *)application {
     MusicApplication *mApp = (MusicApplication *) application;
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
-    NSString *trackName = currentTrack.name;
+    NSString *trackName = currentTrack.name != nil ? currentTrack.name : @"SongBar";
     NSString *artistName = currentTrack.artist;
     NSNumber *playbackState = [NSNumber numberWithInteger:mApp.playerState];
 
@@ -117,7 +104,6 @@
         [self setValue:menuTitle forKey:@"menuTitle"];
         return;
     }
-
     [self setValue:trackName forKey:@"menuTitle"];
 }
 
