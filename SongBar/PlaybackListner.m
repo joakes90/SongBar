@@ -126,15 +126,36 @@
 }
 
 - (void)pausePlayPlayback {
-    NSLog(@"pause play");
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    
+    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
+        [_musicApplication playpause];
+    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
+        [_spotifyApplication playpause];
+    }
 }
 
 - (void)rewindPlayback {
-    NSLog(@"rewind");
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    
+    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
+        [_musicApplication backTrack];
+    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
+        [_spotifyApplication previousTrack];
+    }
 }
 
 - (void)fastForwardPlayback {
-    NSLog(@"fastforward");
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    
+    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
+        [_musicApplication nextTrack];
+    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
+        [_spotifyApplication nextTrack];
+    }
 }
 
 @end
