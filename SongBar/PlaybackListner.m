@@ -75,10 +75,24 @@
 }
 
 - (void)refreshWithNotification:(nullable NSNotification *)notification {
-    
-    NSDictionary *userInfo = notification.userInfo;
-    
+    NSString *notificationName = notification.name;
+    NSString *playerState = notification.userInfo[@"Player State"];
 
+    if ([playerState isEqualToString:@"Stopped"]) {
+        [self setTrackInfoFrom:nil];
+        [self setSpotifyArtworkURLUsing:nil];
+        return;
+    }
+    if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
+        [self setTrackInfoFrom:_musicApplication];
+        [self setiTunesArtUsing:_musicApplication];
+        return;
+    }
+    if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
+        [self setSpotifyArtworkURLUsing:_spotifyApplication];
+        [self setTrackInfoFrom:_spotifyApplication];
+        return;
+    }
 }
 
 - (BOOL)applicationOpenWithBundleId:(NSString *)bundleId {
@@ -92,6 +106,7 @@
     MusicApplication *mApp = (MusicApplication *) application;
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
     NSString *trackName = currentTrack.name != nil ? currentTrack.name : @"SongBar";
+    trackName = [trackName length] > 0 ? trackName : @"SongBar";
     NSString *artistName = currentTrack.artist;
     NSNumber *playbackState = [NSNumber numberWithInteger:mApp.playerState];
 
