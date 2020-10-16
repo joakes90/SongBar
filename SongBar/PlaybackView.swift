@@ -76,9 +76,9 @@ class PlaybackView: NSView {
         titleTextField.stringValue = playbackListner.trackName
         artistTextField.stringValue = playbackListner.artistName
         imageView.image = playbackListner.iTunesArt
+        playbackButton(for: MusicEPlS(playbackListner.playbackState.uint32Value))
         guard let spotifyImageUrl = URL(string: playbackListner.spotifyArtworkURL) else { return }
         imageView.kf.setImage(with: spotifyImageUrl)
-        playbackButton(for: MusicEPlS(playbackListner.playbackState.uint32Value))
     }
     private func loadFromNib() {
         var nibObjects: NSArray?
