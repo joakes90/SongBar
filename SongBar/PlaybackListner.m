@@ -25,7 +25,7 @@
     if (self) {
         _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner musicBundleIdentifier]];
         _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner spotifyBundleIdentifier]];
-        [self refreshWithNotification:nil];
+        [self populateMusicData];
         [self configureObservers];
     }
     return self;
@@ -57,10 +57,7 @@
                                                           object:nil];
 }
 
-- (void)refreshWithNotification:(nullable NSNotification *)notification {
-    
-    NSDictionary *userInfo = notification.userInfo;
-    
+- (void) populateMusicData {
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
 
@@ -77,6 +74,26 @@
     }
 }
 
+- (void)refreshWithNotification:(nullable NSNotification *)notification {
+    
+    NSDictionary *userInfo = notification.userInfo;
+    
+//    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
+//    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+//
+//    if (spotifyOpen && _spotifyApplication.playerState == SpotifyEPlSPlaying) {
+//        [self setTrackInfoFrom:_spotifyApplication];
+//        [self setSpotifyArtworkURLUsing:_spotifyApplication];
+//    } else if (iTunesOpen && _musicApplication.playerState == MusicEPlSPlaying) {
+//        [self setTrackInfoFrom:_musicApplication];
+//        [self setiTunesArtUsing:_musicApplication];
+//    } else {
+//        [self setValue:@"SongBar" forKey:@"menuTitle"];
+//        [self setValue:nil forKey:@"trackName"];
+//        [self setValue:nil forKey:@"artistName"];
+//    }
+}
+
 - (BOOL)applicationOpenWithBundleId:(NSString *)bundleId {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bundleIdentifier == %@", bundleId];
     NSArray<NSRunningApplication *> *runningAplications = [[[NSWorkspace sharedWorkspace] runningApplications] filteredArrayUsingPredicate:predicate];
@@ -85,13 +102,16 @@
 }
 
 - (void)setTrackInfoFrom:(SBApplication *)application {
+    MusicApplication *mApp = (MusicApplication *) application;
     MusicTrack *currentTrack = [application performSelector:@selector(currentTrack)];
     NSString *trackName = currentTrack.name;
     NSString *artistName = currentTrack.artist;
+    NSNumber *playbackState = [NSNumber numberWithInteger:mApp.playerState];
 
     [self setValue:trackName forKey:@"trackName"];
     [self setValue:artistName forKey:@"artistName"];
-
+    [self setValue:playbackState forKey:@"playbackState"];
+    
     if ([artistName length] > 0) {
         NSString *menuTitle = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
         [self setValue:menuTitle forKey:@"menuTitle"];
@@ -104,7 +124,9 @@
 - (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
     SpotifyTrack *currentTrack = application.currentTrack;
     NSString *artworkURL = currentTrack.artworkUrl;
-    [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
+    if (![self.spotifyArtworkURL isEqualTo:artworkURL]) {
+        [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
+    }
 }
 
 - (void) setiTunesArtUsing:(MusicApplication *)application {
@@ -115,6 +137,18 @@
         NSImage *image = artwork.data;
         [self setValue:image forKey:@"iTunesArt"];
     }
+}
+
+- (void)pausePlayPlayback {
+    NSLog(@"pause play");
+}
+
+- (void)rewindPlayback {
+    NSLog(@"rewind");
+}
+
+- (void)fastForwardPlayback {
+    NSLog(@"fastforward");
 }
 
 @end

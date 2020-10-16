@@ -18,11 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, readonly) NSString *artistName;
 @property (strong, readonly) NSImage *iTunesArt;
 @property (strong, readonly) NSString *spotifyArtworkURL;
+@property (strong, readonly) NSNumber *playbackState;
 
 @property( class, copy ) NSString* musicBundleIdentifier;
 @property( class, copy ) NSString* spotifyBundleIdentifier;
 
-- (void) refreshWithNotification:(nullable NSNotification *)notification;
+- (void) populateMusicData;
+- (void) pausePlayPlayback;
+- (void) rewindPlayback;
+- (void) fastForwardPlayback;
 
 @end
 

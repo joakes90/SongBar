@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 options: .new) { (listner, title) in
             self.sysBar.title = title.newValue
         }
-        playbackListner.refresh(with: nil)
+        playbackListner.populateMusicData()
     }
 
 }

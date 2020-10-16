@@ -23,7 +23,8 @@ class PlaybackView: NSView {
     private var artistObserver: NSKeyValueObservation?
     private var spotifyArtworkObserver: NSKeyValueObservation?
     private var iTunesArtworkObserver: NSKeyValueObservation?
-    
+    private var playbackStateObserver: NSKeyValueObservation?
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         commonInit()
@@ -37,8 +38,7 @@ class PlaybackView: NSView {
     
     private func commonInit() {
         loadFromNib()
-        titleTextField.stringValue = playbackListner.trackName
-        artistTextField.stringValue = playbackListner.artistName
+        
         songTitleObserver = playbackListner.observe(\PlaybackListner.trackName,
                                                      options: .new,
                                                      changeHandler: { (listner, name) in
@@ -65,6 +65,20 @@ class PlaybackView: NSView {
                                                         changeHandler: { (listner, image) in
                                                             self.imageView.image = image.newValue
                                                         })
+        playbackStateObserver = playbackListner.observe(\PlaybackListner.playbackState,
+                                                        options: .new,
+                                                        changeHandler: { (listner, state) in
+                                                            guard let intValue = state.newValue?.uint32Value else { return }
+                                                            let playbackState = MusicEPlS(rawValue: intValue)
+                                                            self.playbackButton(for: playbackState)
+                                                        })
+        
+        titleTextField.stringValue = playbackListner.trackName
+        artistTextField.stringValue = playbackListner.artistName
+        imageView.image = playbackListner.iTunesArt
+        guard let spotifyImageUrl = URL(string: playbackListner.spotifyArtworkURL) else { return }
+        imageView.kf.setImage(with: spotifyImageUrl)
+        playbackButton(for: MusicEPlS(playbackListner.playbackState.uint32Value))
     }
     private func loadFromNib() {
         var nibObjects: NSArray?
@@ -86,4 +100,27 @@ class PlaybackView: NSView {
                                                                .font : NSFont.boldSystemFont(ofSize: fontSize)])
         return attributedString
     }
+    
+    private func playbackButton(for state: MusicEPlS) {
+        switch state {
+        // Playing
+        case MusicEPlS(rawValue: 1800426320):
+            pausePlayButton.image = #imageLiteral(resourceName: "pauseplaybackcontrol")
+        default:
+            pausePlayButton.image = #imageLiteral(resourceName: "playplaybackcontol")
+        }
+    }
+    
+    @IBAction func pausePlayButtonClicked(_ sender: Any) {
+        playbackListner.pausePlayPlayback()
+    }
+    
+    @IBAction func rewindButtonClicked(_ sender: Any) {
+        playbackListner.rewindPlayback()
+    }
+    
+    @IBAction func fastForwardButtonClicked(_ sender: Any) {
+        playbackListner.fastForwardPlayback()
+    }
+    
 }
