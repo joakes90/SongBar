@@ -26,6 +26,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="420" height="420"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="eBw-6w-6pN"/>
                 </imageView>
+                <box boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="3jC-Ul-rUr">
+                    <rect key="frame" x="20" y="64" width="380" height="131"/>
+                    <view key="contentView" id="wGj-a0-0Tj">
+                        <rect key="frame" x="1" y="1" width="378" height="129"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="0.95602777202430278" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="QVl-mh-d8K">
                     <rect key="frame" x="178" y="64" width="64" height="64"/>
                     <constraints>
@@ -70,7 +78,7 @@
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlW-NU-NYD">
                     <rect key="frame" x="20" y="136" width="380" height="21"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="Artist Label" drawsBackground="YES" allowsEditingTextAttributes="YES" id="S57-c8-ONa">
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Artist Label" drawsBackground="YES" allowsEditingTextAttributes="YES" id="S57-c8-ONa">
                         <font key="font" metaFont="systemBold" size="18"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,7 +86,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzo-1l-oFC">
                     <rect key="frame" x="20" y="167" width="380" height="28"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="Title" drawsBackground="YES" allowsEditingTextAttributes="YES" id="eTM-Uf-Tdk">
+                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Title" drawsBackground="YES" allowsEditingTextAttributes="YES" id="eTM-Uf-Tdk">
                         <font key="font" size="24" name="HelveticaNeue"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -86,9 +94,11 @@
                 </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="3jC-Ul-rUr" firstAttribute="top" secondItem="zzo-1l-oFC" secondAttribute="top" id="5Q3-K3-a8U"/>
                 <constraint firstItem="zzo-1l-oFC" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="5fj-go-eQI"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="ZlW-NU-NYD" secondAttribute="bottom" constant="8" symbolic="YES" id="9lA-lF-Fu8"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="L68-Vw-ka8"/>
+                <constraint firstItem="3jC-Ul-rUr" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="Nfp-XY-gvb"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="OqS-vr-ihl"/>
                 <constraint firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" id="QyU-wf-Bxk"/>
                 <constraint firstItem="Biq-eR-z9h" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="Y44-iA-hne"/>
@@ -99,11 +109,13 @@
                 <constraint firstAttribute="trailing" secondItem="fT9-e6-EMR" secondAttribute="trailing" id="hhN-s5-xf0"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" constant="-64" id="l28-Bu-2TL"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="lgE-U7-Ulk"/>
+                <constraint firstAttribute="trailing" secondItem="3jC-Ul-rUr" secondAttribute="trailing" constant="20" symbolic="YES" id="nGQ-sM-ik7"/>
                 <constraint firstAttribute="trailing" secondItem="ZlW-NU-NYD" secondAttribute="trailing" constant="20" symbolic="YES" id="pBm-kb-GiB"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="leading" secondItem="QVl-mh-d8K" secondAttribute="trailing" constant="10" symbolic="YES" id="slL-uU-4dZ"/>
                 <constraint firstItem="zzo-1l-oFC" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="uu8-Q6-0aQ"/>
                 <constraint firstItem="ZlW-NU-NYD" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="vGC-gO-U3h"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="wdY-ip-liS"/>
+                <constraint firstItem="3jC-Ul-rUr" firstAttribute="bottom" secondItem="QVl-mh-d8K" secondAttribute="bottom" id="xZM-TU-Iok"/>
             </constraints>
             <point key="canvasLocation" x="-181" y="232"/>
         </customView>
