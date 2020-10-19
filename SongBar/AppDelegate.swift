@@ -8,7 +8,6 @@
 
 import Cocoa
 import AppKit
-import ScriptingBridge
 
 @NSApplicationMain
 
@@ -16,122 +15,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
-    
-    var lastServiceUsed: Service?
-    
+    var playbackListner = PlaybackListner()
     var sysBar: NSStatusItem!
-    var iTunes: AnyObject!
-    var Spotify: AnyObject?
+    private var menuTitleObserver: NSKeyValueObservation?
     //magic number
-    var variableStatusItemLength: CGFloat = -1;
+    let variableStatusItemLength: CGFloat = -1;
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-        
-        sysBar = NSStatusBar.systemStatusBar().statusItemWithLength(variableStatusItemLength);
-        sysBar.menu = menu;
-        iTunes = SBApplication.applicationWithBundleIdentifier("com.apple.iTunes");
-        if let Spotify: AnyObject = SBApplication.applicationWithBundleIdentifier("com.spotify.client")
-        {
-            self.Spotify = SBApplication.applicationWithBundleIdentifier("com.spotify.client")
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
+        sysBar.title = "SongBar"
+        sysBar.menu = menu
+        menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
+                                options: .new) { (listner, title) in
+            self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
         }
-        
-        updateStatusBar();
-        
-        NSDistributedNotificationCenter.defaultCenter().addObserver(self,
-                                                                    selector: "updateiTuensFromNotification:",
-                                                                        name: "com.apple.iTunes.playerInfo",
-                                                                      object: nil);
-        NSDistributedNotificationCenter.defaultCenter().addObserver(self,
-                                                                    selector: "updateSpotifyFromNotification:",
-                                                                        name: "com.spotify.client.PlaybackStateChanged",
-                                                                      object: nil)
-        
+        playbackListner.populateMusicData()
     }
-    
-    func applicationWillTerminate(aNotification: NSNotification) {
-        NSDistributedNotificationCenter.defaultCenter().removeObserver(self);
-    }
-    
-    func updateStatusBar(){
 
-        let track: iTunesTrack = iTunes.currentTrack;
-        var spotifyName: String?
-        var spotifyArtist: String?
-        if let spotifyTrack: SpotifyTrack = Spotify?.currentTrack {
-            spotifyName = spotifyTrack.name != nil ? spotifyTrack.name : ""
-            spotifyArtist = spotifyTrack.artist != nil ? spotifyTrack.artist : ""
-        }
-        
-        let name: String = (track.name != nil) ? track.name : "";
-        let artist: String = (track.artist != nil) ? track.artist : "";
-        
-        
-
-        if  spotifyArtist != nil && spotifyName != nil{
-            sysBar.title = "\(spotifyName!) - \(spotifyArtist!)"
-            self.lastServiceUsed = Service.spotify
-        }else if artist != "" && name != ""{
-            sysBar.title! = name + " - " + artist;
-            self.lastServiceUsed = Service.iTunes
-        }else{
-            sysBar.title! = "SongBar";
-            self.lastServiceUsed = Service.iTunes
-        }
-        
-        
+    func closeApp() {
+        NSApplication.shared.terminate(self)
     }
-    
-    func updateiTuensFromNotification(aNotification: NSNotification){
-        let info = aNotification.userInfo! as NSDictionary;
-        
-        if(info.objectForKey("Name") != nil && info.objectForKey("Artist") != nil){
-            let name: String = info.valueForKey("Name") as! String;
-            let artist: String = info.valueForKey("Artist")as! String;
+
+    private func menuTitleOfMaximumLength(title: String?) -> String {
+        let maximumLength = 57
+        let elipsiesLength = 3
+        guard var title = title else { return "SongBar" }
+        if title.count > maximumLength {
+            let lengthToTrim = ((maximumLength + elipsiesLength) - title.count) * -1
+            let startIndex = title.index(title.startIndex, offsetBy: (title.count / 2) - (lengthToTrim / 2))
+            let endIndex = title.index(title.startIndex, offsetBy: (title.count / 2) + (lengthToTrim / 2))
             
-            sysBar.title! = name + " - " + artist;
-            lastServiceUsed = Service.iTunes
-        }else if (info.objectForKey("Name") != nil && info.objectForKey("Artist") == nil) {
-            let name: String = info.valueForKey("Name") as! String;
-            sysBar.title = "\(name)"
+            title.replaceSubrange(startIndex...endIndex, with: "...")
         }
-        
-        else{
-            sysBar.title! = "SongBar";
-        }
+        return title
     }
-    
-    func updateSpotifyFromNotification(aNotification: NSNotification){
-                let info = aNotification.userInfo! as NSDictionary;
-        if info["Name"] != nil && info["Artist"] != nil {
-            let name: String = info["Name"] as! String
-            let artist: String = info["Artist"] as! String
-            
-            sysBar.title = "\(name) - \(artist)"
-            
-            lastServiceUsed = Service.spotify
-        } else{
-            sysBar.title! = "SongBar";
-        }
-    }
-    
-    @IBAction func playPause(sender: AnyObject) {
-        if lastServiceUsed == Service.iTunes{
-            iTunes.playpause();
-        } else {
-            Spotify!.playpause()
-        }
-    }
-    
-    @IBAction func findInStore(sender: AnyObject) {
-        var searchString: NSString = sysBar.title! as NSString
-        StoreSearch.sharedInstance.search(searchString)
-    }
- 
 
-}
-
-enum Service {
-    case iTunes
-    
-    case spotify
 }
