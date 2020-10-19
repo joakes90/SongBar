@@ -16,7 +16,6 @@
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
-		D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0502ACB1B757770009A90BF /* StoreSearch.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListner.m; sourceTree = "<group>"; };
 		D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
 		D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
-		D0502ACB1B757770009A90BF /* StoreSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreSearch.swift; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,7 +101,6 @@
 				36491D3719F6F3330083A49D /* Images.xcassets */,
 				36491D3919F6F3330083A49D /* MainMenu.xib */,
 				36491D3319F6F3330083A49D /* Supporting Files */,
-				D0502ACB1B757770009A90BF /* StoreSearch.swift */,
 				D02A849E2530BD0600BDF7D6 /* README.md */,
 			);
 			path = SongBar;
@@ -300,7 +297,6 @@
 			files = (
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
 				D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */,
-				D0502ACC1B757770009A90BF /* StoreSearch.swift in Sources */,
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 			);
