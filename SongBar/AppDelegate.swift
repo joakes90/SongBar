@@ -31,7 +31,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         playbackListner.populateMusicData()
     }
-    
+
+    func closeApp() {
+        NSApplication.shared.terminate(self)
+    }
+
     private func menuTitleOfMaximumLength(title: String?) -> String {
         let maximumLength = 57
         let elipsiesLength = 3

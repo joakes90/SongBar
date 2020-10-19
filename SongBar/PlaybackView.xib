@@ -92,21 +92,52 @@
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </textFieldCell>
                 </textField>
+                <box boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="u2w-ap-vx9">
+                    <rect key="frame" x="8" y="364" width="48" height="48"/>
+                    <view key="contentView" id="8UF-FQ-ytO">
+                        <rect key="frame" x="1" y="1" width="46" height="46"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="05H-wq-v9z"/>
+                        <constraint firstAttribute="height" constant="48" id="pEj-ie-GzZ"/>
+                    </constraints>
+                    <color key="fillColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="0.956027772" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="Scs-LT-VIW">
+                    <rect key="frame" x="20" y="376" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="63I-6S-I5i"/>
+                        <constraint firstAttribute="width" constant="24" id="yHb-XM-6gW"/>
+                    </constraints>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JF6-ed-6pR">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <color key="contentTintColor" red="0.11079192910000001" green="0.1253042519" blue="0.1767322123" alpha="1" colorSpace="deviceRGB"/>
+                    <connections>
+                        <action selector="closeButtonClicked:" target="-2" id="cXE-9R-521"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="3jC-Ul-rUr" firstAttribute="top" secondItem="zzo-1l-oFC" secondAttribute="top" id="5Q3-K3-a8U"/>
                 <constraint firstItem="zzo-1l-oFC" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="5fj-go-eQI"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="ZlW-NU-NYD" secondAttribute="bottom" constant="8" symbolic="YES" id="9lA-lF-Fu8"/>
+                <constraint firstItem="Scs-LT-VIW" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="IC4-mz-4I8"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="L68-Vw-ka8"/>
                 <constraint firstItem="3jC-Ul-rUr" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="Nfp-XY-gvb"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="OqS-vr-ihl"/>
                 <constraint firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" id="QyU-wf-Bxk"/>
+                <constraint firstItem="Scs-LT-VIW" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="VKc-xl-sic"/>
                 <constraint firstItem="Biq-eR-z9h" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="Y44-iA-hne"/>
                 <constraint firstItem="ZlW-NU-NYD" firstAttribute="top" secondItem="zzo-1l-oFC" secondAttribute="bottom" constant="10" symbolic="YES" id="bQ9-mM-3bh"/>
+                <constraint firstItem="u2w-ap-vx9" firstAttribute="centerX" secondItem="Scs-LT-VIW" secondAttribute="centerX" id="cJj-eo-8ih"/>
                 <constraint firstAttribute="trailing" secondItem="zzo-1l-oFC" secondAttribute="trailing" constant="20" symbolic="YES" id="cUY-xm-Pup"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="leading" secondItem="Biq-eR-z9h" secondAttribute="trailing" constant="10" symbolic="YES" id="e4b-sm-W8h"/>
                 <constraint firstItem="ZlW-NU-NYD" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="hD7-7o-a9X"/>
                 <constraint firstAttribute="trailing" secondItem="fT9-e6-EMR" secondAttribute="trailing" id="hhN-s5-xf0"/>
+                <constraint firstItem="u2w-ap-vx9" firstAttribute="centerY" secondItem="Scs-LT-VIW" secondAttribute="centerY" id="i5R-ra-A6O"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" constant="-64" id="l28-Bu-2TL"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="lgE-U7-Ulk"/>
                 <constraint firstAttribute="trailing" secondItem="3jC-Ul-rUr" secondAttribute="trailing" constant="20" symbolic="YES" id="nGQ-sM-ik7"/>
@@ -121,6 +152,7 @@
         </customView>
     </objects>
     <resources>
+        <image name="NSStopProgressTemplate" width="11" height="11"/>
         <image name="fastforwardplaybackcontrol" width="64" height="64"/>
         <image name="pauseplaybackcontrol" width="64" height="64"/>
         <image name="rewindplaybackcontrol" width="64" height="64"/>

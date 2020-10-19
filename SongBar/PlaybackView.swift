@@ -123,4 +123,7 @@ class PlaybackView: NSView {
         playbackListner.fastForwardPlayback()
     }
     
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
+    }
 }
