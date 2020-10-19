@@ -137,6 +137,8 @@
     if ([artwork.data isKindOfClass:[NSImage class]]) {
         NSImage *image = artwork.data;
         [self setValue:image forKey:@"iTunesArt"];
+    } else {
+        [self setValue:nil forKey:@"iTunesArt"];
     }
 }
 
@@ -144,7 +146,7 @@
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
     
-    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
+    if (iTunesOpen && !spotifyOpen) {
         [_musicApplication playpause];
     } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
         [_spotifyApplication playpause];
