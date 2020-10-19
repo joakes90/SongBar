@@ -15,113 +15,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
-    let playbackListner = PlaybackListner()
+    var playbackListner = PlaybackListner()
     var sysBar: NSStatusItem!
-
+    private var menuTitleObserver: NSKeyValueObservation?
     //magic number
     let variableStatusItemLength: CGFloat = -1;
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
-        sysBar.menu = menu;
-        updateStatusBar();
-        
-        DistributedNotificationCenter.default().addObserver(self,
-                                                            selector: #selector(updateiTuensFromNotification(aNotification:)),
-                                                                    name: NSNotification.Name(rawValue: "com.apple.iTunes.playerInfo"),
-                                                                      object: nil);
-        DistributedNotificationCenter.default().addObserver(self,
-                                                            selector: #selector(updateSpotifyFromNotification),
-                                                                    name: NSNotification.Name(rawValue: "com.spotify.client.PlaybackStateChanged"),
-                                                                      object: nil)
+        sysBar.title = "SongBar"
+        sysBar.menu = menu
+        menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
+                                options: .new) { (listner, title) in
+            self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
+        }
+        playbackListner.populateMusicData()
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
-        DistributedNotificationCenter.default().removeObserver(self);
+    func closeApp() {
+        NSApplication.shared.terminate(self)
     }
-    
-    func updateStatusBar() {
-//        let iTunesPlayerState = iTunes?.value(forKey: "playerState") as! MusicEPlS
-//        var spotifyPlayerState = Spotify?.playerState
-//
-//        switch iTunesPlayerState {
-//        case .init(1):
-//            print("iTunes is playing")
-//        default:
-//            print("iTunes is not playing")
-//        }
-//        let iTunesTrack = iTunes?.currentTrack
-//        let spotifyTrack = Spotify?.currentTrack
-//        var spotifyName: String?
-//        var spotifyArtist: String?
-//        if let spotifyTrack: SpotifyTrack = Spotify?.currentTrack {
-//            spotifyName = spotifyTrack.name != nil ? spotifyTrack.name : ""
-//            spotifyArtist = spotifyTrack.artist != nil ? spotifyTrack.artist : ""
-//        }
-//
-//        let name: String = (track.name != nil) ? track.name : "";
-//        let artist: String = (track.artist != nil) ? track.artist : "";
-//
-//
-//
-//        if  spotifyArtist != nil && spotifyName != nil{
-//            sysBar.title = "\(spotifyName!) - \(spotifyArtist!)"
-//            self.lastServiceUsed = Service.spotify
-//        }else if artist != "" && name != ""{
-//            sysBar.title! = name + " - " + artist;
-//            self.lastServiceUsed = Service.iTunes
-//        }else{
-//            sysBar.title! = "SongBar";
-//            self.lastServiceUsed = Service.iTunes
-//        }
-    }
-    
-    @objc func updateiTuensFromNotification(aNotification: NSNotification){
-//        let info = aNotification.userInfo! as NSDictionary;
-//
-//        if(info.object(forKey: "Name") != nil && info.object(forKey: "Artist") != nil){
-//            let name: String = info.value(forKey: "Name") as! String;
-//            let artist: String = info.value(forKey: "Artist")as! String;
-//
-//            sysBar.title! = name + " - " + artist;
-//            lastServiceUsed = Service.iTunes
-//        }else if (info.object(forKey: "Name") != nil && info.object(forKey: "Artist") == nil) {
-//            let name: String = info.value(forKey: "Name") as! String;
-//            sysBar.title = "\(name)"
-//        }
-//
-//        else{
-//            sysBar.title! = "SongBar";
-//        }
-    }
-    
-    @objc func updateSpotifyFromNotification(aNotification: NSNotification){
-//                let info = aNotification.userInfo! as NSDictionary;
-//        if info["Name"] != nil && info["Artist"] != nil {
-//            let name: String = info["Name"] as! String
-//            let artist: String = info["Artist"] as! String
-//            
-//            sysBar.title = "\(name) - \(artist)"
-//            
-//            lastServiceUsed = Service.spotify
-//        } else{
-//            sysBar.title! = "SongBar";
-//        }
-    }
-    
-    @IBAction func playPause(sender: AnyObject) {
-        print("Pause play")
-    }
-    
-    @IBAction func findInStore(sender: AnyObject) {
-//        var searchString: NSString = sysBar.title! as NSString
-//        StoreSearch.sharedInstance.search(searchString)
-    }
- 
 
-}
+    private func menuTitleOfMaximumLength(title: String?) -> String {
+        let maximumLength = 57
+        let elipsiesLength = 3
+        guard var title = title else { return "SongBar" }
+        if title.count > maximumLength {
+            let lengthToTrim = ((maximumLength + elipsiesLength) - title.count) * -1
+            let startIndex = title.index(title.startIndex, offsetBy: (title.count / 2) - (lengthToTrim / 2))
+            let endIndex = title.index(title.startIndex, offsetBy: (title.count / 2) + (lengthToTrim / 2))
+            
+            title.replaceSubrange(startIndex...endIndex, with: "...")
+        }
+        return title
+    }
 
-enum Service {
-    case iTunes
-    case spotify
 }
