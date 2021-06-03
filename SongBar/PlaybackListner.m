@@ -109,11 +109,12 @@
     trackName = [trackName length] > 0 ? trackName : @"SongBar";
     NSString *artistName = currentTrack.artist;
     NSNumber *playbackState = [NSNumber numberWithInteger:mApp.playerState];
+    NSNumber *headPosistion = [self playbackHeadPositionFor:currentTrack in: mApp];
 
     [self setValue:trackName forKey:@"trackName"];
     [self setValue:artistName forKey:@"artistName"];
     [self setValue:playbackState forKey:@"playbackState"];
-    
+    [self setValue:headPosistion forKey:@"playbackHeadPosition"];
     if ([artistName length] > 0) {
         NSString *menuTitle = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
         [self setValue:menuTitle forKey:@"menuTitle"];
@@ -175,4 +176,11 @@
     }
 }
 
+- (NSNumber *)playbackHeadPositionFor:(MusicTrack *) track in:(MusicApplication *) application {
+    SpotifyTrack *sptTrack = track;
+    double trackLengthSeconds = sptTrack.duration/1000;
+    double playerPosition = application.playerPosition;
+    double percentage = (playerPosition/trackLengthSeconds) * 100;
+    return [NSNumber numberWithDouble:percentage];
+}
 @end
