@@ -10,10 +10,15 @@
 #import "Spotify.h"
 #import "PlaybackListner.h"
 
+typedef enum observedApplication {
+       music,
+       spotify} ObservedApplication;
+
 @interface PlaybackListner ()
 
 @property (strong, nonatomic) MusicApplication *musicApplication;
 @property (strong, nonatomic) SpotifyApplication *spotifyApplication;
+@property ObservedApplication observedApplication;
 
 @end
 
@@ -86,11 +91,13 @@
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
         [self setTrackInfoFrom:_musicApplication];
         [self setiTunesArtUsing:_musicApplication];
+        _observedApplication = music;
         return;
     }
     if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
         [self setTrackInfoFrom:_spotifyApplication];
+        _observedApplication = spotify;
         return;
     }
 }

@@ -17,7 +17,7 @@ class PlaybackView: NSView {
     @IBOutlet weak var backButton: NSButton!
     @IBOutlet weak var titleTextField: NSTextField!
     @IBOutlet weak var artistTextField: NSTextField!
-    @IBOutlet weak var playbackStatus: NSProgressIndicator!
+    @IBOutlet weak var playbackProgressIndicator: NSProgressIndicator!
     
     private let playbackListner = PlaybackListner()
     private var songTitleObserver: NSKeyValueObservation?
@@ -25,6 +25,7 @@ class PlaybackView: NSView {
     private var spotifyArtworkObserver: NSKeyValueObservation?
     private var iTunesArtworkObserver: NSKeyValueObservation?
     private var playbackStateObserver: NSKeyValueObservation?
+    private var playHeadPositionObserver: NSKeyValueObservation?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -42,37 +43,43 @@ class PlaybackView: NSView {
         
         songTitleObserver = playbackListner.observe(\PlaybackListner.trackName,
                                                      options: .new,
-                                                     changeHandler: { (listner, name) in
+                                                     changeHandler: { [titleTextField] (listner, name) in
                                                         let attributedTitle = self.attributedText(from: name.newValue ?? "")
-                                                        self.titleTextField.attributedStringValue = attributedTitle
+                                                        titleTextField?.attributedStringValue = attributedTitle
                                                      })
         artistObserver = playbackListner.observe(\PlaybackListner.artistName,
                                                   options: .new,
-                                                  changeHandler: { (listner, artist) in
+                                                  changeHandler: { [artistTextField] (listner, artist) in
                                                     let attributeedArtist = self.attributedText(from: artist.newValue ?? "", withSize: 18.0)
-                                                    self.artistTextField.attributedStringValue = attributeedArtist
+                                                    artistTextField?.attributedStringValue = attributeedArtist
                                                   })
         spotifyArtworkObserver = playbackListner.observe(\PlaybackListner.spotifyArtworkURL,
                                                          options: .new,
-                                                         changeHandler: { (listner, url) in
+                                                         changeHandler: { [imageView] (listner, url) in
                                                             guard let url = url.newValue else {
-                                                                self.imageView.image = nil
+                                                                imageView?.image = nil
                                                                 return
                                                             }
                                                             self.imageView.kf.setImage(with: URL(string: url))
                                                          })
         iTunesArtworkObserver = playbackListner.observe(\PlaybackListner.iTunesArt,
                                                         options: .new,
-                                                        changeHandler: { (listner, image) in
-                                                            self.imageView.image = image.newValue
+                                                        changeHandler: { [imageView] (listner, image) in
+                                                            imageView?.image = image.newValue
                                                         })
         playbackStateObserver = playbackListner.observe(\PlaybackListner.playbackState,
                                                         options: .new,
-                                                        changeHandler: { (listner, state) in
+                                                        changeHandler: { [weak self] (listner, state) in
                                                             guard let intValue = state.newValue?.uint32Value else { return }
                                                             let playbackState = MusicEPlS(rawValue: intValue)
-                                                            self.playbackButton(for: playbackState)
+                                                            self?.playbackButton(for: playbackState)
                                                         })
+        playHeadPositionObserver = playbackListner.observe(\PlaybackListner.playbackHeadPosition,
+                                                           options: .new,
+                                                           changeHandler: { [playbackProgressIndicator] listner, percentage in
+                                                            guard let number = percentage.newValue else { return }
+                                                            playbackProgressIndicator?.doubleValue = number.doubleValue
+                                                           })
         
         titleTextField.stringValue = playbackListner.trackName
         artistTextField.stringValue = playbackListner.artistName

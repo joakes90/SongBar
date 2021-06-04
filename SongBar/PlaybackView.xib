@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +12,7 @@
                 <outlet property="imageView" destination="fT9-e6-EMR" id="GXT-Yo-40z"/>
                 <outlet property="nextButton" destination="l9s-YQ-vQi" id="9Rj-rP-Uth"/>
                 <outlet property="pausePlayButton" destination="QVl-mh-d8K" id="CVz-Gw-2Sf"/>
-                <outlet property="playbackStatus" destination="Zou-U0-RYf" id="lfJ-vU-3gj"/>
+                <outlet property="playbackProgressIndicator" destination="Zou-U0-RYf" id="lfJ-vU-3gj"/>
                 <outlet property="titleTextField" destination="zzo-1l-oFC" id="2bw-7F-53I"/>
             </connections>
         </customObject>
