@@ -49,9 +49,9 @@
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hR1-rS-P1B" customClass="SongBarSlider" customModule="SongBar" customModuleProvider="target">
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hR1-rS-P1B">
                                 <rect key="frame" x="18" y="57" width="342" height="28"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="NIG-jd-lry"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="NIG-jd-lry" customClass="SongBarSliderCell" customModule="SongBar" customModuleProvider="target"/>
                             </slider>
                         </subviews>
                         <constraints>
