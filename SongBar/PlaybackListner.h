@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) pausePlayPlayback;
 - (void) rewindPlayback;
 - (void) fastForwardPlayback;
+- (void) incrementPlayHeadPosition;
 
 @end
 

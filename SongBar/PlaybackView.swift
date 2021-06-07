@@ -26,6 +26,7 @@ class PlaybackView: NSView {
     private var iTunesArtworkObserver: NSKeyValueObservation?
     private var playbackStateObserver: NSKeyValueObservation?
     private var playHeadPositionObserver: NSKeyValueObservation?
+    private var timer: Timer?
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -118,7 +119,21 @@ class PlaybackView: NSView {
             pausePlayButton.image = #imageLiteral(resourceName: "playplaybackcontol")
         }
     }
-    
+
+    func beginPlayheadPolling() {
+        guard timer == nil else { return }
+        let timer = Timer(fire: Date(), interval: 1.0, repeats: true) { [playbackListner] _ in
+            playbackListner.incrementPlayHeadPosition()
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
+    }
+
+    func endPlayheadPolling() {
+        timer?.invalidate()
+        timer = nil
+    }
+
     @IBAction func pausePlayButtonClicked(_ sender: Any) {
         playbackListner.pausePlayPlayback()
     }
