@@ -17,7 +17,7 @@ class PlaybackView: NSView {
     @IBOutlet weak var backButton: NSButton!
     @IBOutlet weak var titleTextField: NSTextField!
     @IBOutlet weak var artistTextField: NSTextField!
-    @IBOutlet weak var playbackProgressIndicator: NSProgressIndicator!
+    @IBOutlet weak var playbackProgressIndicator: NSSlider!
     
     private let playbackListner = PlaybackListner()
     private var songTitleObserver: NSKeyValueObservation?

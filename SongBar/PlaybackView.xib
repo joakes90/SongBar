@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +13,7 @@
                 <outlet property="imageView" destination="fT9-e6-EMR" id="GXT-Yo-40z"/>
                 <outlet property="nextButton" destination="l9s-YQ-vQi" id="9Rj-rP-Uth"/>
                 <outlet property="pausePlayButton" destination="QVl-mh-d8K" id="CVz-Gw-2Sf"/>
-                <outlet property="playbackProgressIndicator" destination="Zou-U0-RYf" id="lfJ-vU-3gj"/>
+                <outlet property="playbackProgressIndicator" destination="hR1-rS-P1B" id="sui-1H-Kpe"/>
                 <outlet property="titleTextField" destination="zzo-1l-oFC" id="2bw-7F-53I"/>
             </connections>
         </customObject>
@@ -27,13 +28,13 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="eBw-6w-6pN"/>
                 </imageView>
                 <box boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="3jC-Ul-rUr">
-                    <rect key="frame" x="20" y="32" width="380" height="147"/>
+                    <rect key="frame" x="20" y="32" width="380" height="149"/>
                     <view key="contentView" id="wGj-a0-0Tj">
-                        <rect key="frame" x="1" y="1" width="378" height="145"/>
+                        <rect key="frame" x="1" y="1" width="378" height="147"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzo-1l-oFC">
-                                <rect key="frame" x="-2" y="117" width="380" height="28"/>
+                                <rect key="frame" x="-2" y="119" width="380" height="28"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Title" drawsBackground="YES" allowsEditingTextAttributes="YES" id="eTM-Uf-Tdk">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -41,25 +42,26 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlW-NU-NYD">
-                                <rect key="frame" x="-2" y="89" width="380" height="21"/>
+                                <rect key="frame" x="-2" y="91" width="380" height="21"/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Artist Label" drawsBackground="YES" allowsEditingTextAttributes="YES" id="S57-c8-ONa">
                                     <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </textFieldCell>
                             </textField>
-                            <progressIndicator maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Zou-U0-RYf">
-                                <rect key="frame" x="20" y="62" width="338" height="20"/>
-                            </progressIndicator>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hR1-rS-P1B" customClass="SongBarSlider" customModule="SongBar" customModuleProvider="target">
+                                <rect key="frame" x="18" y="57" width="342" height="28"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="NIG-jd-lry"/>
+                            </slider>
                         </subviews>
                         <constraints>
                             <constraint firstItem="zzo-1l-oFC" firstAttribute="leading" secondItem="wGj-a0-0Tj" secondAttribute="leading" constant="-2" id="C65-HK-QgS"/>
+                            <constraint firstItem="hR1-rS-P1B" firstAttribute="leading" secondItem="wGj-a0-0Tj" secondAttribute="leading" constant="20" symbolic="YES" id="GnT-YT-of3"/>
+                            <constraint firstAttribute="trailing" secondItem="hR1-rS-P1B" secondAttribute="trailing" constant="20" symbolic="YES" id="LS0-RB-kzm"/>
                             <constraint firstAttribute="trailing" secondItem="zzo-1l-oFC" secondAttribute="trailing" id="LW6-tx-1or"/>
-                            <constraint firstItem="Zou-U0-RYf" firstAttribute="top" secondItem="ZlW-NU-NYD" secondAttribute="bottom" constant="8" id="MeE-X4-f4Z"/>
                             <constraint firstItem="ZlW-NU-NYD" firstAttribute="leading" secondItem="wGj-a0-0Tj" secondAttribute="leading" constant="-2" id="OfR-oW-173"/>
-                            <constraint firstItem="Zou-U0-RYf" firstAttribute="leading" secondItem="wGj-a0-0Tj" secondAttribute="leading" constant="20" symbolic="YES" id="ek3-MB-Irc"/>
+                            <constraint firstItem="hR1-rS-P1B" firstAttribute="top" secondItem="ZlW-NU-NYD" secondAttribute="bottom" constant="8" id="QMr-PG-YHh"/>
                             <constraint firstItem="zzo-1l-oFC" firstAttribute="top" secondItem="wGj-a0-0Tj" secondAttribute="top" id="kTT-KZ-c9y"/>
-                            <constraint firstAttribute="trailing" secondItem="Zou-U0-RYf" secondAttribute="trailing" constant="20" symbolic="YES" id="rFN-PF-4Ql"/>
                             <constraint firstItem="ZlW-NU-NYD" firstAttribute="top" secondItem="zzo-1l-oFC" secondAttribute="bottom" constant="7" id="uqb-Dq-7XN"/>
                             <constraint firstAttribute="trailing" secondItem="ZlW-NU-NYD" secondAttribute="trailing" id="xGU-HQ-yxo"/>
                         </constraints>
@@ -137,10 +139,10 @@
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="hR1-rS-P1B" secondAttribute="bottom" id="7Lh-xX-I3M"/>
                 <constraint firstItem="Scs-LT-VIW" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="IC4-mz-4I8"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="L68-Vw-ka8"/>
                 <constraint firstItem="3jC-Ul-rUr" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="Nfp-XY-gvb"/>
-                <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="Zou-U0-RYf" secondAttribute="bottom" id="OkG-Gi-3ab"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="OqS-vr-ihl"/>
                 <constraint firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" id="QyU-wf-Bxk"/>
                 <constraint firstItem="Scs-LT-VIW" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="VKc-xl-sic"/>
