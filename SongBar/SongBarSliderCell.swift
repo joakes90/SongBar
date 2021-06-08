@@ -11,7 +11,11 @@ import Cocoa
 class SongBarSliderCell: NSSliderCell {
 
     override func drawKnob(_ knobRect: NSRect) {
-        let rect = NSRect(x: playedWidth - 8.0, y: knobRect.origin.y + 4.0, width: 16.0, height: 16.0)
+        let needsRightOffset = (playedWidth > barRect(flipped: false).width - 6)
+        let rect = NSRect(x: needsRightOffset ? (barRect(flipped: false).width - 6) : playedWidth - 1.0,
+                          y: knobRect.origin.y + 6.0,
+                          width: 12.0,
+                          height: 12.0)
         #imageLiteral(resourceName: "playback_head").draw(in: rect)
     }
 
