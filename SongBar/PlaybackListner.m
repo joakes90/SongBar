@@ -11,8 +11,9 @@
 #import "PlaybackListner.h"
 
 typedef enum observedApplication {
-       music,
-       spotify} ObservedApplication;
+    music,
+    spotify,
+    none} ObservedApplication;
 
 @interface PlaybackListner ()
 
@@ -30,6 +31,7 @@ typedef enum observedApplication {
     if (self) {
         _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner musicBundleIdentifier]];
         _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner spotifyBundleIdentifier]];
+        self.observedApplication = none;
         [self populateMusicData];
         [self configureObservers];
     }
@@ -69,13 +71,16 @@ typedef enum observedApplication {
     if (spotifyOpen) {
         [self setTrackInfoFrom:_spotifyApplication];
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
+        _observedApplication = spotify;
     } else if (iTunesOpen) {
         [self setTrackInfoFrom:_musicApplication];
         [self setiTunesArtUsing:_musicApplication];
+        _observedApplication = music;
     } else {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
+        _observedApplication = none;
     }
 }
 
@@ -86,6 +91,7 @@ typedef enum observedApplication {
     if ([playerState isEqualToString:@"Stopped"]) {
         [self setTrackInfoFrom:nil];
         [self setSpotifyArtworkURLUsing:nil];
+        _observedApplication = none;
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
@@ -117,7 +123,6 @@ typedef enum observedApplication {
     NSString *artistName = currentTrack.artist;
     NSNumber *playbackState = [NSNumber numberWithInteger:mApp.playerState];
 
-    [self incrementPlayHeadPosition];
     [self setValue:trackName forKey:@"trackName"];
     [self setValue:artistName forKey:@"artistName"];
     [self setValue:playbackState forKey:@"playbackState"];
@@ -192,11 +197,19 @@ typedef enum observedApplication {
 }
 
 - (void) incrementPlayHeadPosition {
-    // TODO: Support Apple Music
-//    if (self.playbackState == MusicEPlSStopped || self.playbackState == MusicEPlSPaused) {
-//        return;
-//    }
-    SBApplication *musicApp = _spotifyApplication;
+    MusicApplication *musicApp;
+    switch (_observedApplication) {
+        case spotify:
+            musicApp = (MusicApplication *)_spotifyApplication;
+            break;
+        case music:
+            // TODO: Support Apple Music
+            musicApp = _musicApplication;
+            return;
+        default:
+            [self setValue:[NSNumber numberWithDouble:0.0] forKey:@"playbackHeadPosition"];
+            return;
+    }
     MusicTrack *track = [musicApp performSelector:@selector(currentTrack)];
     NSNumber *headPosition = [self playbackHeadPositionFor:track in:musicApp];
     [self setValue:headPosition forKey:@"playbackHeadPosition"];
