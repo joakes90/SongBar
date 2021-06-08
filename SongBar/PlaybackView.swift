@@ -26,6 +26,7 @@ class PlaybackView: NSView {
     private var iTunesArtworkObserver: NSKeyValueObservation?
     private var playbackStateObserver: NSKeyValueObservation?
     private var playHeadPositionObserver: NSKeyValueObservation?
+    private var dragging: Bool = false
     private var timer: Timer?
 
     override init(frame frameRect: NSRect) {
@@ -122,8 +123,11 @@ class PlaybackView: NSView {
 
     func beginPlayheadPolling() {
         guard timer == nil else { return }
-        let timer = Timer(fire: Date(), interval: 1.0, repeats: true) { [playbackListner] _ in
-            playbackListner.incrementPlayHeadPosition()
+        let timer = Timer(fire: Date(), interval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if !self.dragging {
+                self.playbackListner.incrementPlayHeadPosition()
+            }
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
@@ -148,5 +152,22 @@ class PlaybackView: NSView {
     
     @IBAction func closeButtonClicked(_ sender: Any) {
         (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
+    }
+
+    @IBAction func sliderValueDidChange(_ sender: Any) {
+        guard let event = NSApplication.shared.currentEvent else {
+            dragging = false
+            return
+        }
+
+        switch event.type {
+        case .leftMouseDown, .leftMouseDragged:
+            dragging = true
+        case .leftMouseUp:
+            // TODO: move playback state
+            dragging = false
+        default:
+            dragging = false
+        }
     }
 }
