@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) rewindPlayback;
 - (void) fastForwardPlayback;
 - (void) incrementPlayHeadPosition;
-
+- (void) setPlaybackto:(NSNumber *) percentage;
 @end
 
 NS_ASSUME_NONNULL_END

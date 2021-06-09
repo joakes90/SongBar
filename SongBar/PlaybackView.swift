@@ -154,7 +154,7 @@ class PlaybackView: NSView {
         (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
     }
 
-    @IBAction func sliderValueDidChange(_ sender: Any) {
+    @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false
             return
@@ -164,7 +164,7 @@ class PlaybackView: NSView {
         case .leftMouseDown, .leftMouseDragged:
             dragging = true
         case .leftMouseUp:
-            // TODO: move playback state
+            playbackListner.setPlaybackto(NSNumber(floatLiteral: sender.doubleValue))
             dragging = false
         default:
             dragging = false

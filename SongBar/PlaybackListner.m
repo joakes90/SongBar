@@ -187,13 +187,21 @@ typedef enum observedApplication {
     }
 }
 
-- (NSNumber *)playbackHeadPositionFor:(MusicTrack *) track in:(MusicApplication *) application {
+- (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application {
     // TODO: Support Apple Music
     SpotifyTrack *sptTrack = track;
     double trackLengthSeconds = sptTrack.duration/1000;
     double playerPosition = application.playerPosition;
     double percentage = (playerPosition/trackLengthSeconds) * 100;
     return [NSNumber numberWithDouble:percentage];
+}
+
+- (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track {
+    // TODO: Support Apple Music
+    SpotifyTrack *sptTrack = track;
+    double duration = sptTrack.duration/1000;
+    double position = (duration/100) * percentage.doubleValue;
+    return [NSNumber numberWithDouble:position];
 }
 
 - (void) incrementPlayHeadPosition {
@@ -211,7 +219,26 @@ typedef enum observedApplication {
             return;
     }
     MusicTrack *track = [musicApp performSelector:@selector(currentTrack)];
-    NSNumber *headPosition = [self playbackHeadPositionFor:track in:musicApp];
-    [self setValue:headPosition forKey:@"playbackHeadPosition"];
+    NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
+    [self setValue:headPercentage forKey:@"playbackHeadPosition"];
 }
+
+- (void)setPlaybackto:(NSNumber *) percentage {
+    MusicApplication *application;
+    MusicTrack *track;
+    switch (_observedApplication) {
+        case spotify:
+            application = _spotifyApplication;
+            break;
+        case music:
+            application = _musicApplication;
+            break;
+        default:
+            return;
+    }
+    track = [application performSelector:@selector(currentTrack)];
+    NSNumber *position = [self playbackHeadPositionAt:percentage in:track];
+    [application setPlayerPosition:position.doubleValue];
+}
+
 @end
