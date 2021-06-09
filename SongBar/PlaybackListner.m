@@ -9,6 +9,7 @@
 #import "Music.h"
 #import "Spotify.h"
 #import "PlaybackListner.h"
+#import "SongBar-Swift.h"
 
 typedef enum observedApplication {
     music,
@@ -189,7 +190,7 @@ typedef enum observedApplication {
 
 - (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application {
     // TODO: Support Apple Music
-    SpotifyTrack *sptTrack = track;
+    SpotifyTrack *sptTrack = (SpotifyTrack *)track;
     double trackLengthSeconds = sptTrack.duration/1000;
     double playerPosition = application.playerPosition;
     double percentage = (playerPosition/trackLengthSeconds) * 100;
@@ -198,7 +199,7 @@ typedef enum observedApplication {
 
 - (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track {
     // TODO: Support Apple Music
-    SpotifyTrack *sptTrack = track;
+    SpotifyTrack *sptTrack = (SpotifyTrack *)track;
     double duration = sptTrack.duration/1000;
     double position = (duration/100) * percentage.doubleValue;
     return [NSNumber numberWithDouble:position];
@@ -228,7 +229,7 @@ typedef enum observedApplication {
     MusicTrack *track;
     switch (_observedApplication) {
         case spotify:
-            application = _spotifyApplication;
+            application = (MusicApplication *)_spotifyApplication;
             break;
         case music:
             application = _musicApplication;
