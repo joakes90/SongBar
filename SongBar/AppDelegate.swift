@@ -44,9 +44,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let lengthToTrim = ((maximumLength + elipsiesLength) - title.count) * -1
             let startIndex = title.index(title.startIndex, offsetBy: (title.count / 2) - (lengthToTrim / 2))
             let endIndex = title.index(title.startIndex, offsetBy: (title.count / 2) + (lengthToTrim / 2))
-            // TODO: this seems to be where the crasher is
-            // Test with Interstate Love Song by STP
-            title.replaceSubrange(startIndex...endIndex, with: "...")
+            if startIndex < endIndex {
+                title.replaceSubrange(startIndex...endIndex, with: "...")
+            }
         }
         return title
     }
