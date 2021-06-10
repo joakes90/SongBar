@@ -189,19 +189,35 @@ typedef enum observedApplication {
 }
 
 - (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application {
-    // TODO: Support Apple Music
-    SpotifyTrack *sptTrack = (SpotifyTrack *)track;
-    double trackLengthSeconds = sptTrack.duration/1000;
+    double trackLengthSeconds;
+    switch (_observedApplication) {
+        case spotify:
+             trackLengthSeconds = ((SpotifyTrack *)track).duration/1000;
+            break;
+        case music:
+            trackLengthSeconds = track.duration;
+            break;
+        default:
+            return [NSNumber numberWithDouble:0.0];
+    }
     double playerPosition = application.playerPosition;
     double percentage = (playerPosition/trackLengthSeconds) * 100;
     return [NSNumber numberWithDouble:percentage];
 }
 
 - (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track {
-    // TODO: Support Apple Music
-    SpotifyTrack *sptTrack = (SpotifyTrack *)track;
-    double duration = sptTrack.duration/1000;
-    double position = (duration/100) * percentage.doubleValue;
+    double trackLengthSeconds;
+    switch (_observedApplication) {
+        case spotify:
+             trackLengthSeconds = ((SpotifyTrack *)track).duration/1000;
+            break;
+        case music:
+            trackLengthSeconds = track.duration;
+            break;
+        default:
+            return [NSNumber numberWithDouble:0.0];
+    }
+    double position = (trackLengthSeconds/100) * percentage.doubleValue;
     return [NSNumber numberWithDouble:position];
 }
 
@@ -212,9 +228,8 @@ typedef enum observedApplication {
             musicApp = (MusicApplication *)_spotifyApplication;
             break;
         case music:
-            // TODO: Support Apple Music
             musicApp = _musicApplication;
-            return;
+            break;
         default:
             [self setValue:[NSNumber numberWithDouble:0.0] forKey:@"playbackHeadPosition"];
             return;
