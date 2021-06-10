@@ -9,7 +9,11 @@
 import Cocoa
 
 class PlaybackMenuItem: NSMenuItem {
-    
+
+    private var playbackView: PlaybackView? {
+        view as? PlaybackView
+    }
+
     required init(coder: NSCoder) {
         super.init(coder: coder)
         let playbackView = PlaybackView(frame: NSRect(x: 0.0,
@@ -17,5 +21,15 @@ class PlaybackMenuItem: NSMenuItem {
                                                       width: 420.0,
                                                       height: 420.0))
         view = playbackView
+    }
+}
+
+extension PlaybackMenuItem: NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        playbackView?.beginPlayheadPolling()
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        playbackView?.endPlayheadPolling()
     }
 }

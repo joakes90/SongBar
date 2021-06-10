@@ -10,10 +10,16 @@
 #import "Spotify.h"
 #import "PlaybackListner.h"
 
+typedef enum observedApplication {
+    music,
+    spotify,
+    none} ObservedApplication;
+
 @interface PlaybackListner ()
 
 @property (strong, nonatomic) MusicApplication *musicApplication;
 @property (strong, nonatomic) SpotifyApplication *spotifyApplication;
+@property ObservedApplication observedApplication;
 
 @end
 
@@ -25,6 +31,7 @@
     if (self) {
         _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner musicBundleIdentifier]];
         _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner spotifyBundleIdentifier]];
+        self.observedApplication = none;
         [self populateMusicData];
         [self configureObservers];
     }
@@ -64,13 +71,16 @@
     if (spotifyOpen) {
         [self setTrackInfoFrom:_spotifyApplication];
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
+        _observedApplication = spotify;
     } else if (iTunesOpen) {
         [self setTrackInfoFrom:_musicApplication];
         [self setiTunesArtUsing:_musicApplication];
+        _observedApplication = music;
     } else {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
+        _observedApplication = none;
     }
 }
 
@@ -81,16 +91,19 @@
     if ([playerState isEqualToString:@"Stopped"]) {
         [self setTrackInfoFrom:nil];
         [self setSpotifyArtworkURLUsing:nil];
+        _observedApplication = none;
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
         [self setTrackInfoFrom:_musicApplication];
         [self setiTunesArtUsing:_musicApplication];
+        _observedApplication = music;
         return;
     }
     if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
         [self setSpotifyArtworkURLUsing:_spotifyApplication];
         [self setTrackInfoFrom:_spotifyApplication];
+        _observedApplication = spotify;
         return;
     }
 }
@@ -113,7 +126,6 @@
     [self setValue:trackName forKey:@"trackName"];
     [self setValue:artistName forKey:@"artistName"];
     [self setValue:playbackState forKey:@"playbackState"];
-    
     if ([artistName length] > 0) {
         NSString *menuTitle = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
         [self setValue:menuTitle forKey:@"menuTitle"];
@@ -173,6 +185,75 @@
     } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
         [_spotifyApplication nextTrack];
     }
+}
+
+- (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application {
+    double trackLengthSeconds;
+    switch (_observedApplication) {
+        case spotify:
+             trackLengthSeconds = ((SpotifyTrack *)track).duration/1000;
+            break;
+        case music:
+            trackLengthSeconds = track.duration;
+            break;
+        default:
+            return [NSNumber numberWithDouble:0.0];
+    }
+    double playerPosition = application.playerPosition;
+    double percentage = (playerPosition/trackLengthSeconds) * 100;
+    return [NSNumber numberWithDouble:percentage];
+}
+
+- (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track {
+    double trackLengthSeconds;
+    switch (_observedApplication) {
+        case spotify:
+             trackLengthSeconds = ((SpotifyTrack *)track).duration/1000;
+            break;
+        case music:
+            trackLengthSeconds = track.duration;
+            break;
+        default:
+            return [NSNumber numberWithDouble:0.0];
+    }
+    double position = (trackLengthSeconds/100) * percentage.doubleValue;
+    return [NSNumber numberWithDouble:position];
+}
+
+- (void) incrementPlayHeadPosition {
+    MusicApplication *musicApp;
+    switch (_observedApplication) {
+        case spotify:
+            musicApp = (MusicApplication *)_spotifyApplication;
+            break;
+        case music:
+            musicApp = _musicApplication;
+            break;
+        default:
+            [self setValue:[NSNumber numberWithDouble:0.0] forKey:@"playbackHeadPosition"];
+            return;
+    }
+    MusicTrack *track = [musicApp performSelector:@selector(currentTrack)];
+    NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
+    [self setValue:headPercentage forKey:@"playbackHeadPosition"];
+}
+
+- (void)setPlaybackto:(NSNumber *) percentage {
+    MusicApplication *application;
+    MusicTrack *track;
+    switch (_observedApplication) {
+        case spotify:
+            application = (MusicApplication *)_spotifyApplication;
+            break;
+        case music:
+            application = _musicApplication;
+            break;
+        default:
+            return;
+    }
+    track = [application performSelector:@selector(currentTrack)];
+    NSNumber *position = [self playbackHeadPositionAt:percentage in:track];
+    [application setPlayerPosition:position.doubleValue];
 }
 
 @end

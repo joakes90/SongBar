@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, readonly) NSImage *iTunesArt;
 @property (strong, readonly) NSString *spotifyArtworkURL;
 @property (strong, readonly) NSNumber *playbackState;
+@property (strong, readonly) NSNumber *playbackHeadPosition;
 
 @property( class, copy ) NSString* musicBundleIdentifier;
 @property( class, copy ) NSString* spotifyBundleIdentifier;
@@ -27,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) pausePlayPlayback;
 - (void) rewindPlayback;
 - (void) fastForwardPlayback;
-
+- (void) incrementPlayHeadPosition;
+- (void) setPlaybackto:(NSNumber *) percentage;
 @end
 
 NS_ASSUME_NONNULL_END

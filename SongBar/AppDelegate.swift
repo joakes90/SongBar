@@ -44,8 +44,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let lengthToTrim = ((maximumLength + elipsiesLength) - title.count) * -1
             let startIndex = title.index(title.startIndex, offsetBy: (title.count / 2) - (lengthToTrim / 2))
             let endIndex = title.index(title.startIndex, offsetBy: (title.count / 2) + (lengthToTrim / 2))
-            
-            title.replaceSubrange(startIndex...endIndex, with: "...")
+            if startIndex < endIndex {
+                title.replaceSubrange(startIndex...endIndex, with: "...")
+            }
         }
         return title
     }
