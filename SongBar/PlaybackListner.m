@@ -9,7 +9,6 @@
 #import "Music.h"
 #import "Spotify.h"
 #import "PlaybackListner.h"
-#import "SongBar-Swift.h"
 
 typedef enum observedApplication {
     music,
