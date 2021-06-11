@@ -10,7 +10,7 @@ import Cocoa
 import Kingfisher
 
 class PlaybackView: NSView {
-    
+
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var pausePlayButton: NSButton!
     @IBOutlet weak var nextButton: NSButton!
@@ -18,7 +18,7 @@ class PlaybackView: NSView {
     @IBOutlet weak var titleTextField: NSTextField!
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
-    
+
     private let playbackListner = PlaybackListner()
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
@@ -32,32 +32,32 @@ class PlaybackView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         commonInit()
-        
+
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-    
+
     private func commonInit() {
         loadFromNib()
-        
+
         songTitleObserver = playbackListner.observe(\PlaybackListner.trackName,
                                                      options: .new,
-                                                     changeHandler: { [titleTextField] (listner, name) in
+                                                     changeHandler: { [titleTextField] (_, name) in
                                                         let attributedTitle = self.attributedText(from: name.newValue ?? "")
                                                         titleTextField?.attributedStringValue = attributedTitle
                                                      })
         artistObserver = playbackListner.observe(\PlaybackListner.artistName,
                                                   options: .new,
-                                                  changeHandler: { [artistTextField] (listner, artist) in
+                                                  changeHandler: { [artistTextField] (_, artist) in
                                                     let attributeedArtist = self.attributedText(from: artist.newValue ?? "", withSize: 18.0)
                                                     artistTextField?.attributedStringValue = attributeedArtist
                                                   })
         spotifyArtworkObserver = playbackListner.observe(\PlaybackListner.spotifyArtworkURL,
                                                          options: .new,
-                                                         changeHandler: { [imageView] (listner, url) in
+                                                         changeHandler: { [imageView] (_, url) in
                                                             guard let url = url.newValue else {
                                                                 imageView?.image = nil
                                                                 return
@@ -66,23 +66,23 @@ class PlaybackView: NSView {
                                                          })
         iTunesArtworkObserver = playbackListner.observe(\PlaybackListner.iTunesArt,
                                                         options: .new,
-                                                        changeHandler: { [imageView] (listner, image) in
+                                                        changeHandler: { [imageView] (_, image) in
                                                             imageView?.image = image.newValue
                                                         })
         playbackStateObserver = playbackListner.observe(\PlaybackListner.playbackState,
                                                         options: .new,
-                                                        changeHandler: { [weak self] (listner, state) in
+                                                        changeHandler: { [weak self] (_, state) in
                                                             guard let intValue = state.newValue?.uint32Value else { return }
                                                             let playbackState = MusicEPlS(rawValue: intValue)
                                                             self?.playbackButton(for: playbackState)
                                                         })
         playHeadPositionObserver = playbackListner.observe(\PlaybackListner.playbackHeadPosition,
                                                            options: .new,
-                                                           changeHandler: { [playbackProgressIndicator] listner, percentage in
+                                                           changeHandler: { [playbackProgressIndicator] _, percentage in
                                                             guard let number = percentage.newValue else { return }
                                                             playbackProgressIndicator?.doubleValue = number.doubleValue
                                                            })
-        
+
         titleTextField.stringValue = playbackListner.trackName
         artistTextField.stringValue = playbackListner.artistName
         imageView.image = playbackListner.iTunesArt
@@ -95,22 +95,23 @@ class PlaybackView: NSView {
         Bundle.main.loadNibNamed(NSNib.Name(stringLiteral: "PlaybackView"),
                                  owner: self,
                                  topLevelObjects: &nibObjects)
+        // swiftlint:disable:next force_cast
         let view = nibObjects?.filter({ $0 is NSView }).first as! NSView
         addSubview(view)
     }
-    
+
     private func attributedText(from string: String, withSize fontSize: CGFloat = 24.0) -> NSAttributedString {
         let pStyle = NSMutableParagraphStyle()
         pStyle.alignment = .center
         let attributedString = NSAttributedString(string: string,
-                                                  attributes: [.strokeWidth : -1.0,
-                                                               .strokeColor : NSColor.white,
-                                                               .foregroundColor : NSColor.black,
-                                                               .paragraphStyle : pStyle,
-                                                               .font : NSFont.boldSystemFont(ofSize: fontSize)])
+                                                  attributes: [.strokeWidth: -1.0,
+                                                               .strokeColor: NSColor.white,
+                                                               .foregroundColor: NSColor.black,
+                                                               .paragraphStyle: pStyle,
+                                                               .font: NSFont.boldSystemFont(ofSize: fontSize)])
         return attributedString
     }
-    
+
     private func playbackButton(for state: MusicEPlS) {
         switch state {
         // Playing
@@ -141,15 +142,15 @@ class PlaybackView: NSView {
     @IBAction func pausePlayButtonClicked(_ sender: Any) {
         playbackListner.pausePlayPlayback()
     }
-    
+
     @IBAction func rewindButtonClicked(_ sender: Any) {
         playbackListner.rewindPlayback()
     }
-    
+
     @IBAction func fastForwardButtonClicked(_ sender: Any) {
         playbackListner.fastForwardPlayback()
     }
-    
+
     @IBAction func closeButtonClicked(_ sender: Any) {
         (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
     }
@@ -164,7 +165,7 @@ class PlaybackView: NSView {
         case .leftMouseDown, .leftMouseDragged:
             dragging = true
         case .leftMouseUp:
-            playbackListner.setPlaybackto(NSNumber(floatLiteral: sender.doubleValue))
+            playbackListner.setPlaybackto(NSNumber(value: sender.doubleValue))
             dragging = false
         default:
             dragging = false

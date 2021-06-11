@@ -12,21 +12,21 @@ import AppKit
 @NSApplicationMain
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
+
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
     var playbackListner = PlaybackListner()
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
-    //magic number
-    let variableStatusItemLength: CGFloat = -1;
-    
+    // magic number
+    let variableStatusItemLength: CGFloat = -1
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar.title = "SongBar"
         sysBar.menu = menu
         menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
-                                options: .new) { (listner, title) in
+                                options: .new) { (_, title) in
             self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
         }
         playbackListner.populateMusicData()

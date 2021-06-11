@@ -27,11 +27,11 @@ class SongBarSliderCell: NSSliderCell {
         NSColor.lightGray.set()
         unplayedRect.fill()
     }
-    
+
     private var playedWidth: CGFloat {
         ((CGFloat(floatValue) / 100) * self.barRect(flipped: false).width)
     }
-    
+
     private var unplayedWidth: CGFloat {
         self.barRect(flipped: false).width - playedWidth
     }
