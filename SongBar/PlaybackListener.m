@@ -8,14 +8,14 @@
 
 #import "Music.h"
 #import "Spotify.h"
-#import "PlaybackListner.h"
+#import "PlaybackListener.h"
 
 typedef enum observedApplication {
     music,
     spotify,
     none} ObservedApplication;
 
-@interface PlaybackListner ()
+@interface PlaybackListener ()
 
 @property (strong, nonatomic) MusicApplication *musicApplication;
 @property (strong, nonatomic) SpotifyApplication *spotifyApplication;
@@ -23,14 +23,14 @@ typedef enum observedApplication {
 
 @end
 
-@implementation PlaybackListner
+@implementation PlaybackListener
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner musicBundleIdentifier]];
-        _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListner spotifyBundleIdentifier]];
+        _musicApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListener musicBundleIdentifier]];
+        _spotifyApplication = [SBApplication applicationWithBundleIdentifier:[PlaybackListener spotifyBundleIdentifier]];
         self.observedApplication = none;
         [self populateMusicData];
         [self configureObservers];
@@ -65,8 +65,8 @@ typedef enum observedApplication {
 }
 
 - (void) populateMusicData {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
 
     if (spotifyOpen) {
         [self setTrackInfoFrom:_spotifyApplication];
@@ -155,8 +155,8 @@ typedef enum observedApplication {
 }
 
 - (void)pausePlayPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     
     if (iTunesOpen && !spotifyOpen) {
         [_musicApplication playpause];
@@ -166,8 +166,8 @@ typedef enum observedApplication {
 }
 
 - (void)rewindPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     
     if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
         [_musicApplication backTrack];
@@ -177,8 +177,8 @@ typedef enum observedApplication {
 }
 
 - (void)fastForwardPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListner musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListner spotifyBundleIdentifier]];
+    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
+    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     
     if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
         [_musicApplication nextTrack];

@@ -28,7 +28,7 @@ extension PlaybackMenuItem: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         playbackView?.beginPlayheadPolling()
     }
-    
+
     func menuDidClose(_ menu: NSMenu) {
         playbackView?.endPlayheadPolling()
     }

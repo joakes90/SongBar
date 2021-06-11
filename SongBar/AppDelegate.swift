@@ -12,24 +12,24 @@ import AppKit
 @NSApplicationMain
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
+
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
-    var playbackListner = PlaybackListner()
+    var playbackListener = PlaybackListener()
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
-    //magic number
-    let variableStatusItemLength: CGFloat = -1;
-    
+    // magic number
+    let variableStatusItemLength: CGFloat = -1
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar.title = "SongBar"
         sysBar.menu = menu
-        menuTitleObserver = playbackListner.observe(\PlaybackListner.menuTitle,
-                                options: .new) { (listner, title) in
+        menuTitleObserver = playbackListener.observe(\PlaybackListener.menuTitle,
+                                options: .new) { (_, title) in
             self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
         }
-        playbackListner.populateMusicData()
+        playbackListener.populateMusicData()
     }
 
     func closeApp() {
@@ -38,10 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
         let maximumLength = 57
-        let elipsiesLength = 3
+        let ellipsesLength = 3
         guard var title = title else { return "SongBar" }
         if title.count > maximumLength {
-            let lengthToTrim = ((maximumLength + elipsiesLength) - title.count) * -1
+            let lengthToTrim = ((maximumLength + ellipsesLength) - title.count) * -1
             let startIndex = title.index(title.startIndex, offsetBy: (title.count / 2) - (lengthToTrim / 2))
             let endIndex = title.index(title.startIndex, offsetBy: (title.count / 2) + (lengthToTrim / 2))
             if startIndex < endIndex {
