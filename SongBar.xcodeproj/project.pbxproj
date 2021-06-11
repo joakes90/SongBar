@@ -12,7 +12,7 @@
 		36491D3819F6F3330083A49D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3719F6F3330083A49D /* Images.xcassets */; };
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
 		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
-		D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */; };
+		D02A84AD2530DEEA00BDF7D6 /* PlaybackListener.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */; };
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
@@ -44,8 +44,8 @@
 		D02A849E2530BD0600BDF7D6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D02A84A12530D75A00BDF7D6 /* Music.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		D02A84A22530D76B00BDF7D6 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
-		D02A84AB2530DEEA00BDF7D6 /* PlaybackListner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackListner.h; sourceTree = "<group>"; };
-		D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListner.m; sourceTree = "<group>"; };
+		D02A84AB2530DEEA00BDF7D6 /* PlaybackListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackListener.h; sourceTree = "<group>"; };
+		D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListener.m; sourceTree = "<group>"; };
 		D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
 		D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
@@ -138,8 +138,8 @@
 			children = (
 				D02A84A12530D75A00BDF7D6 /* Music.h */,
 				D02A84A22530D76B00BDF7D6 /* Spotify.h */,
-				D02A84AB2530DEEA00BDF7D6 /* PlaybackListner.h */,
-				D02A84AC2530DEEA00BDF7D6 /* PlaybackListner.m */,
+				D02A84AB2530DEEA00BDF7D6 /* PlaybackListener.h */,
+				D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */,
 				36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */,
 			);
 			name = "Objective-C";
@@ -318,7 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
-				D02A84AD2530DEEA00BDF7D6 /* PlaybackListner.m in Sources */,
+				D02A84AD2530DEEA00BDF7D6 /* PlaybackListener.m in Sources */,
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,

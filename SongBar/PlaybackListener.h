@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlaybackListner : NSObject
+@interface PlaybackListener : NSObject
 
 @property (strong, readonly) NSString *menuTitle;
 @property (strong, readonly) NSString *trackName;
