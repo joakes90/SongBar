@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
     // magic number
-    let variableStatusItemLength: CGFloat = -1
+    private let variableStatusItemLength: CGFloat = -1
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
