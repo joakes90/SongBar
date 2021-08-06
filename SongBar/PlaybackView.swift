@@ -83,7 +83,7 @@ class PlaybackView: NSView {
                                                             playbackProgressIndicator?.doubleValue = number.doubleValue
                                                            })
 
-        titleTextField.stringValue = playbackListener.trackName
+        titleTextField.stringValue = playbackListener.trackName.isEmpty ? "SongBar" : playbackListener.trackName
         artistTextField.stringValue = playbackListener.artistName
         imageView.image = playbackListener.iTunesArt
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
