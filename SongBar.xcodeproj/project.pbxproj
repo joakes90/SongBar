@@ -191,6 +191,7 @@
 				36491D2C19F6F3330083A49D /* Sources */,
 				36491D2D19F6F3330083A49D /* Frameworks */,
 				36491D2E19F6F3330083A49D /* Resources */,
+				D03BE47126BDCACF00364177 /* Launch on Login helper */,
 			);
 			buildRules = (
 			);
@@ -310,6 +311,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Increments build number\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		D03BE47126BDCACF00364177 /* Launch on Login helper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Launch on Login helper";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
 		D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;

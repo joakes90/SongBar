@@ -154,7 +154,7 @@
                                     <constraint firstAttribute="width" constant="24" id="QFf-fo-khD"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Wri-nM-aqh"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tFf-E9-P1U">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" alternateImage="gearshape" imageScaling="proportionallyUpOrDown" inset="2" id="tFf-E9-P1U">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -206,6 +206,7 @@
     <resources>
         <image name="NSStopProgressTemplate" width="14" height="13"/>
         <image name="fastforwardplaybackcontrol" width="34" height="32"/>
+        <image name="gearshape" width="14" height="14"/>
         <image name="gearshape" catalog="system" width="16" height="16"/>
         <image name="pauseplaybackcontrol" width="29" height="32"/>
         <image name="rewindplaybackcontrol" width="34" height="32"/>
