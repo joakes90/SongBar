@@ -140,6 +140,43 @@
                         <action selector="closeButtonClicked:" target="-2" id="cXE-9R-521"/>
                     </connections>
                 </button>
+                <box boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="FsW-cO-UKf">
+                    <rect key="frame" x="352" y="364" width="48" height="48"/>
+                    <view key="contentView" id="bwT-Gj-GjM">
+                        <rect key="frame" x="1" y="1" width="46" height="46"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="ZFp-sn-7mO">
+                                <rect key="frame" x="11" y="8" width="24" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="7mV-bT-Hem"/>
+                                    <constraint firstAttribute="height" constant="24" id="Q6t-wX-BfJ"/>
+                                    <constraint firstAttribute="width" constant="24" id="QFf-fo-khD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Wri-nM-aqh"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gearshape" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tFf-E9-P1U">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <color key="contentTintColor" red="0.11079192910000001" green="0.1253042519" blue="0.1767322123" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="settingsButtonClicked:" target="-2" id="dOh-0m-HKZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ZFp-sn-7mO" firstAttribute="centerY" secondItem="bwT-Gj-GjM" secondAttribute="centerY" id="S0U-G9-751"/>
+                            <constraint firstItem="ZFp-sn-7mO" firstAttribute="centerX" secondItem="bwT-Gj-GjM" secondAttribute="centerX" id="ua7-ks-my2"/>
+                        </constraints>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="Dg6-Zj-OcR"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="OUW-8q-klf"/>
+                        <constraint firstAttribute="height" constant="48" id="ft7-3J-BO3"/>
+                        <constraint firstAttribute="width" constant="48" id="jXp-51-7lm"/>
+                    </constraints>
+                    <color key="fillColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="0.956027772" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
             </subviews>
             <constraints>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="hR1-rS-P1B" secondAttribute="bottom" id="7Lh-xX-I3M"/>
@@ -151,12 +188,14 @@
                 <constraint firstItem="Scs-LT-VIW" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" symbolic="YES" id="VKc-xl-sic"/>
                 <constraint firstItem="Biq-eR-z9h" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="Y44-iA-hne"/>
                 <constraint firstItem="u2w-ap-vx9" firstAttribute="centerX" secondItem="Scs-LT-VIW" secondAttribute="centerX" id="cJj-eo-8ih"/>
+                <constraint firstAttribute="trailing" secondItem="FsW-cO-UKf" secondAttribute="trailing" constant="20" symbolic="YES" id="dX3-56-LCA"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="leading" secondItem="Biq-eR-z9h" secondAttribute="trailing" constant="10" symbolic="YES" id="e4b-sm-W8h"/>
                 <constraint firstAttribute="trailing" secondItem="fT9-e6-EMR" secondAttribute="trailing" id="hhN-s5-xf0"/>
                 <constraint firstItem="u2w-ap-vx9" firstAttribute="centerY" secondItem="Scs-LT-VIW" secondAttribute="centerY" id="i5R-ra-A6O"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="bottom" secondItem="fT9-e6-EMR" secondAttribute="bottom" constant="-32" id="l28-Bu-2TL"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="centerY" secondItem="QVl-mh-d8K" secondAttribute="centerY" id="lgE-U7-Ulk"/>
                 <constraint firstAttribute="trailing" secondItem="3jC-Ul-rUr" secondAttribute="trailing" constant="20" symbolic="YES" id="nGQ-sM-ik7"/>
+                <constraint firstItem="FsW-cO-UKf" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="8" id="nd0-PC-eGj"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="leading" secondItem="QVl-mh-d8K" secondAttribute="trailing" constant="10" symbolic="YES" id="slL-uU-4dZ"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="wdY-ip-liS"/>
                 <constraint firstItem="3jC-Ul-rUr" firstAttribute="bottom" secondItem="QVl-mh-d8K" secondAttribute="bottom" id="xZM-TU-Iok"/>
@@ -167,6 +206,7 @@
     <resources>
         <image name="NSStopProgressTemplate" width="14" height="13"/>
         <image name="fastforwardplaybackcontrol" width="34" height="32"/>
+        <image name="gearshape" catalog="system" width="16" height="16"/>
         <image name="pauseplaybackcontrol" width="29" height="32"/>
         <image name="rewindplaybackcontrol" width="34" height="32"/>
     </resources>

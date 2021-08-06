@@ -155,6 +155,9 @@ class PlaybackView: NSView {
         (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
     }
 
+    @IBAction func settingsButtonClicked(_ sender: Any) {
+    }
+
     @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false

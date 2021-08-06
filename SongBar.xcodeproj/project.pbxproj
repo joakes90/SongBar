@@ -16,6 +16,9 @@
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
+		D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03BE46A26BDC5EB00364177 /* SettingsView.swift */; };
+		D03BE46D26BDC5EB00364177 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03BE46B26BDC5EB00364177 /* SettingsView.xib */; };
+		D03BE47026BDC6CF00364177 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D03BE46F26BDC6CF00364177 /* LaunchAtLogin */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +51,8 @@
 		D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListener.m; sourceTree = "<group>"; };
 		D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
 		D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		D03BE46A26BDC5EB00364177 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D03BE46B26BDC5EB00364177 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
 		D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongBarSliderCell.swift; sourceTree = "<group>"; };
@@ -58,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D03BE47026BDC6CF00364177 /* LaunchAtLogin in Frameworks */,
 				D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */,
 				36070F9019F7695200E5B0CD /* ScriptingBridge.framework in Frameworks */,
 			);
@@ -96,6 +102,7 @@
 		36491D3219F6F3330083A49D /* SongBar */ = {
 			isa = PBXGroup;
 			children = (
+				D03BE46926BDC59100364177 /* Settings View */,
 				D02A84BD2534FF7A00BDF7D6 /* Playback View */,
 				D02A84B02530DEF000BDF7D6 /* Objective-C */,
 				D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */,
@@ -156,6 +163,15 @@
 			name = "Playback View";
 			sourceTree = "<group>";
 		};
+		D03BE46926BDC59100364177 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				D03BE46A26BDC5EB00364177 /* SettingsView.swift */,
+				D03BE46B26BDC5EB00364177 /* SettingsView.xib */,
+			);
+			name = "Settings View";
+			sourceTree = "<group>";
+		};
 		E6B49CA74133F3CF05D6312F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +199,7 @@
 			name = SongBar;
 			packageProductDependencies = (
 				D02A84C72535037200BDF7D6 /* Kingfisher */,
+				D03BE46F26BDC6CF00364177 /* LaunchAtLogin */,
 			);
 			productName = SongBar;
 			productReference = 36491D3019F6F3330083A49D /* SongBar.app */;
@@ -242,6 +259,7 @@
 			mainGroup = 36491D2719F6F3330083A49D;
 			packageReferences = (
 				D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				D03BE46E26BDC6CF00364177 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 36491D3119F6F3330083A49D /* Products */;
 			projectDirPath = "";
@@ -259,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */,
+				D03BE46D26BDC5EB00364177 /* SettingsView.xib in Resources */,
 				36491D3819F6F3330083A49D /* Images.xcassets in Resources */,
 				36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */,
 			);
@@ -320,6 +339,7 @@
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
 				D02A84AD2530DEEA00BDF7D6 /* PlaybackListener.m in Sources */,
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
+				D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
 			);
@@ -591,6 +611,14 @@
 				minimumVersion = 5.15.0;
 			};
 		};
+		D03BE46E26BDC6CF00364177 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:sindresorhus/LaunchAtLogin.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -598,6 +626,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		D03BE46F26BDC6CF00364177 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D03BE46E26BDC6CF00364177 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
