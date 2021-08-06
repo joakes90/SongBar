@@ -80,6 +80,7 @@ typedef enum observedApplication {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
+        [self setValue:[NSImage imageNamed:@"missingArtwork"] forKey:@"iTunesArt"];
         _observedApplication = none;
     }
 }
@@ -150,7 +151,8 @@ typedef enum observedApplication {
         NSImage *image = artwork.data;
         [self setValue:image forKey:@"iTunesArt"];
     } else {
-        [self setValue:nil forKey:@"iTunesArt"];
+        NSImage *image = [NSImage imageNamed:@"missingArtwork"];
+        [self setValue:image forKey:@"iTunesArt"];
     }
 }
 

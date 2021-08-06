@@ -59,7 +59,7 @@ class PlaybackView: NSView {
                                                          options: .new,
                                                          changeHandler: { [imageView] (_, url) in
                                                             guard let url = url.newValue else {
-                                                                imageView?.image = nil
+                                                                imageView?.image = NSImage(named: "missingArtwork")
                                                                 return
                                                             }
                                                             self.imageView.kf.setImage(with: URL(string: url))
