@@ -77,7 +77,7 @@
                         <constraint firstAttribute="height" constant="64" id="0FR-WB-Rv8"/>
                         <constraint firstAttribute="width" constant="64" id="ayv-Oi-Lf8"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="pauseplaybackcontrol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4Bv-Rr-OV1">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="pauseplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="4Bv-Rr-OV1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -91,7 +91,7 @@
                         <constraint firstAttribute="height" constant="48" id="5uX-xw-43k"/>
                         <constraint firstAttribute="width" constant="48" id="Aaa-M4-IMQ"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="3zK-Jd-qwT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -105,7 +105,7 @@
                         <constraint firstAttribute="width" constant="48" id="AgL-th-NZn"/>
                         <constraint firstAttribute="height" constant="48" id="C7n-85-o4c"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="qZh-O6-hGg">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -166,8 +166,8 @@
     </objects>
     <resources>
         <image name="NSStopProgressTemplate" width="14" height="13"/>
-        <image name="fastforwardplaybackcontrol" width="64" height="64"/>
-        <image name="pauseplaybackcontrol" width="64" height="64"/>
-        <image name="rewindplaybackcontrol" width="64" height="64"/>
+        <image name="fastforwardplaybackcontrol" width="34" height="32"/>
+        <image name="pauseplaybackcontrol" width="29" height="32"/>
+        <image name="rewindplaybackcontrol" width="34" height="32"/>
     </resources>
 </document>

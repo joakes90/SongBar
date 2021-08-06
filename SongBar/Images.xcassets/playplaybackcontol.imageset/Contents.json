@@ -1,19 +1,14 @@
 {
   "images" : [
     {
-      "filename" : "playplaybackcontol@1x.png",
-      "idiom" : "universal",
+      "filename" : "play.png",
+      "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "playplaybackcontol@2x.png",
-      "idiom" : "universal",
+      "filename" : "play@2x.png",
+      "idiom" : "mac",
       "scale" : "2x"
-    },
-    {
-      "filename" : "playplaybackcontol@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {

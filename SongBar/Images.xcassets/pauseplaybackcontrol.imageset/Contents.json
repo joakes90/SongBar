@@ -1,19 +1,14 @@
 {
   "images" : [
     {
-      "filename" : "pauseplaybackcontroll@1x.png",
-      "idiom" : "universal",
+      "filename" : "pause.png",
+      "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "pauseplaybackcontroll@2x.png",
-      "idiom" : "universal",
+      "filename" : "pause@2x.png",
+      "idiom" : "mac",
       "scale" : "2x"
-    },
-    {
-      "filename" : "pauseplaybackcontroll@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {

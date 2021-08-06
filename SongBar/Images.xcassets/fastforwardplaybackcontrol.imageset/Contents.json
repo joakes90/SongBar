@@ -1,19 +1,14 @@
 {
   "images" : [
     {
-      "filename" : "fast-forward@1x.png",
-      "idiom" : "universal",
+      "filename" : "fastForward.png",
+      "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "fast-forward@2x.png",
-      "idiom" : "universal",
+      "filename" : "fastForward@2x.png",
+      "idiom" : "mac",
       "scale" : "2x"
-    },
-    {
-      "filename" : "fast-forward@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
     }
   ],
   "info" : {
