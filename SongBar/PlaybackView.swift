@@ -151,13 +151,6 @@ class PlaybackView: NSView {
         playbackListener.fastForwardPlayback()
     }
 
-    @IBAction func closeButtonClicked(_ sender: Any) {
-        (NSApplication.shared.delegate as? AppDelegate)?.closeApp()
-    }
-
-    @IBAction func settingsButtonClicked(_ sender: Any) {
-    }
-
     @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false

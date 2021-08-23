@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
+    private var settings: NSWindow?
+
     var playbackListener = PlaybackListener()
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
@@ -25,15 +27,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar.title = "SongBar"
         sysBar.menu = menu
+        sysBar.isVisible = true
         menuTitleObserver = playbackListener.observe(\PlaybackListener.menuTitle,
                                 options: .new) { (_, title) in
             self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
         }
         playbackListener.populateMusicData()
-    }
-
-    func closeApp() {
-        NSApplication.shared.terminate(self)
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
@@ -51,4 +50,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return title
     }
 
+}
+
+extension AppDelegate {
+
+    @IBAction func closeApp(_ sender: NSMenuItem) {
+        NSApplication.shared.terminate(self)
+    }
+
+    @IBAction func launchSettings(_ sender: NSMenuItem) {
+        if  settings == nil {
+            settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
+        }
+        settings?.makeKeyAndOrderFront(self)
+    }
 }
