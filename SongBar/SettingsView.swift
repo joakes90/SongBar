@@ -7,8 +7,11 @@
 //
 
 import Cocoa
-
+import Combine
+import LaunchAtLogin
 class SettingsView: NSViewController {
+
+    @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
 
     override func viewDidLoad() {
         super.viewDidLoad()

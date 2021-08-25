@@ -22,6 +22,22 @@
                     <view key="contentView" id="uCK-dO-es9">
                         <rect key="frame" x="3" y="3" width="440" height="218"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uog-qI-w6g">
+                                <rect key="frame" x="18" y="181" width="127" height="18"/>
+                                <buttonCell key="cell" type="check" title="Launch at Logon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2Rz-1h-lmn">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="launchAtLogin.isEnabled" id="3iL-l5-Lco"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Uog-qI-w6g" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="KrK-yx-A2i"/>
+                            <constraint firstItem="Uog-qI-w6g" firstAttribute="top" secondItem="uCK-dO-es9" secondAttribute="top" constant="20" symbolic="YES" id="ajo-Jg-hge"/>
+                        </constraints>
                     </view>
                 </box>
             </subviews>
@@ -33,5 +49,6 @@
             </constraints>
             <point key="canvasLocation" x="139" y="154"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="HxS-0v-RwQ"/>
     </objects>
 </document>

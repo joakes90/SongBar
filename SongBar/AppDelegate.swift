@@ -61,6 +61,8 @@ extension AppDelegate {
     @IBAction func launchSettings(_ sender: NSMenuItem) {
         if  settings == nil {
             settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
+            settings?.minSize = CGSize(width: 480.0, height: 270.0)
+            settings?.title = "Preferences"
         }
         settings?.makeKeyAndOrderFront(self)
     }
