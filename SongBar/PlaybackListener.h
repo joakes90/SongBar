@@ -8,33 +8,9 @@
 
 #import "Cocoa/Cocoa.h"
 #import "ScriptingBridge/ScriptingBridge.h"
+#import "SongBar_AppStore_-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol MediaWatching <NSObject>
-
-@required
-
-@property (readonly) NSString *menuTitle;
-@property (readonly) NSString *trackName;
-@property (readonly) NSString *artistName;
-@property (readonly) NSImage *art;
-@property (readonly) NSNumber *playbackState;
-@property (readonly) NSNumber *playbackHeadPosition;
-
-- (void) populateMusicData;
-- (void) pausePlayPlayback;
-- (void) rewindPlayback;
-- (void) fastForwardPlayback;
-- (void) incrementPlayHeadPosition;
-- (void) setPlaybackto:(NSNumber *) percentage;
-
-@optional
-
-@property (readonly) NSImage *iTunesArt;
-@property (readonly) NSString *spotifyArtworkURL;
-
-@end
 
 @interface PlaybackListener : NSObject <MediaWatching>
 

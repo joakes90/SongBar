@@ -35,6 +35,7 @@
 		D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
+		D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +51,7 @@
 /* Begin PBXFileReference section */
 		36070F8F19F7695200E5B0CD /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SongBar-Bridging-Header.h"; sourceTree = "<group>"; };
-		36491D3019F6F3330083A49D /* SongBar (AppStore).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SongBar (AppStore).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36491D3019F6F3330083A49D /* SongBar(AppStore).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SongBar(AppStore).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36491D3419F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36491D3519F6F3330083A49D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36491D3719F6F3330083A49D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		D03BE46A26BDC5EB00364177 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D03BE46B26BDC5EB00364177 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		D051180C2739BF5100B34BF4 /* SongBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D051180D2739BF5100B34BF4 /* SongBar (app store) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SongBar (app store) copy-Info.plist"; path = "/Users/justin/Development/macOS/SongBar/SongBar (app store) copy-Info.plist"; sourceTree = "<absolute>"; };
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
@@ -114,14 +114,13 @@
 				36491D4319F6F3330083A49D /* SongBarTests */,
 				36491D3119F6F3330083A49D /* Products */,
 				E6B49CA74133F3CF05D6312F /* Frameworks */,
-				D051180D2739BF5100B34BF4 /* SongBar (app store) copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		36491D3119F6F3330083A49D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				36491D3019F6F3330083A49D /* SongBar (AppStore).app */,
+				36491D3019F6F3330083A49D /* SongBar(AppStore).app */,
 				36491D4019F6F3330083A49D /* SongBarTests.xctest */,
 				D051180C2739BF5100B34BF4 /* SongBar.app */,
 			);
@@ -212,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		36491D2F19F6F3330083A49D /* SongBar (AppStore) */ = {
+		36491D2F19F6F3330083A49D /* SongBar(AppStore) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar (AppStore)" */;
+			buildConfigurationList = 36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar(AppStore)" */;
 			buildPhases = (
 				D02A849C2530BB9300BDF7D6 /* Bump build number */,
 				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
@@ -227,13 +226,13 @@
 			);
 			dependencies = (
 			);
-			name = "SongBar (AppStore)";
+			name = "SongBar(AppStore)";
 			packageProductDependencies = (
 				D02A84C72535037200BDF7D6 /* Kingfisher */,
 				D03BE46F26BDC6CF00364177 /* LaunchAtLogin */,
 			);
 			productName = SongBar;
-			productReference = 36491D3019F6F3330083A49D /* SongBar (AppStore).app */;
+			productReference = 36491D3019F6F3330083A49D /* SongBar(AppStore).app */;
 			productType = "com.apple.product-type.application";
 		};
 		36491D3F19F6F3330083A49D /* SongBarTests */ = {
@@ -320,7 +319,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				36491D2F19F6F3330083A49D /* SongBar (AppStore) */,
+				36491D2F19F6F3330083A49D /* SongBar(AppStore) */,
 				D05117F12739BF5100B34BF4 /* SongBar */,
 				36491D3F19F6F3330083A49D /* SongBarTests */,
 			);
@@ -480,6 +479,7 @@
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
+				D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +511,7 @@
 /* Begin PBXTargetDependency section */
 		36491D4219F6F3330083A49D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 36491D2F19F6F3330083A49D /* SongBar (AppStore) */;
+			target = 36491D2F19F6F3330083A49D /* SongBar(AppStore) */;
 			targetProxy = 36491D4119F6F3330083A49D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -647,9 +647,11 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
+				OTHER_SWIFT_FLAGS = "-DAPPSTORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -670,9 +672,11 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.1;
+				OTHER_SWIFT_FLAGS = "-DAPPSTORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -783,7 +787,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar (AppStore)" */ = {
+		36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar(AppStore)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				36491D4B19F6F3330083A49D /* Debug */,

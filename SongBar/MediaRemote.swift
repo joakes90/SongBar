@@ -6,90 +6,69 @@
 //  Copyright © 2021 corpe. All rights reserved.
 //
 
-import Foundation
+import Cocoa
+import Kingfisher
 
-class MediaRemoteListner: MediaWatching {
-    var menuTitle: String
-    
-    var trackName: String
-    
-    var artistName: String
-    
-    var art: NSImage
-    
-    var playbackState: NSNumber
-    
-    var playbackHeadPosition: NSNumber
-    
+@objc protocol MediaWatching where Self: NSObject {
+    var menuTitle: String { get }
+    var trackName: String? { get }
+    var artistName: String? { get }
+    var art: NSImage { get }
+    var playbackState: NSNumber { get }
+    var playbackHeadPosition: Float { get }
+
+    // Optional proerties for Apple Events implementation
+    var iTunesArt: NSImage? { get }
+    var spotifyArtworkURL: NSString? { get }
+
+    func populateMusicData()
+    func pausePlayPlayback()
+    func rewindPlayback()
+    func fastForwardPlayback()
+    func incrementPlayHeadPosition()
+    func setPlaybackto(percentage: NSNumber)
+}
+
+@objc class MediaRemoteListner: NSObject, MediaWatching {
+
+    var menuTitle: String { "Songbar" }
+
+    var trackName: String?
+
+    var artistName: String?
+
+    var art: NSImage { NSImage() }
+
+    var playbackState: NSNumber { 0 }
+
+    var playbackHeadPosition: Float { 0.0 }
+
+    var iTunesArt: NSImage?
+
+    var spotifyArtworkURL: NSString?
+
     func populateMusicData() {
-        <#code#>
+        print("populate")
     }
-    
+
     func pausePlayPlayback() {
-        <#code#>
+        print("play pause")
     }
-    
+
     func rewindPlayback() {
-        <#code#>
+        print("rewind")
     }
-    
+
     func fastForwardPlayback() {
-        <#code#>
+        print("fastforward")
     }
-    
+
     func incrementPlayHeadPosition() {
-        <#code#>
+        print("increment")
     }
-    
-    func setPlaybackto(_ percentage: NSNumber) {
-        <#code#>
+
+    func setPlaybackto(percentage: NSNumber) {
+        print("set playback")
     }
-    
-    func isEqual(_ object: Any?) -> Bool {
-        <#code#>
-    }
-    
-    var hash: Int
-    
-    var superclass: AnyClass?
-    
-    func `self`() -> Self {
-        <#code#>
-    }
-    
-    func perform(_ aSelector: Selector!) -> Unmanaged<AnyObject>! {
-        <#code#>
-    }
-    
-    func perform(_ aSelector: Selector!, with object: Any!) -> Unmanaged<AnyObject>! {
-        <#code#>
-    }
-    
-    func perform(_ aSelector: Selector!, with object1: Any!, with object2: Any!) -> Unmanaged<AnyObject>! {
-        <#code#>
-    }
-    
-    func isProxy() -> Bool {
-        <#code#>
-    }
-    
-    func isKind(of aClass: AnyClass) -> Bool {
-        <#code#>
-    }
-    
-    func isMember(of aClass: AnyClass) -> Bool {
-        <#code#>
-    }
-    
-    func conforms(to aProtocol: Protocol) -> Bool {
-        <#code#>
-    }
-    
-    func responds(to aSelector: Selector!) -> Bool {
-        <#code#>
-    }
-    
-    var description: String
-    
-    
+
 }

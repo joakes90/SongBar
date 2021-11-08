@@ -25,6 +25,8 @@ typedef enum observedApplication {
 
 @implementation PlaybackListener
 
+@synthesize iTunesArt, artist, art, spotifyArtworkURL, playbackState, playbackHeadPosition, menuTitle;
+
 - (instancetype)init
 {
     self = [super init];
@@ -239,6 +241,7 @@ typedef enum observedApplication {
     NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
     [self setValue:headPercentage forKey:@"playbackHeadPosition"];
 }
+
 
 - (void)setPlaybackto:(NSNumber *) percentage {
     MusicApplication *application;

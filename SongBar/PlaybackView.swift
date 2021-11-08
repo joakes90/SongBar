@@ -19,7 +19,14 @@ class PlaybackView: NSView {
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
 
-    private let playbackListener = PlaybackListener()
+    private var playbackListener: MediaWatching {
+            #if APPSTORE
+            PlaybackListener()
+            #else
+            MediaRemoteListner()
+            #endif
+    }
+
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
     private var spotifyArtworkObserver: NSKeyValueObservation?
@@ -42,20 +49,19 @@ class PlaybackView: NSView {
 
     private func commonInit() {
         loadFromNib()
-
-        songTitleObserver = playbackListener.observe(\PlaybackListener.trackName,
+        songTitleObserver = playbackListener.observe(\MediaWatching.trackName,
                                                      options: .new,
                                                      changeHandler: { [titleTextField] (_, name) in
                                                         let attributedTitle = self.attributedText(from: name.newValue ?? "")
                                                         titleTextField?.attributedStringValue = attributedTitle
                                                      })
-        artistObserver = playbackListener.observe(\PlaybackListener.artistName,
+        artistObserver = playbackListener.observe(\MediaWatching.artistName,
                                                   options: .new,
                                                   changeHandler: { [artistTextField] (_, artist) in
                                                     let attributedArtist = self.attributedText(from: artist.newValue ?? "", withSize: 18.0)
                                                     artistTextField?.attributedStringValue = attributedArtist
                                                   })
-        spotifyArtworkObserver = playbackListener.observe(\PlaybackListener.spotifyArtworkURL,
+        spotifyArtworkObserver = playbackListener.observe(\MediaWatching.spotifyArtworkURL,
                                                          options: .new,
                                                          changeHandler: { [imageView] (_, url) in
                                                             guard let url = url.newValue else {
@@ -64,19 +70,19 @@ class PlaybackView: NSView {
                                                             }
                                                             self.imageView.kf.setImage(with: URL(string: url))
                                                          })
-        iTunesArtworkObserver = playbackListener.observe(\PlaybackListener.iTunesArt,
+        iTunesArtworkObserver = playbackListener.observe(\MediaWatching.iTunesArt,
                                                         options: .new,
                                                         changeHandler: { [imageView] (_, image) in
                                                             imageView?.image = image.newValue
                                                         })
-        playbackStateObserver = playbackListener.observe(\PlaybackListener.playbackState,
+        playbackStateObserver = playbackListener.observe(\MediaWatching.playbackState,
                                                         options: .new,
                                                         changeHandler: { [weak self] (_, state) in
                                                             guard let intValue = state.newValue?.uint32Value else { return }
                                                             let playbackState = MusicEPlS(rawValue: intValue)
                                                             self?.playbackButton(for: playbackState)
                                                         })
-        playHeadPositionObserver = playbackListener.observe(\PlaybackListener.playbackHeadPosition,
+        playHeadPositionObserver = playbackListener.observe(\MediaWatching.playbackHeadPosition,
                                                            options: .new,
                                                            changeHandler: { [playbackProgressIndicator] _, percentage in
                                                             guard let number = percentage.newValue else { return }
@@ -161,7 +167,7 @@ class PlaybackView: NSView {
         case .leftMouseDown, .leftMouseDragged:
             dragging = true
         case .leftMouseUp:
-            playbackListener.setPlaybackto(NSNumber(value: sender.doubleValue))
+            playbackListener.setPlaybackto(percentage: NSNumber(value: sender.doubleValue))
             dragging = false
         default:
             dragging = false

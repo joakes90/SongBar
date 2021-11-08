@@ -17,7 +17,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     private var settings: NSWindow?
 
-    var playbackListener: MediaWatching?
+    var playbackListener: MediaWatching?// {
+//        #if APPSTORE
+//            return PlaybackListener()
+//        #else
+//            return MediaRemoteListner()
+//        #endif
+//    }
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
     // magic number
@@ -28,10 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sysBar.title = "SongBar"
         sysBar.menu = menu
         sysBar.isVisible = true
-        menuTitleObserver = playbackListener.observe(\PlaybackListener.menuTitle,
-                                options: .new) { (_, title) in
-            self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
-        }
+//        menuTitleObserver = playbackListener.observe(\PlaybackListener.menuTitle,
+//                                options: .new) { (_, title) in
+//            self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
+//        }
         playbackListener?.populateMusicData()
     }
 
