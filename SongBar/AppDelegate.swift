@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     private var settings: NSWindow?
 
-    var playbackListener = PlaybackListener()
+    var playbackListener: MediaWatching?
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
     // magic number
@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                 options: .new) { (_, title) in
             self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
         }
-        playbackListener.populateMusicData()
+        playbackListener?.populateMusicData()
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
