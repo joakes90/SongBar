@@ -9,17 +9,17 @@
 import Cocoa
 import Kingfisher
 
-@objc protocol MediaWatching where Self: NSObject {
-    var menuTitle: String { get }
-    var trackName: String? { get }
-    var artistName: String? { get }
-    var art: NSImage { get }
-    var playbackState: NSNumber { get }
-    var playbackHeadPosition: Float { get }
+@objc protocol MediaWatching: AnyObject {
+    dynamic var menuTitle: String { get }
+    dynamic var trackName: String { get }
+    dynamic var artistName: String { get }
+    dynamic var art: NSImage { get }
+    dynamic var playbackState: NSNumber { get }
+    dynamic var playbackHeadPosition: Float { get }
 
     // Optional proerties for Apple Events implementation
-    var iTunesArt: NSImage? { get }
-    var spotifyArtworkURL: NSString? { get }
+    dynamic var iTunesArt: NSImage? { get }
+    dynamic var spotifyArtworkURL: NSString? { get }
 
     func populateMusicData()
     func pausePlayPlayback()
@@ -31,21 +31,21 @@ import Kingfisher
 
 @objc class MediaRemoteListner: NSObject, MediaWatching {
 
-    var menuTitle: String { "Songbar" }
+    @objc dynamic var menuTitle: String { "Songbar" }
 
-    var trackName: String?
+    @objc dynamic var trackName: String { "" }
 
-    var artistName: String?
+    @objc dynamic var artistName: String { "" }
 
-    var art: NSImage { NSImage() }
+    @objc dynamic var art: NSImage { NSImage() }
 
-    var playbackState: NSNumber { 0 }
+    @objc dynamic var playbackState: NSNumber { 0 }
 
-    var playbackHeadPosition: Float { 0.0 }
+    @objc dynamic var playbackHeadPosition: Float { 0.0 }
 
-    var iTunesArt: NSImage?
+    @objc dynamic var iTunesArt: NSImage?
 
-    var spotifyArtworkURL: NSString?
+    @objc dynamic var spotifyArtworkURL: NSString?
 
     func populateMusicData() {
         print("populate")

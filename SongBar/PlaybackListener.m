@@ -6,6 +6,7 @@
 //  Copyright © 2020 corpe. All rights reserved.
 //
 
+#import "ScriptingBridge/ScriptingBridge.h"
 #import "Music.h"
 #import "Spotify.h"
 #import "PlaybackListener.h"
@@ -25,7 +26,7 @@ typedef enum observedApplication {
 
 @implementation PlaybackListener
 
-@synthesize iTunesArt, artist, art, spotifyArtworkURL, playbackState, playbackHeadPosition, menuTitle;
+@synthesize artistName, art, trackName, iTunesArt, menuTitle, playbackHeadPosition, spotifyArtworkURL, playbackState;
 
 - (instancetype)init
 {
@@ -242,8 +243,7 @@ typedef enum observedApplication {
     [self setValue:headPercentage forKey:@"playbackHeadPosition"];
 }
 
-
-- (void)setPlaybackto:(NSNumber *) percentage {
+- (void)setPlaybacktoWithPercentage:(NSNumber * _Nonnull)percentage {
     MusicApplication *application;
     MusicTrack *track;
     switch (_observedApplication) {

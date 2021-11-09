@@ -12,7 +12,6 @@
 		36491D3819F6F3330083A49D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3719F6F3330083A49D /* Images.xcassets */; };
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
 		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
-		D02A84AD2530DEEA00BDF7D6 /* PlaybackListener.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */; };
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
@@ -34,6 +33,11 @@
 		D05118072739BF5100B34BF4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
 		D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
+		D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */; };
+		D0ADE5A5273B2D760060AAE8 /* SongBar-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */; };
+		D0ADE5A6273B2D7A0060AAE8 /* Spotify.h in Headers */ = {isa = PBXBuildFile; fileRef = D02A84A22530D76B00BDF7D6 /* Spotify.h */; };
+		D0ADE5A7273B2D7C0060AAE8 /* Music.h in Headers */ = {isa = PBXBuildFile; fileRef = D02A84A12530D75A00BDF7D6 /* Music.h */; };
+		D0ADE5A8273B2D8D0060AAE8 /* PlaybackListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D02A84AB2530DEEA00BDF7D6 /* PlaybackListener.h */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
 		D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 /* End PBXBuildFile section */
@@ -210,6 +214,20 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D0ADE5A4273B2D2B0060AAE8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0ADE5A8273B2D8D0060AAE8 /* PlaybackListener.h in Headers */,
+				D0ADE5A5273B2D760060AAE8 /* SongBar-Bridging-Header.h in Headers */,
+				D0ADE5A6273B2D7A0060AAE8 /* Spotify.h in Headers */,
+				D0ADE5A7273B2D7C0060AAE8 /* Music.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		36491D2F19F6F3330083A49D /* SongBar(AppStore) */ = {
 			isa = PBXNativeTarget;
@@ -217,6 +235,7 @@
 			buildPhases = (
 				D02A849C2530BB9300BDF7D6 /* Bump build number */,
 				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
+				D0ADE5A4273B2D2B0060AAE8 /* Headers */,
 				36491D2C19F6F3330083A49D /* Sources */,
 				36491D2D19F6F3330083A49D /* Frameworks */,
 				36491D2E19F6F3330083A49D /* Resources */,
@@ -475,12 +494,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
-				D02A84AD2530DEEA00BDF7D6 /* PlaybackListener.m in Sources */,
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 				D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
+				D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
