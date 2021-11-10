@@ -19,13 +19,11 @@ class PlaybackView: NSView {
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
 
-    @objc private dynamic var playbackListener: NSObject & MediaWatching {
-            #if APPSTORE
-            PlaybackListener()
-            #else
-            MediaRemoteListner()
-            #endif
-    }
+    #if APPSTORE
+        @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
+    #else
+        @objc private dynamic var playbackListener: MediaWatching = MediaRemoteListner()
+    #endif
 
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
