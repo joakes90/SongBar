@@ -54,13 +54,13 @@ class PlaybackView: NSView {
             self.titleTextField?.attributedStringValue = attributedTitle
         })
 
-        artistObserver = observe(\.playbackListener.artistName, changeHandler: { [weak self] _, artist in
+        artistObserver = observe(\.playbackListener.artistName, options: .new, changeHandler: { [weak self] _, artist in
             let artist: String = (artist.newValue ?? "")
             guard let attributedArtist = self?.attributedText(from: (artist), withSize: 18.0) else { return }
             self?.artistTextField.attributedStringValue = attributedArtist
         })
 
-        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, changeHandler: { [weak self] _, url in
+        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, options: .new, changeHandler: { [weak self] _, url in
             guard let url = url.newValue as? String else {
                 self?.imageView?.image = NSImage(named: "missingArtwork")
                 return
@@ -68,7 +68,7 @@ class PlaybackView: NSView {
             self?.imageView.kf.setImage(with: URL(string: url))
         })
 
-        iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, changeHandler: { [weak self] _, image in
+        iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, options: .new, changeHandler: { [weak self] _, image in
             guard let image = image.newValue as? NSImage else { return }
             self?.imageView?.image = image
         })
@@ -79,7 +79,7 @@ class PlaybackView: NSView {
             self?.playbackButton(for: playbackState)
         })
 
-        playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, changeHandler: { [weak self] _, percentage in
+        playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, options: .new, changeHandler: { [weak self] _, percentage in
             guard let number = percentage.newValue else { return }
             self?.playbackProgressIndicator?.doubleValue = Double(truncating: number)
         })
