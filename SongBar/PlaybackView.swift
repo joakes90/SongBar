@@ -55,10 +55,6 @@ class PlaybackView: NSView {
             let attributedTitle = self.attributedText(from: (name.newValue ?? "") )
             self.titleTextField?.attributedStringValue = attributedTitle
         })
-        songTitleObserver = observe(\.playbackListener.trackName, changeHandler: { [weak self] _, name in
-
-
-        })
 
         artistObserver = observe(\.playbackListener.artistName, changeHandler: { [weak self] _, artist in
             let artist: String = (artist.newValue ?? "")
@@ -75,7 +71,7 @@ class PlaybackView: NSView {
         })
 
         iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, changeHandler: { [weak self] _, image in
-            guard let image = image.newValue else { return }
+            guard let image = image.newValue as? NSImage else { return }
             self?.imageView?.image = image
         })
 
@@ -87,14 +83,16 @@ class PlaybackView: NSView {
 
         playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, changeHandler: { [weak self] _, percentage in
             guard let number = percentage.newValue else { return }
-            self?.playbackProgressIndicator?.doubleValue = Double(number)
+            self?.playbackProgressIndicator?.doubleValue = Double(truncating: number)
         })
 
         titleTextField.stringValue = playbackListener.trackName.isEmpty ? "SongBar" : playbackListener.trackName
         artistTextField.stringValue = playbackListener.artistName
-        imageView.image = playbackListener.iTunesArt
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
-        if let spotifyImageUrlString: String = playbackListener.spotifyArtworkURL as String? {
+        if let iTunesArt = playbackListener.iTunesArt {
+            imageView.image = iTunesArt
+        }
+        if let spotifyImageUrlString: String = playbackListener.spotifyArtworkURL as? String {
             let spotifyImageUrl = URL(string: spotifyImageUrlString)
             imageView.kf.setImage(with: spotifyImageUrl)
         }
@@ -170,7 +168,7 @@ class PlaybackView: NSView {
         case .leftMouseDown, .leftMouseDragged:
             dragging = true
         case .leftMouseUp:
-            playbackListener.setPlaybackto(percentage: NSNumber(value: sender.doubleValue))
+            playbackListener.setPlaybacktoWithPercentage(NSNumber(value: sender.doubleValue))
             dragging = false
         default:
             dragging = false

@@ -9,26 +9,6 @@
 import Cocoa
 import Kingfisher
 
-@objc protocol MediaWatching: AnyObject {
-    dynamic var menuTitle: String { get }
-    dynamic var trackName: String { get }
-    dynamic var artistName: String { get }
-    dynamic var art: NSImage { get }
-    dynamic var playbackState: NSNumber { get }
-    dynamic var playbackHeadPosition: Float { get }
-
-    // Optional proerties for Apple Events implementation
-    dynamic var iTunesArt: NSImage? { get }
-    dynamic var spotifyArtworkURL: NSString? { get }
-
-    func populateMusicData()
-    func pausePlayPlayback()
-    func rewindPlayback()
-    func fastForwardPlayback()
-    func incrementPlayHeadPosition()
-    func setPlaybackto(percentage: NSNumber)
-}
-
 @objc class MediaRemoteListner: NSObject, MediaWatching {
 
     @objc dynamic var menuTitle: String { "Songbar" }
@@ -41,11 +21,7 @@ import Kingfisher
 
     @objc dynamic var playbackState: NSNumber { 0 }
 
-    @objc dynamic var playbackHeadPosition: Float { 0.0 }
-
-    @objc dynamic var iTunesArt: NSImage?
-
-    @objc dynamic var spotifyArtworkURL: NSString?
+    @objc dynamic var playbackHeadPosition: NSNumber { 0.0 }
 
     func populateMusicData() {
         print("populate")
@@ -65,6 +41,18 @@ import Kingfisher
 
     func incrementPlayHeadPosition() {
         print("increment")
+    }
+
+    func setPlaybacktoWithPercentage(_ percentage: NSNumber) {
+        print("set play head")
+    }
+
+    func playbackHeadPosition(at percentage: NSNumber, in track: MusicTrack) -> NSNumber {
+        return NSNumber(value: 42)
+    }
+
+    func playbackHeadPercentage(for track: MusicTrack, in application: MusicApplication) -> NSNumber {
+        return NSNumber(value: 42)
     }
 
     func setPlaybackto(percentage: NSNumber) {
