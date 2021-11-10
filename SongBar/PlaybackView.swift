@@ -73,7 +73,7 @@ class PlaybackView: NSView {
             self?.imageView?.image = image
         })
 
-        playbackStateObserver = observe(\.playbackListener.playbackState, changeHandler: { [weak self] _, state in
+        playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
             guard let intValue = state.newValue?.uint32Value else { return }
             let playbackState = MusicEPlS(rawValue: intValue)
             self?.playbackButton(for: playbackState)
