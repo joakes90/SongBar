@@ -11,20 +11,61 @@ import Kingfisher
 
 @objc class MediaRemoteListner: NSObject, MediaWatching {
 
-    @objc dynamic var menuTitle: String { "Songbar" }
+    @objc dynamic var menuTitle: String = "SongBar"
 
-    @objc dynamic var trackName: String { "" }
+    @objc dynamic var trackName: String = ""
 
-    @objc dynamic var artistName: String { "" }
+    @objc dynamic var artistName: String = ""
 
-    @objc dynamic var art: NSImage { NSImage() }
+    @objc dynamic var art: NSImage = NSImage(imageLiteralResourceName: "missingArtwork")
 
-    @objc dynamic var playbackState: NSNumber { 0 }
+    @objc dynamic var playbackState: NSNumber = 0
 
-    @objc dynamic var playbackHeadPosition: NSNumber { 0.0 }
+    @objc dynamic var playbackHeadPosition: NSNumber = 0
+
+    private let mediaRemoteBundle: CFBundle
+
+    // Get now playing
+    private typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
+    private let MRMediaRemoteGetNowPlayingInfoPointer: UnsafeMutableRawPointer
+    private let MRMediaRemoteGetNowPlayingInfo: MRMediaRemoteGetNowPlayingInfoFunction
+
+    override init() {
+        mediaRemoteBundle =  CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
+        MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingInfo" as CFString)
+        MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
+        super.init()
+    }
 
     func populateMusicData() {
         print("populate")
+
+        MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { [weak self] (information) in
+            guard let trackName = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String else {
+                self?.setValue("SongBar", forKey: "menuTitle")
+                self?.setValue("SongBar", forKey: "trackName")
+                self?.setValue(nil, forKey: "artistName")
+                self?.setValue(NSImage(imageLiteralResourceName: "missingArtwork"), forKey: "art")
+                return
+            }
+            // TODO: Break this out and make sure it's the correct length or shorter
+            if let artistName = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
+                self?.artistName = artistName
+                let menuTitle = "\(trackName) - \(artistName)"
+                self?.menuTitle = menuTitle
+            } else {
+                self?.menuTitle = trackName
+                self?.artistName = ""
+            }
+            if let artworkData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data,
+               let image = NSImage(data: artworkData) {
+                self?.art = image
+            } else {
+                let image = NSImage(imageLiteralResourceName: "missingArtwork")
+                self?.setValue(image, forKey: "art")
+            }
+            self?.setValue(trackName, forKey: "trackName")
+        })
     }
 
     func pausePlayPlayback() {
