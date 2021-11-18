@@ -27,16 +27,40 @@ import Kingfisher
 
     @objc dynamic var playbackHeadPosition: NSNumber = 0
 
+    // Listen to Notifications
+    private typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void // swiftlint:disable:this type_name
+    private let MRMediaRemoteRegisterForNowPlayingNotificationsPointer: UnsafeMutableRawPointer // swiftlint:disable:this identifier_name
+    private let MRMediaRemoteRegisterForNowPlayingNotifications: MRMediaRemoteRegisterForNowPlayingNotificationsFunction // swiftlint:disable:this identifier_name
+
     // Get now playing
     private typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
     private let MRMediaRemoteGetNowPlayingInfoPointer: UnsafeMutableRawPointer
     private let MRMediaRemoteGetNowPlayingInfo: MRMediaRemoteGetNowPlayingInfoFunction
 
     override init() {
+        // link to media remote framework
         mediaRemoteBundle =  CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
+
+        // configure now playing function
         MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingInfo" as CFString)
         MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
+
+        // configure register for notifications function
+        MRMediaRemoteRegisterForNowPlayingNotificationsPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteRegisterForNowPlayingNotifications" as CFString)
+        MRMediaRemoteRegisterForNowPlayingNotifications = unsafeBitCast(MRMediaRemoteRegisterForNowPlayingNotificationsPointer, to: MRMediaRemoteRegisterForNowPlayingNotificationsFunction.self)
+
         super.init()
+
+        MRMediaRemoteRegisterForNowPlayingNotifications(DispatchQueue.main)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(nowPlayingDidUpdate(_:)),
+                                               name: .mediaRemoteNowPlayingInfoDidChange,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(isPlayingDidUpdate(_:)),
+                                               name: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange,
+                                               object: nil)
+
     }
 
     func populateMusicData() {
@@ -83,6 +107,7 @@ import Kingfisher
 
 }
 
+// Media data lookup
 private extension MediaRemoteListner {
 
     func currentTrackName(from metaData: [String: Any]) -> String {
@@ -94,6 +119,7 @@ private extension MediaRemoteListner {
     }
 
     func currentMenuTitle(from metaData: [String: Any]) -> String {
+        // TODO: shorten to correct length
         let trackName = currentTrackName(from: metaData)
         let artistName = currentArtistName(from: metaData)
         if artistName.isEmpty {
@@ -109,4 +135,22 @@ private extension MediaRemoteListner {
             return NSImage(imageLiteralResourceName: "missingArtwork")
         }
     }
+}
+
+// Notification handling
+private extension MediaRemoteListner {
+
+    @objc func nowPlayingDidUpdate(_ notification: NSNotification) {
+        print("updated")
+    }
+
+    @objc func isPlayingDidUpdate(_ notification: NSNotification) {
+        print("play/pause")
+    }
+}
+
+private extension Notification.Name {
+    static let mediaRemoteNowPlayingInfoDidChange = Notification.Name("kMRMediaRemoteNowPlayingInfoDidChangeNotification")
+    static let mediaRemoteNowPlayingApplicationPlaybackStateDidChange = Notification.Name("kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification")
+// swiftlint:disable:previous identifier_name
 }

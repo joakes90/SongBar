@@ -39,7 +39,6 @@
 		D0ADE5A7273B2D7C0060AAE8 /* Music.h in Headers */ = {isa = PBXBuildFile; fileRef = D02A84A12530D75A00BDF7D6 /* Music.h */; };
 		D0ADE5A8273B2D8D0060AAE8 /* PlaybackListener.h in Headers */ = {isa = PBXBuildFile; fileRef = D02A84AB2530DEEA00BDF7D6 /* PlaybackListener.h */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
-		D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -499,7 +498,6 @@
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
-				D0FBA4C32739D9D2008E9778 /* MediaRemote.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
 				D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */,
 			);
