@@ -11,7 +11,11 @@ import Kingfisher
 
 @objc class MediaRemoteListner: NSObject, MediaWatching {
 
-    @objc dynamic var menuTitle: String = "SongBar"
+    private let mediaRemoteBundle: CFBundle
+
+    private let titleString = "SongBar"
+
+    @objc dynamic var menuTitle: String = ""
 
     @objc dynamic var trackName: String = ""
 
@@ -22,8 +26,6 @@ import Kingfisher
     @objc dynamic var playbackState: NSNumber = 0
 
     @objc dynamic var playbackHeadPosition: NSNumber = 0
-
-    private let mediaRemoteBundle: CFBundle
 
     // Get now playing
     private typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
@@ -38,33 +40,12 @@ import Kingfisher
     }
 
     func populateMusicData() {
-        print("populate")
-
         MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { [weak self] (information) in
-            guard let trackName = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String else {
-                self?.setValue("SongBar", forKey: "menuTitle")
-                self?.setValue("SongBar", forKey: "trackName")
-                self?.setValue(nil, forKey: "artistName")
-                self?.setValue(NSImage(imageLiteralResourceName: "missingArtwork"), forKey: "art")
-                return
-            }
-            // TODO: Break this out and make sure it's the correct length or shorter
-            if let artistName = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
-                self?.artistName = artistName
-                let menuTitle = "\(trackName) - \(artistName)"
-                self?.menuTitle = menuTitle
-            } else {
-                self?.menuTitle = trackName
-                self?.artistName = ""
-            }
-            if let artworkData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data,
-               let image = NSImage(data: artworkData) {
-                self?.art = image
-            } else {
-                let image = NSImage(imageLiteralResourceName: "missingArtwork")
-                self?.setValue(image, forKey: "art")
-            }
-            self?.setValue(trackName, forKey: "trackName")
+            guard let self = self else { return }
+            self.trackName = self.currentTrackName(from: information)
+            self.artistName = self.currentArtistName(from: information)
+            self.menuTitle = self.currentMenuTitle(from: information)
+            self.art = self.currentArt(from: information)
         })
     }
 
@@ -100,4 +81,32 @@ import Kingfisher
         print("set playback")
     }
 
+}
+
+private extension MediaRemoteListner {
+
+    func currentTrackName(from metaData: [String: Any]) -> String {
+        return metaData["kMRMediaRemoteNowPlayingInfoTitle"] as? String ?? titleString
+    }
+
+    func currentArtistName(from metaData: [String: Any]) -> String {
+        metaData["kMRMediaRemoteNowPlayingInfoArtist"] as? String ?? ""
+    }
+
+    func currentMenuTitle(from metaData: [String: Any]) -> String {
+        let trackName = currentTrackName(from: metaData)
+        let artistName = currentArtistName(from: metaData)
+        if artistName.isEmpty {
+            return "\(trackName) - \(artistName)"
+        }
+        return trackName
+    }
+
+    func currentArt(from metaData: [String: Any]) -> NSImage {
+        if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
+           return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
+        } else {
+            return NSImage(imageLiteralResourceName: "missingArtwork")
+        }
+    }
 }
