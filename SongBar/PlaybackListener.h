@@ -29,10 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) incrementPlayHeadPosition;
 - (void)setPlaybacktoWithPercentage:(NSNumber * _Nonnull)percentage;
 
-@optional
-@property (strong, nonatomic, nullable) NSImage *iTunesArt;
-@property (strong, nonatomic, nullable) NSString *spotifyArtworkURL;
-
 @end
 
 @interface PlaybackListener : NSObject <MediaWatching>

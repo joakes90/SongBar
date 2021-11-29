@@ -70,6 +70,7 @@ import Kingfisher
             self.artistName = self.currentArtistName(from: information)
             self.menuTitle = self.currentMenuTitle(from: information)
             self.art = self.currentArt(from: information)
+            // TODO: Get playback state
         })
     }
 
@@ -122,7 +123,7 @@ private extension MediaRemoteListner {
         // TODO: shorten to correct length
         let trackName = currentTrackName(from: metaData)
         let artistName = currentArtistName(from: metaData)
-        if artistName.isEmpty {
+        if !artistName.isEmpty {
             return "\(trackName) - \(artistName)"
         }
         return trackName
@@ -142,6 +143,7 @@ private extension MediaRemoteListner {
 
     @objc func nowPlayingDidUpdate(_ notification: NSNotification) {
         print("updated")
+        populateMusicData()
     }
 
     @objc func isPlayingDidUpdate(_ notification: NSNotification) {

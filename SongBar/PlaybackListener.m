@@ -26,7 +26,7 @@ typedef enum observedApplication {
 
 @implementation PlaybackListener
 
-@synthesize artistName, art, trackName, iTunesArt, menuTitle, playbackHeadPosition, spotifyArtworkURL, playbackState;
+@synthesize artistName, art, trackName, menuTitle, playbackHeadPosition, playbackState;
 
 - (instancetype)init
 {
@@ -73,17 +73,17 @@ typedef enum observedApplication {
 
     if (spotifyOpen) {
         [self setTrackInfoFrom:_spotifyApplication];
-        [self setSpotifyArtworkURLUsing:_spotifyApplication];
+        [self setArtworkUsing:_spotifyApplication];
         _observedApplication = spotify;
     } else if (iTunesOpen) {
         [self setTrackInfoFrom:_musicApplication];
-        [self setiTunesArtUsing:_musicApplication];
+        [self setArtworkUsing:_musicApplication];
         _observedApplication = music;
     } else {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
-        [self setValue:[NSImage imageNamed:@"missingArtwork"] forKey:@"iTunesArt"];
+        [self setValue:[NSImage imageNamed:@"missingArtwork"] forKey:@"art"];
         _observedApplication = none;
     }
 }
@@ -94,18 +94,18 @@ typedef enum observedApplication {
 
     if ([playerState isEqualToString:@"Stopped"]) {
         [self setTrackInfoFrom:nil];
-        [self setSpotifyArtworkURLUsing:nil];
+        [self setArtworkUsing:nil];
         _observedApplication = none;
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
         [self setTrackInfoFrom:_musicApplication];
-        [self setiTunesArtUsing:_musicApplication];
+        [self setArtworkUsing:_musicApplication];
         _observedApplication = music;
         return;
     }
     if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
-        [self setSpotifyArtworkURLUsing:_spotifyApplication];
+        [self setArtworkUsing:_spotifyApplication];
         [self setTrackInfoFrom:_spotifyApplication];
         _observedApplication = spotify;
         return;
@@ -138,26 +138,41 @@ typedef enum observedApplication {
     [self setValue:trackName forKey:@"menuTitle"];
 }
 
-- (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
-    SpotifyTrack *currentTrack = application.currentTrack;
-    NSString *artworkURL = currentTrack.artworkUrl;
-    if (![self.spotifyArtworkURL isEqualTo:artworkURL]) {
-        [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
+- (void) setArtworkUsing:(SBApplication *)application {
+    NSImage *image;
+    switch (_observedApplication) {
+        case spotify:
+            image = [[NSImage alloc] initWithContentsOfURL: [[NSURL alloc] initWithString:_spotifyApplication.currentTrack.artworkUrl]];
+            break;
+        case music:
+            NSLog(@"Implement Music");
+            break;;
+        case none:
+            NSLog(@"implement default");
+            break;
     }
+    [self setValue:image forKey:@"art"];
 }
+//- (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
+//    SpotifyTrack *currentTrack = application.currentTrack;
+//    NSString *artworkURL = currentTrack.artworkUrl;
+//    if (![self.spotifyArtworkURL isEqualTo:artworkURL]) {
+//        [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
+//    }
+//}
 
-- (void) setiTunesArtUsing:(MusicApplication *)application {
-    MusicTrack *currentTrack = application.currentTrack;
-    
-    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
-    if ([artwork.data isKindOfClass:[NSImage class]]) {
-        NSImage *image = artwork.data;
-        [self setValue:image forKey:@"iTunesArt"];
-    } else {
-        NSImage *image = [NSImage imageNamed:@"missingArtwork"];
-        [self setValue:image forKey:@"iTunesArt"];
-    }
-}
+//- (void) setiTunesArtUsing:(MusicApplication *)application {
+//    MusicTrack *currentTrack = application.currentTrack;
+//
+//    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
+//    if ([artwork.data isKindOfClass:[NSImage class]]) {
+//        NSImage *image = artwork.data;
+//        [self setValue:image forKey:@"iTunesArt"];
+//    } else {
+//        NSImage *image = [NSImage imageNamed:@"missingArtwork"];
+//        [self setValue:image forKey:@"iTunesArt"];
+//    }
+//}
 
 - (void)pausePlayPlayback {
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];

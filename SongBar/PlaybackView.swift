@@ -27,8 +27,9 @@ class PlaybackView: NSView {
 
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
-    private var spotifyArtworkObserver: NSKeyValueObservation?
-    private var iTunesArtworkObserver: NSKeyValueObservation?
+    private var artObserver: NSKeyValueObservation?
+//    private var spotifyArtworkObserver: NSKeyValueObservation?
+//    private var iTunesArtworkObserver: NSKeyValueObservation?
     private var playbackStateObserver: NSKeyValueObservation?
     private var playHeadPositionObserver: NSKeyValueObservation?
     private var dragging: Bool = false
@@ -60,18 +61,23 @@ class PlaybackView: NSView {
             self?.artistTextField.attributedStringValue = attributedArtist
         })
 
-        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, options: .new, changeHandler: { [weak self] _, url in
-            guard let url = url.newValue as? String else {
-                self?.imageView?.image = NSImage(named: "missingArtwork")
-                return
-            }
-            self?.imageView.kf.setImage(with: URL(string: url))
+        artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
+            self?.imageView.image = image.newValue
         })
 
-        iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, options: .new, changeHandler: { [weak self] _, image in
-            guard let image = image.newValue as? NSImage else { return }
-            self?.imageView?.image = image
-        })
+//        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, options: .new, changeHandler: { [weak self] _, url in
+//            guard let url = url.newValue as? String else {
+//                self?.imageView?.image = NSImage(named: "missingArtwork")
+//                return
+//            }
+//            self?.imageView.kf.setImage(with: URL(string: url))
+//        })
+//
+//        iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, options: .new, changeHandler: { [weak self] _, image in
+//            guard let image = image.newValue as? NSImage else { return }
+//            self?.imageView?.image = image
+//        })
+
 
         playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
             guard let intValue = state.newValue?.uint32Value else { return }
@@ -87,14 +93,10 @@ class PlaybackView: NSView {
         titleTextField.stringValue = playbackListener.trackName.isEmpty ? "SongBar" : playbackListener.trackName
         artistTextField.stringValue = playbackListener.artistName
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
-        if let iTunesArt = playbackListener.iTunesArt {
-            imageView.image = iTunesArt
-        }
-        if let spotifyImageUrlString: String = playbackListener.spotifyArtworkURL as? String {
-            let spotifyImageUrl = URL(string: spotifyImageUrlString)
-            imageView.kf.setImage(with: spotifyImageUrl)
-        }
+        imageView.image = playbackListener.art
+        playbackListener.populateMusicData()
     }
+
     private func loadFromNib() {
         var nibObjects: NSArray?
         Bundle.main.loadNibNamed(NSNib.Name(stringLiteral: "PlaybackView"),
