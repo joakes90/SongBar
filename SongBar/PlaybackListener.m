@@ -20,8 +20,8 @@ typedef enum observedApplication {
 
 @property (strong, nonatomic) MusicApplication *musicApplication;
 @property (strong, nonatomic) SpotifyApplication *spotifyApplication;
+@property (strong, nonatomic) NSURL *spotifyArtworkURL;
 @property ObservedApplication observedApplication;
-
 @end
 
 @implementation PlaybackListener
@@ -99,15 +99,15 @@ typedef enum observedApplication {
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
+        _observedApplication = music;
         [self setTrackInfoFrom:_musicApplication];
         [self setArtworkUsing:_musicApplication];
-        _observedApplication = music;
         return;
     }
     if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
+        _observedApplication = spotify;
         [self setArtworkUsing:_spotifyApplication];
         [self setTrackInfoFrom:_spotifyApplication];
-        _observedApplication = spotify;
         return;
     }
 }
@@ -140,10 +140,9 @@ typedef enum observedApplication {
 
 - (void) setArtworkUsing:(SBApplication *)application {
     NSImage *image;
-    NSData *data;
     switch (_observedApplication) {
         case spotify:
-            image = [[NSImage alloc] initWithContentsOfURL: [[NSURL alloc] initWithString:_spotifyApplication.currentTrack.artworkUrl]];
+            image = [self setSpotifyArtworkURLUsing:_spotifyApplication];
             break;
         case music:
             image = [self setiTunesArtUsing:_musicApplication];
@@ -153,6 +152,18 @@ typedef enum observedApplication {
             break;
     }
     [self setValue:image forKey:@"art"];
+}
+
+- (NSImage *) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
+    SpotifyTrack *currentTrack = application.currentTrack;
+    NSString *artworkURLString = currentTrack.artworkUrl;
+    NSURL *artworkURL = [NSURL URLWithString:artworkURLString];
+    if (![_spotifyArtworkURL isEqualTo:artworkURL] && artworkURL != nil) {
+        _spotifyArtworkURL = artworkURL;
+        return [[NSImage alloc] initByReferencingURL:artworkURL];
+    } else {
+        return nil;
+    }
 }
 
 - (NSImage *) setiTunesArtUsing:(MusicApplication *)application {
