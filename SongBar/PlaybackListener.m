@@ -158,12 +158,11 @@ typedef enum observedApplication {
     SpotifyTrack *currentTrack = application.currentTrack;
     NSString *artworkURLString = currentTrack.artworkUrl;
     NSURL *artworkURL = [NSURL URLWithString:artworkURLString];
-    if (![_spotifyArtworkURL isEqualTo:artworkURL] && artworkURL != nil) {
+    if (![artworkURL isEqualTo:_spotifyArtworkURL] && artworkURL != nil) {
         _spotifyArtworkURL = artworkURL;
-        return [[NSImage alloc] initByReferencingURL:artworkURL];
-    } else {
-        return nil;
+        return [[NSImage alloc] initWithContentsOfURL:_spotifyArtworkURL];
     }
+    return self.art;
 }
 
 - (NSImage *) setiTunesArtUsing:(MusicApplication *)application {
