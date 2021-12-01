@@ -140,41 +140,34 @@ typedef enum observedApplication {
 
 - (void) setArtworkUsing:(SBApplication *)application {
     NSImage *image;
+    NSData *data;
     switch (_observedApplication) {
         case spotify:
             image = [[NSImage alloc] initWithContentsOfURL: [[NSURL alloc] initWithString:_spotifyApplication.currentTrack.artworkUrl]];
             break;
         case music:
-            NSLog(@"Implement Music");
-            break;;
+            image = [self setiTunesArtUsing:_musicApplication];
+            break;
         case none:
-            NSLog(@"implement default");
+            image = nil;
             break;
     }
     [self setValue:image forKey:@"art"];
 }
-//- (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
-//    SpotifyTrack *currentTrack = application.currentTrack;
-//    NSString *artworkURL = currentTrack.artworkUrl;
-//    if (![self.spotifyArtworkURL isEqualTo:artworkURL]) {
-//        [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
-//    }
-//}
 
-//- (void) setiTunesArtUsing:(MusicApplication *)application {
-//    MusicTrack *currentTrack = application.currentTrack;
-//
-//    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
-//    if ([artwork.data isKindOfClass:[NSImage class]]) {
-//        NSImage *image = artwork.data;
-//        [self setValue:image forKey:@"iTunesArt"];
-//    } else {
-//        NSImage *image = [NSImage imageNamed:@"missingArtwork"];
-//        [self setValue:image forKey:@"iTunesArt"];
-//    }
-//}
+- (NSImage *) setiTunesArtUsing:(MusicApplication *)application {
+    MusicTrack *currentTrack = application.currentTrack;
+
+    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
+    if ([artwork.data isKindOfClass:[NSImage class]]) {
+        return artwork.data;
+    } else {
+        return nil;
+    }
+}
 
 - (void)pausePlayPlayback {
+    // TODO: controll correct app
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     
