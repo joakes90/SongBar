@@ -83,7 +83,7 @@ typedef enum observedApplication {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
-        [self setValue:[NSImage imageNamed:@"missingArtwork"] forKey:@"art"];
+        [self setValue:nil forKey:@"art"];
         _observedApplication = none;
     }
 }
@@ -93,9 +93,9 @@ typedef enum observedApplication {
     NSString *playerState = notification.userInfo[@"Player State"];
 
     if ([playerState isEqualToString:@"Stopped"]) {
+        _observedApplication = none;
         [self setTrackInfoFrom:nil];
         [self setArtworkUsing:nil];
-        _observedApplication = none;
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
