@@ -37,6 +37,11 @@ import Kingfisher
     private let MRMediaRemoteGetNowPlayingInfoPointer: UnsafeMutableRawPointer
     private let MRMediaRemoteGetNowPlayingInfo: MRMediaRemoteGetNowPlayingInfoFunction
 
+    // Get is playing
+    private typealias MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction = @convention(c) (DispatchQueue, @escaping (Bool) -> Void) -> Void
+    private let MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer: UnsafeMutableRawPointer
+    private let MRMediaRemoteGetNowPlayingApplicationPlaybackState: MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction
+
     override init() {
         // link to media remote framework
         mediaRemoteBundle =  CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
@@ -45,6 +50,10 @@ import Kingfisher
         MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingInfo" as CFString)
         MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
 
+        // configure playback state function
+        MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingApplicationIsPlaying" as CFString)
+        MRMediaRemoteGetNowPlayingApplicationPlaybackState = unsafeBitCast(MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer, to: MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction.self)
+        
         // configure register for notifications function
         MRMediaRemoteRegisterForNowPlayingNotificationsPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteRegisterForNowPlayingNotifications" as CFString)
         MRMediaRemoteRegisterForNowPlayingNotifications = unsafeBitCast(MRMediaRemoteRegisterForNowPlayingNotificationsPointer, to: MRMediaRemoteRegisterForNowPlayingNotificationsFunction.self)
@@ -70,7 +79,11 @@ import Kingfisher
             self.artistName = self.currentArtistName(from: information)
             self.menuTitle = self.currentMenuTitle(from: information)
             self.art = self.currentArt(from: information)
-            // TODO: Get playback state
+        })
+        // TODO: Get playback state
+        MRMediaRemoteGetNowPlayingApplicationPlaybackState(DispatchQueue.main, { [weak self] (information) in
+            guard let self = self else { return }
+            print(information)
         })
     }
 
@@ -148,6 +161,11 @@ private extension MediaRemoteListner {
 
     @objc func isPlayingDidUpdate(_ notification: NSNotification) {
         print("play/pause")
+        guard let info = notification.userInfo as! [String: Any]? else {
+            return
+        }
+        let systemPlaybackState = (info["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int)
+        print(systemPlaybackState)
     }
 }
 
