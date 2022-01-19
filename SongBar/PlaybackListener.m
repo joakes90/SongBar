@@ -20,8 +20,8 @@ typedef enum observedApplication {
 
 @property (strong, nonatomic) MusicApplication *musicApplication;
 @property (strong, nonatomic) SpotifyApplication *spotifyApplication;
+@property (strong, nonatomic) NSURL *spotifyArtworkURL;
 @property ObservedApplication observedApplication;
-
 @end
 
 @implementation PlaybackListener
@@ -83,7 +83,7 @@ typedef enum observedApplication {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
         [self setValue:nil forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
-        [self setValue:[NSImage imageNamed:@"missingArtwork"] forKey:@"art"];
+        [self setValue:nil forKey:@"art"];
         _observedApplication = none;
     }
 }
@@ -93,21 +93,21 @@ typedef enum observedApplication {
     NSString *playerState = notification.userInfo[@"Player State"];
 
     if ([playerState isEqualToString:@"Stopped"]) {
+        _observedApplication = none;
         [self setTrackInfoFrom:nil];
         [self setArtworkUsing:nil];
-        _observedApplication = none;
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
+        _observedApplication = music;
         [self setTrackInfoFrom:_musicApplication];
         [self setArtworkUsing:_musicApplication];
-        _observedApplication = music;
         return;
     }
     if ([notificationName isEqualToString:@"com.spotify.client.PlaybackStateChanged"]) {
+        _observedApplication = spotify;
         [self setArtworkUsing:_spotifyApplication];
         [self setTrackInfoFrom:_spotifyApplication];
-        _observedApplication = spotify;
         return;
     }
 }
@@ -142,39 +142,42 @@ typedef enum observedApplication {
     NSImage *image;
     switch (_observedApplication) {
         case spotify:
-            image = [[NSImage alloc] initWithContentsOfURL: [[NSURL alloc] initWithString:_spotifyApplication.currentTrack.artworkUrl]];
+            image = [self setSpotifyArtworkURLUsing:_spotifyApplication];
             break;
         case music:
-            NSLog(@"Implement Music");
-            break;;
+            image = [self setiTunesArtUsing:_musicApplication];
+            break;
         case none:
-            NSLog(@"implement default");
+            image = nil;
             break;
     }
     [self setValue:image forKey:@"art"];
 }
-//- (void) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
-//    SpotifyTrack *currentTrack = application.currentTrack;
-//    NSString *artworkURL = currentTrack.artworkUrl;
-//    if (![self.spotifyArtworkURL isEqualTo:artworkURL]) {
-//        [self setValue:artworkURL forKey:@"spotifyArtworkURL"];
-//    }
-//}
 
-//- (void) setiTunesArtUsing:(MusicApplication *)application {
-//    MusicTrack *currentTrack = application.currentTrack;
-//
-//    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
-//    if ([artwork.data isKindOfClass:[NSImage class]]) {
-//        NSImage *image = artwork.data;
-//        [self setValue:image forKey:@"iTunesArt"];
-//    } else {
-//        NSImage *image = [NSImage imageNamed:@"missingArtwork"];
-//        [self setValue:image forKey:@"iTunesArt"];
-//    }
-//}
+- (NSImage *) setSpotifyArtworkURLUsing:(SpotifyApplication *)application {
+    SpotifyTrack *currentTrack = application.currentTrack;
+    NSString *artworkURLString = currentTrack.artworkUrl;
+    NSURL *artworkURL = [NSURL URLWithString:artworkURLString];
+    if (![artworkURL isEqualTo:_spotifyArtworkURL] && artworkURL != nil) {
+        _spotifyArtworkURL = artworkURL;
+        return [[NSImage alloc] initWithContentsOfURL:_spotifyArtworkURL];
+    }
+    return self.art;
+}
+
+- (NSImage *) setiTunesArtUsing:(MusicApplication *)application {
+    MusicTrack *currentTrack = application.currentTrack;
+
+    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
+    if ([artwork.data isKindOfClass:[NSImage class]]) {
+        return artwork.data;
+    } else {
+        return nil;
+    }
+}
 
 - (void)pausePlayPlayback {
+    // TODO: controll correct app
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     

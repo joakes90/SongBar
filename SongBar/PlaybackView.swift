@@ -62,7 +62,7 @@ class PlaybackView: NSView {
         })
 
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
-            self?.imageView.image = image.newValue
+            self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
         })
 
 //        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, options: .new, changeHandler: { [weak self] _, url in
