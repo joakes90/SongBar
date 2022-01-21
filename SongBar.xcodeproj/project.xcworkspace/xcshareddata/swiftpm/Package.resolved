@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "git@github.com:onevcat/Kingfisher.git",
+        "state": {
+          "branch": null,
+          "revision": "1a0c2df04b31ed7aa318354f3583faea24f006fc",
+          "version": "5.15.8"
+        }
+      },
+      {
+        "package": "LaunchAtLogin",
+        "repositoryURL": "git@github.com:sindresorhus/LaunchAtLogin.git",
+        "state": {
+          "branch": null,
+          "revision": "e8171b3e38a2816f579f58f3dac1522aa39efe41",
+          "version": "4.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
