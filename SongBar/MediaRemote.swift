@@ -20,12 +20,20 @@ import Kingfisher
     @objc dynamic var trackName: String = ""
 
     @objc dynamic var artistName: String = ""
-
+// TODO: set app icon before falling back to missing artwork image
     @objc dynamic var art: NSImage = NSImage(imageLiteralResourceName: "missingArtwork")
-
+// TODO: paused playing or stoped
     @objc dynamic var playbackState: NSNumber = 0
 
     @objc dynamic var playbackHeadPosition: NSNumber = 0
+    
+    private var sourceApp: NSApplication?
+
+    private var supportsSkip: Bool = false
+    
+    private var supports fastForward: Bool = false
+    
+    private var supportsRewind: Bool = false
 
     // Listen to Notifications
     private typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void // swiftlint:disable:this type_name
@@ -133,7 +141,6 @@ private extension MediaRemoteListner {
     }
 
     func currentMenuTitle(from metaData: [String: Any]) -> String {
-        // TODO: shorten to correct length
         let trackName = currentTrackName(from: metaData)
         let artistName = currentArtistName(from: metaData)
         if !artistName.isEmpty {
