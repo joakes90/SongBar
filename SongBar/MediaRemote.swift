@@ -87,15 +87,24 @@ import Kingfisher
         super.init()
 
         MRMediaRemoteRegisterForNowPlayingNotifications(DispatchQueue.main)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(nowPlayingDidUpdate(_:)),
-//                                               name: .mediaRemoteNowPlayingInfoDidChange,
-//                                               object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(isPlayingDidUpdate(_:)),
-//                                               name: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange,
-//                                               object: nil)
+
         NotificationCenter.default.publisher(for: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange)
+            .debounce(for: .milliseconds(250),
+                         scheduler: DispatchQueue.main)
+            .sink(receiveValue: { notification in
+                guard let userInfo = notification.userInfo as? [String: Any],
+                      let playbackState = userInfo["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int else { return }
+                switch playbackState {
+                case 1:
+                    self.playbackState = NSNumber(value: MusicEPlSPlaying.rawValue)
+                case 2:
+                    self.playbackState = NSNumber(value: MusicEPlSPaused.rawValue)
+                default:
+                    self.playbackState = NSNumber(value: MusicEPlSStopped.rawValue)
+                }
+            })
+            .store(in: &cancelables)
+        NotificationCenter.default.publisher(for: .mediaRemoteNowPlayingInfoDidChange)
             .debounce(for: .milliseconds(250),
                          scheduler: DispatchQueue.main)
             .sink { _ in
