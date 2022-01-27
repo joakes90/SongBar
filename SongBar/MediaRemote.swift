@@ -176,7 +176,7 @@ private extension MediaRemoteListner {
         if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
            return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
         } else {
-            return sourceApp?.icon ?? NSImage(imageLiteralResourceName: "missingArtwork")
+            return sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
         }
     }
 }
@@ -207,7 +207,6 @@ private extension MediaRemoteListner {
             return
         }
         let systemPlaybackState = (info["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int)
-        print(systemPlaybackState)
     }
 }
 
@@ -215,4 +214,10 @@ private extension Notification.Name {
     static let mediaRemoteNowPlayingInfoDidChange = Notification.Name("kMRMediaRemoteNowPlayingInfoDidChangeNotification")
     static let mediaRemoteNowPlayingApplicationPlaybackStateDidChange = Notification.Name("kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification")
 // swiftlint:disable:previous identifier_name
+}
+
+private extension NSRunningApplication {
+    var iconForPresenting: NSImage? {
+        self.bundleIdentifier == "com.apple.WebKit.GPU" ? NSImage(named: "safari") : icon
+    }
 }
