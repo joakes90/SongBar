@@ -22,16 +22,16 @@ import Kingfisher
     @objc dynamic var artistName: String = ""
 // TODO: set app icon before falling back to missing artwork image
     @objc dynamic var art: NSImage = NSImage(imageLiteralResourceName: "missingArtwork")
-// TODO: paused playing or stoped
+
     @objc dynamic var playbackState: NSNumber = 0
 
     @objc dynamic var playbackHeadPosition: NSNumber = 0
     
-    private var sourceApp: NSApplication?
+    private var sourceApp: NSRunningApplication?
 
     private var supportsSkip: Bool = false
     
-    private var supports fastForward: Bool = false
+    private var supportsFastForward: Bool = false
     
     private var supportsRewind: Bool = false
 
@@ -44,6 +44,11 @@ import Kingfisher
     private typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
     private let MRMediaRemoteGetNowPlayingInfoPointer: UnsafeMutableRawPointer
     private let MRMediaRemoteGetNowPlayingInfo: MRMediaRemoteGetNowPlayingInfoFunction
+
+    // Get now playing application PID
+    private typealias MRMediaRemoteGetNowPlayingApplicationPIDFunction = @convention(c) (DispatchQueue, @escaping (Int) -> Void) -> Void
+    private let MRMediaRemoteGetNowPlayingApplicationPIDPointer: UnsafeMutableRawPointer
+    private let MRMediaRemoteGetNowPlayingApplicationPID: MRMediaRemoteGetNowPlayingApplicationPIDFunction
 
     // Get is playing
     private typealias MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction = @convention(c) (DispatchQueue, @escaping (Bool) -> Void) -> Void
@@ -61,6 +66,10 @@ import Kingfisher
         // configure playback state function
         MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingApplicationIsPlaying" as CFString)
         MRMediaRemoteGetNowPlayingApplicationPlaybackState = unsafeBitCast(MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer, to: MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction.self)
+
+        // configure now playing app PID function
+        MRMediaRemoteGetNowPlayingApplicationPIDPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteGetNowPlayingApplicationPID" as CFString)
+        MRMediaRemoteGetNowPlayingApplicationPID = unsafeBitCast(MRMediaRemoteGetNowPlayingApplicationPIDPointer, to: MRMediaRemoteGetNowPlayingApplicationPIDFunction.self)
         
         // configure register for notifications function
         MRMediaRemoteRegisterForNowPlayingNotificationsPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteRegisterForNowPlayingNotifications" as CFString)
@@ -88,11 +97,25 @@ import Kingfisher
             self.menuTitle = self.currentMenuTitle(from: information)
             self.art = self.currentArt(from: information)
         })
-        // TODO: Get playback state
-        MRMediaRemoteGetNowPlayingApplicationPlaybackState(DispatchQueue.main, { [weak self] (information) in
+
+        MRMediaRemoteGetNowPlayingApplicationPID(DispatchQueue.main, { [weak self] (pid) in
             guard let self = self else { return }
-            print(information)
+            self.sourceApp = self.application(for: pid)
         })
+
+        MRMediaRemoteGetNowPlayingApplicationPlaybackState(DispatchQueue.main, { [weak self] (playing) in
+            guard let self = self else { return }
+            switch (playing, self.sourceApp) {
+            case (true, _):
+                self.playbackState = NSNumber(value: MusicEPlSPlaying.rawValue)
+            case (false, .some):
+                self.playbackState = NSNumber(value: MusicEPlSPaused.rawValue)
+            case (false, .none):
+                self.playbackState = NSNumber(value: MusicEPlSStopped.rawValue)
+            }
+        })
+        
+        
     }
 
     func pausePlayPlayback() {
@@ -153,8 +176,20 @@ private extension MediaRemoteListner {
         if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
            return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
         } else {
-            return NSImage(imageLiteralResourceName: "missingArtwork")
+            return sourceApp?.icon ?? NSImage(imageLiteralResourceName: "missingArtwork")
         }
+    }
+}
+
+// Application Lookup
+private extension MediaRemoteListner {
+
+    func application(for pid: Int) -> NSRunningApplication? {
+        NSWorkspace.shared.runningApplications
+            .filter({
+                $0.processIdentifier == pid
+            })
+            .first
     }
 }
 
