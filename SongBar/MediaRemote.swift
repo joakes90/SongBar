@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Combine
 import Kingfisher
 
 @objc class MediaRemoteListner: NSObject, MediaWatching {
@@ -20,20 +21,28 @@ import Kingfisher
     @objc dynamic var trackName: String = ""
 
     @objc dynamic var artistName: String = ""
-// TODO: set app icon before falling back to missing artwork image
+
     @objc dynamic var art: NSImage = NSImage(imageLiteralResourceName: "missingArtwork")
 
     @objc dynamic var playbackState: NSNumber = 0
 
     @objc dynamic var playbackHeadPosition: NSNumber = 0
-    
+
     private var sourceApp: NSRunningApplication?
+
+    private var trackDuration: Double?
+
+    private var elapsedTime: Double?
+    
+    private var lastUpdate: Date?
 
     private var supportsSkip: Bool = false
     
     private var supportsFastForward: Bool = false
     
     private var supportsRewind: Bool = false
+
+    private var cancelables = Set<AnyCancellable>()
 
     // Listen to Notifications
     private typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void // swiftlint:disable:this type_name
@@ -78,14 +87,21 @@ import Kingfisher
         super.init()
 
         MRMediaRemoteRegisterForNowPlayingNotifications(DispatchQueue.main)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(nowPlayingDidUpdate(_:)),
-                                               name: .mediaRemoteNowPlayingInfoDidChange,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(isPlayingDidUpdate(_:)),
-                                               name: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange,
-                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(nowPlayingDidUpdate(_:)),
+//                                               name: .mediaRemoteNowPlayingInfoDidChange,
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(isPlayingDidUpdate(_:)),
+//                                               name: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange,
+//                                               object: nil)
+        NotificationCenter.default.publisher(for: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange)
+            .debounce(for: .milliseconds(250),
+                         scheduler: DispatchQueue.main)
+            .sink { _ in
+                self.populateMusicData()
+            }
+            .store(in: &cancelables)
 
     }
 
@@ -95,6 +111,9 @@ import Kingfisher
             self.trackName = self.currentTrackName(from: information)
             self.artistName = self.currentArtistName(from: information)
             self.menuTitle = self.currentMenuTitle(from: information)
+            self.trackDuration = self.trackDuration(from: information)
+            self.elapsedTime = self.elapsedTime(from: information)
+            self.lastUpdate = self.lastUpdate(from: information)
             self.art = self.currentArt(from: information)
         })
 
@@ -131,7 +150,10 @@ import Kingfisher
     }
 
     func incrementPlayHeadPosition() {
-        print("increment")
+        guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
+        let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
+        let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
+        playbackHeadPosition = NSNumber(value: percentage)
     }
 
     func setPlaybacktoWithPercentage(_ percentage: NSNumber) {
@@ -173,11 +195,24 @@ private extension MediaRemoteListner {
     }
 
     func currentArt(from metaData: [String: Any]) -> NSImage {
+        print("current art")
         if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
            return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
         } else {
             return sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
         }
+    }
+
+    func trackDuration(from metaData: [String: Any]) -> Double? {
+        metaData["kMRMediaRemoteNowPlayingInfoDuration"] as? Double
+    }
+
+    func elapsedTime(from metaData: [String: Any]) -> Double? {
+        metaData["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double
+    }
+
+    func lastUpdate(from metaData: [String: Any]) -> Date? {
+        metaData["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date
     }
 }
 
@@ -197,16 +232,11 @@ private extension MediaRemoteListner {
 private extension MediaRemoteListner {
 
     @objc func nowPlayingDidUpdate(_ notification: NSNotification) {
-        print("updated")
         populateMusicData()
     }
 
     @objc func isPlayingDidUpdate(_ notification: NSNotification) {
         print("play/pause")
-        guard let info = notification.userInfo as! [String: Any]? else {
-            return
-        }
-        let systemPlaybackState = (info["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int)
     }
 }
 

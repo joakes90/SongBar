@@ -29,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) incrementPlayHeadPosition;
 - (void)setPlaybacktoWithPercentage:(NSNumber * _Nonnull)percentage;
 
-// TODO: Set up a common playback type enum
-
 @end
 
 @interface PlaybackListener : NSObject <MediaWatching>
