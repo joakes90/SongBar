@@ -131,7 +131,7 @@ class PlaybackView: NSView {
 
     func beginPlayheadPolling() {
         guard timer == nil else { return }
-        let timer = Timer(fire: Date(), interval: 1.0, repeats: true) { [weak self] _ in
+        let timer = Timer(fire: Date(), interval: 0.250, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if !self.dragging {
                 self.playbackListener.incrementPlayHeadPosition()
