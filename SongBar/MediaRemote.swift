@@ -64,6 +64,57 @@ import Kingfisher
     private let MRMediaRemoteGetNowPlayingApplicationPlaybackStatePointer: UnsafeMutableRawPointer
     private let MRMediaRemoteGetNowPlayingApplicationPlaybackState: MRMediaRemoteGetNowPlayingApplicationPlaybackStateFunction
 
+    // Send commands to media remote
+    private typealias MRMediaRemoteSendCommandFunction = @convention(c) (MRMediaRemoteCommand, NSDictionary?) -> Bool
+    private let MRMediaRemoteSendCommandPointer: UnsafeMutableRawPointer
+    private let MRMediaRemoteSendCommand: MRMediaRemoteSendCommandFunction
+    
+    @objc enum MRMediaRemoteCommand: Int {
+        /*
+         * Use nil for userInfo.
+         */
+        case MRMediaRemoteCommandPlay
+        case MRMediaRemoteCommandPause
+        case MRMediaRemoteCommandTogglePlayPause
+        case MRMediaRemoteCommandStop
+        case MRMediaRemoteCommandNextTrack
+        case MRMediaRemoteCommandPreviousTrack
+        case MRMediaRemoteCommandAdvanceShuffleMode
+        case MRMediaRemoteCommandAdvanceRepeatMode
+        case MRMediaRemoteCommandBeginFastForward
+        case MRMediaRemoteCommandEndFastForward
+        case MRMediaRemoteCommandBeginRewind
+        case MRMediaRemoteCommandEndRewind
+        case MRMediaRemoteCommandRewind15Seconds
+        case MRMediaRemoteCommandFastForward15Seconds
+        case MRMediaRemoteCommandRewind30Seconds
+        case MRMediaRemoteCommandFastForward30Seconds
+        case MRMediaRemoteCommandToggleRecord
+        case MRMediaRemoteCommandSkipForward
+        case MRMediaRemoteCommandSkipBackward
+        case MRMediaRemoteCommandChangePlaybackRate
+
+        /*
+         * Use a NSDictionary for userInfo, which contains three keys:
+         * kMRMediaRemoteOptionTrackID
+         * kMRMediaRemoteOptionStationID
+         * kMRMediaRemoteOptionStationHash
+         */
+        case MRMediaRemoteCommandRateTrack
+        case MRMediaRemoteCommandLikeTrack
+        case MRMediaRemoteCommandDislikeTrack
+        case MRMediaRemoteCommandBookmarkTrack
+
+        /*
+         * Use nil for userInfo.
+         */
+        case MRMediaRemoteCommandSeekToPlaybackPosition
+        case MRMediaRemoteCommandChangeRepeatMode
+        case MRMediaRemoteCommandChangeShuffleMode
+        case MRMediaRemoteCommandEnableLanguageOption
+        case MRMediaRemoteCommandDisableLanguageOption
+    }
+
     override init() {
         // link to media remote framework
         mediaRemoteBundle =  CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
@@ -83,6 +134,10 @@ import Kingfisher
         // configure register for notifications function
         MRMediaRemoteRegisterForNowPlayingNotificationsPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteRegisterForNowPlayingNotifications" as CFString)
         MRMediaRemoteRegisterForNowPlayingNotifications = unsafeBitCast(MRMediaRemoteRegisterForNowPlayingNotificationsPointer, to: MRMediaRemoteRegisterForNowPlayingNotificationsFunction.self)
+
+        // configure message passing
+        MRMediaRemoteSendCommandPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteSendCommand" as CFString)
+        MRMediaRemoteSendCommand = unsafeBitCast(MRMediaRemoteSendCommandPointer, to: MRMediaRemoteSendCommandFunction.self)
 
         super.init()
 
@@ -147,15 +202,17 @@ import Kingfisher
     }
 
     func pausePlayPlayback() {
-        print("play pause")
+        send(command: .MRMediaRemoteCommandTogglePlayPause)
     }
 
     func rewindPlayback() {
-        print("rewind")
+        let command: MRMediaRemoteCommand = /*.MRMediaRemoteCommandRewind15Seconds / MRMediaRemoteCommandRewind30Seconds :*/ .MRMediaRemoteCommandPreviousTrack
+        send(command: command)
     }
 
     func fastForwardPlayback() {
-        print("fastforward")
+        let command: MRMediaRemoteCommand = /*.MRMediaRemoteCommandFastForward15Seconds / MRMediaRemoteCommandFastForward30Seconds :*/ .MRMediaRemoteCommandNextTrack
+        send(command: command)
     }
 
     func incrementPlayHeadPosition() {
@@ -183,8 +240,12 @@ import Kingfisher
 
 }
 
-// Media data lookup
+// Media data lookup and MRMediaRemote message passing
 private extension MediaRemoteListner {
+
+    @discardableResult func send(command: MRMediaRemoteCommand, with userInfo: NSDictionary? = nil) -> Bool {
+        return MRMediaRemoteSendCommand(command, userInfo)
+    }
 
     func currentTrackName(from metaData: [String: Any]) -> String {
         return metaData["kMRMediaRemoteNowPlayingInfoTitle"] as? String ?? titleString
@@ -204,7 +265,6 @@ private extension MediaRemoteListner {
     }
 
     func currentArt(from metaData: [String: Any]) -> NSImage {
-        print("current art")
         if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
            return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
         } else {

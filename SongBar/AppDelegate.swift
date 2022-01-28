@@ -30,13 +30,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
-        sysBar.title = "SongBar"
+        sysBar.button?.title = "SongBar"
         sysBar.menu = menu
         sysBar.isVisible = true
         menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
                   let title = title.newValue else { return }
-            self.sysBar.title = self.menuTitleOfMaximumLength(title: title)
+            self.sysBar.button?.title = self.menuTitleOfMaximumLength(title: title)
         })
         playbackListener?.populateMusicData()
     }
