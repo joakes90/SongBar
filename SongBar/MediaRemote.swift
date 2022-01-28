@@ -222,7 +222,7 @@ import Kingfisher
         playbackHeadPosition = NSNumber(value: percentage)
     }
 
-    func setPlaybacktoWithPercentage(_ percentage: NSNumber) {
+    func setPlaybackToPercentage(_ percentage: NSNumber) {
         print("set play head")
     }
 
@@ -233,11 +233,6 @@ import Kingfisher
     func playbackHeadPercentage(for track: MusicTrack, in application: MusicApplication) -> NSNumber {
         return NSNumber(value: 42)
     }
-
-    func setPlaybackto(percentage: NSNumber) {
-        print("set playback")
-    }
-
 }
 
 // Media data lookup and MRMediaRemote message passing

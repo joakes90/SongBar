@@ -261,7 +261,7 @@ typedef enum observedApplication {
     [self setValue:headPercentage forKey:@"playbackHeadPosition"];
 }
 
-- (void)setPlaybacktoWithPercentage:(NSNumber * _Nonnull)percentage {
+- (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage {
     MusicApplication *application;
     MusicTrack *track;
     switch (_observedApplication) {

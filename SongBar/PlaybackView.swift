@@ -168,7 +168,7 @@ class PlaybackView: NSView {
         case .leftMouseDown, .leftMouseDragged:
             dragging = true
         case .leftMouseUp:
-            playbackListener.setPlaybacktoWithPercentage(NSNumber(value: sender.doubleValue))
+            playbackListener.setPlaybackToPercentage(NSNumber(value: sender.doubleValue))
             dragging = false
         default:
             dragging = false

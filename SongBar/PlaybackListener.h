@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application;
 - (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track;
 - (void) incrementPlayHeadPosition;
-- (void)setPlaybacktoWithPercentage:(NSNumber * _Nonnull)percentage;
+- (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage;
 
 @end
 
