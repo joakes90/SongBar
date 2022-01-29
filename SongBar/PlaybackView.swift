@@ -51,14 +51,11 @@ class PlaybackView: NSView {
 
         songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
             guard let self = self else { return }
-            let attributedTitle = self.attributedText(from: (name.newValue ?? "") )
-            self.titleTextField?.attributedStringValue = attributedTitle
+            self.titleTextField.stringValue = name.newValue ?? ""
         })
 
         artistObserver = observe(\.playbackListener.artistName, options: .new, changeHandler: { [weak self] _, artist in
-            let artist: String = (artist.newValue ?? "")
-            guard let attributedArtist = self?.attributedText(from: (artist), withSize: 18.0) else { return }
-            self?.artistTextField.attributedStringValue = attributedArtist
+            self?.artistTextField.stringValue = artist.newValue ?? ""
         })
 
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
@@ -122,10 +119,10 @@ class PlaybackView: NSView {
     private func playbackButton(for state: MusicEPlS) {
         switch state {
         // Playing
-        case MusicEPlS(rawValue: 1800426320):
-            pausePlayButton.image = #imageLiteral(resourceName: "pauseplaybackcontrol")
+        case MusicEPlS(rawValue: MusicEPlSPlaying.rawValue):
+            pausePlayButton.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: "Play")
         default:
-            pausePlayButton.image = #imageLiteral(resourceName: "playplaybackcontol")
+            pausePlayButton.image = NSImage(systemSymbolName: "pause.fill", accessibilityDescription: "Pause")
         }
     }
 

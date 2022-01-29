@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,25 +28,25 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="eBw-6w-6pN"/>
                 </imageView>
                 <box boxType="custom" cornerRadius="8" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="3jC-Ul-rUr">
-                    <rect key="frame" x="20" y="32" width="380" height="149"/>
+                    <rect key="frame" x="20" y="24" width="380" height="149"/>
                     <view key="contentView" id="wGj-a0-0Tj">
                         <rect key="frame" x="1" y="1" width="378" height="147"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zzo-1l-oFC">
-                                <rect key="frame" x="-2" y="119" width="380" height="28"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Title" drawsBackground="YES" allowsEditingTextAttributes="YES" id="eTM-Uf-Tdk">
+                                <rect key="frame" x="-4" y="119" width="384" height="28"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Title" allowsEditingTextAttributes="YES" id="eTM-Uf-Tdk">
                                     <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZlW-NU-NYD">
-                                <rect key="frame" x="-2" y="91" width="380" height="21"/>
-                                <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Artist Label" drawsBackground="YES" allowsEditingTextAttributes="YES" id="S57-c8-ONa">
+                                <rect key="frame" x="-4" y="91" width="384" height="21"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingMiddle" allowsUndo="NO" alignment="center" title="Artist Label" allowsEditingTextAttributes="YES" id="S57-c8-ONa">
                                     <font key="font" metaFont="system" size="18"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="never" translatesAutoresizingMaskIntoConstraints="NO" id="hR1-rS-P1B">
@@ -69,15 +69,16 @@
                             <constraint firstAttribute="trailing" secondItem="ZlW-NU-NYD" secondAttribute="trailing" id="xGU-HQ-yxo"/>
                         </constraints>
                     </view>
-                    <color key="fillColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="0.95602777202430278" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="borderColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                 </box>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="QVl-mh-d8K">
-                    <rect key="frame" x="178" y="32" width="64" height="64"/>
+                    <rect key="frame" x="186" y="30" width="48.5" height="52"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="64" id="0FR-WB-Rv8"/>
-                        <constraint firstAttribute="width" constant="64" id="ayv-Oi-Lf8"/>
+                        <constraint firstAttribute="height" constant="48" id="0FR-WB-Rv8"/>
+                        <constraint firstAttribute="width" constant="48" id="ayv-Oi-Lf8"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="pauseplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="4Bv-Rr-OV1">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4Bv-Rr-OV1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -86,12 +87,12 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="l9s-YQ-vQi">
-                    <rect key="frame" x="252" y="40" width="48" height="48"/>
+                    <rect key="frame" x="244" y="30.5" width="48" height="51"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="5uX-xw-43k"/>
                         <constraint firstAttribute="width" constant="48" id="Aaa-M4-IMQ"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="3zK-Jd-qwT">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -100,12 +101,12 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Biq-eR-z9h">
-                    <rect key="frame" x="120" y="40" width="48" height="48"/>
+                    <rect key="frame" x="128" y="30.5" width="48" height="51"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="AgL-th-NZn"/>
                         <constraint firstAttribute="height" constant="48" id="C7n-85-o4c"/>
                     </constraints>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" inset="2" id="qZh-O6-hGg">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -115,7 +116,7 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="hR1-rS-P1B" secondAttribute="bottom" id="7Lh-xX-I3M"/>
+                <constraint firstItem="QVl-mh-d8K" firstAttribute="top" secondItem="hR1-rS-P1B" secondAttribute="bottom" constant="8" id="7Lh-xX-I3M"/>
                 <constraint firstItem="QVl-mh-d8K" firstAttribute="centerX" secondItem="fT9-e6-EMR" secondAttribute="centerX" id="L68-Vw-ka8"/>
                 <constraint firstItem="3jC-Ul-rUr" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="Nfp-XY-gvb"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="OqS-vr-ihl"/>
@@ -128,14 +129,14 @@
                 <constraint firstAttribute="trailing" secondItem="3jC-Ul-rUr" secondAttribute="trailing" constant="20" symbolic="YES" id="nGQ-sM-ik7"/>
                 <constraint firstItem="l9s-YQ-vQi" firstAttribute="leading" secondItem="QVl-mh-d8K" secondAttribute="trailing" constant="10" symbolic="YES" id="slL-uU-4dZ"/>
                 <constraint firstItem="fT9-e6-EMR" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="wdY-ip-liS"/>
-                <constraint firstItem="3jC-Ul-rUr" firstAttribute="bottom" secondItem="QVl-mh-d8K" secondAttribute="bottom" id="xZM-TU-Iok"/>
+                <constraint firstItem="3jC-Ul-rUr" firstAttribute="bottom" secondItem="QVl-mh-d8K" secondAttribute="bottom" constant="8" id="xZM-TU-Iok"/>
             </constraints>
             <point key="canvasLocation" x="-181" y="232"/>
         </customView>
     </objects>
     <resources>
-        <image name="fastforwardplaybackcontrol" width="34" height="32"/>
-        <image name="pauseplaybackcontrol" width="29" height="32"/>
-        <image name="rewindplaybackcontrol" width="34" height="32"/>
+        <image name="backward.fill" catalog="system" width="19" height="12"/>
+        <image name="forward.fill" catalog="system" width="19" height="12"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
     </resources>
 </document>
