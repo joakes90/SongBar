@@ -69,6 +69,11 @@ import Kingfisher
     private let MRMediaRemoteSendCommandPointer: UnsafeMutableRawPointer
     private let MRMediaRemoteSendCommand: MRMediaRemoteSendCommandFunction
     
+    // Set elpsed time
+    private typealias MRMediaRemoteSetElapsedTimeFunction = @convention(c) (Double) -> Void
+    private let MRMediaRemoteSetElapsedTimePointer: UnsafeMutableRawPointer
+    private let MRMediaRemoteSetElapsedTime: MRMediaRemoteSetElapsedTimeFunction
+    
     @objc enum MRMediaRemoteCommand: Int {
         /*
          * Use nil for userInfo.
@@ -138,6 +143,10 @@ import Kingfisher
         // configure message passing
         MRMediaRemoteSendCommandPointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteSendCommand" as CFString)
         MRMediaRemoteSendCommand = unsafeBitCast(MRMediaRemoteSendCommandPointer, to: MRMediaRemoteSendCommandFunction.self)
+        
+        // configure set elapsed time
+        MRMediaRemoteSetElapsedTimePointer = CFBundleGetFunctionPointerForName(mediaRemoteBundle, "MRMediaRemoteSetElapsedTime" as CFString)
+        MRMediaRemoteSetElapsedTime = unsafeBitCast(MRMediaRemoteSetElapsedTimePointer, to: MRMediaRemoteSetElapsedTimeFunction.self)
         
         super.init()
         
@@ -220,15 +229,13 @@ import Kingfisher
         guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
         let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
         let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
-        if playbackState.uint32Value == MusicEPlSPlaying.rawValue {
-            playbackHeadPosition = NSNumber(value: percentage)
-        }
+        playbackHeadPosition = NSNumber(value: percentage)
     }
     
     func setPlaybackToPercentage(_ percentage: NSNumber) {
-        // TODO: Implement this
-        //        FOUNDATION_EXPORT void MRMediaRemoteSetElapsedTime(double elapsedTime);
-        
+        guard let duration = trackDuration else { return }
+        let time = (duration / 100) * percentage.doubleValue
+        MRMediaRemoteSetElapsedTime(time)
     }
     
     func playbackHeadPosition(at percentage: NSNumber, in track: MusicTrack) -> NSNumber {
