@@ -44,6 +44,10 @@ import Kingfisher
     
     private var cancelables = Set<AnyCancellable>()
     
+    private var debounceHeadPosition: Bool {
+        !(lastUpdate?.timeIntervalSinceNow  ?? -1 < -1)
+    }
+    
     // Listen to Notifications
     private typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void // swiftlint:disable:this type_name
     private let MRMediaRemoteRegisterForNowPlayingNotificationsPointer: UnsafeMutableRawPointer // swiftlint:disable:this identifier_name
@@ -158,6 +162,7 @@ import Kingfisher
             .sink(receiveValue: { notification in
                 guard let userInfo = notification.userInfo as? [String: Any],
                       let playbackState = userInfo["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int else { return }
+                self.lastUpdate = Date()
                 switch playbackState {
                 case 1:
                     self.playbackState = NSNumber(value: MusicEPlSPlaying.rawValue)
@@ -212,6 +217,7 @@ import Kingfisher
     
     func pausePlayPlayback() {
         playbackState = MusicEPlS(playbackState.uint32Value) == MusicEPlSPlaying ? NSNumber(value:MusicEPlSPaused.rawValue) : NSNumber(value: MusicEPlSPlaying.rawValue)
+        lastUpdate = Date()
         send(command: .MRMediaRemoteCommandTogglePlayPause)
     }
     
@@ -229,12 +235,15 @@ import Kingfisher
         guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
         let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
         let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
-        playbackHeadPosition = NSNumber(value: percentage)
+        if !debounceHeadPosition {
+            playbackHeadPosition = NSNumber(value: percentage)
+        }
     }
     
     func setPlaybackToPercentage(_ percentage: NSNumber) {
         guard let duration = trackDuration else { return }
         let time = (duration / 100) * percentage.doubleValue
+        lastUpdate = Date()
         MRMediaRemoteSetElapsedTime(time)
     }
     

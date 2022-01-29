@@ -171,7 +171,7 @@ class PlaybackView: NSView {
             playbackListener.setPlaybackToPercentage(NSNumber(value: sender.doubleValue))
             dragging = false
         default:
-            dragging = false
+            return
         }
     }
 }
