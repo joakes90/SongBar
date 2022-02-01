@@ -18,7 +18,8 @@ class PlaybackView: NSView {
     @IBOutlet weak var titleTextField: NSTextField!
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
-
+    @IBOutlet weak var contentEffectsView: NSVisualEffectView!
+    
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
     #else
@@ -48,6 +49,8 @@ class PlaybackView: NSView {
 
     private func commonInit() {
         loadFromNib()
+        contentEffectsView.wantsLayer = true
+        contentEffectsView.layer?.cornerRadius = 8.0
 
         songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
             guard let self = self else { return }
