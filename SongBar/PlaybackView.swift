@@ -83,6 +83,12 @@ class PlaybackView: NSView {
             guard let intValue = state.newValue?.uint32Value else { return }
             let playbackState = MusicEPlS(rawValue: intValue)
             self?.playbackButton(for: playbackState)
+            if playbackState == MusicEPlSStopped {
+                self?.playbackProgressIndicator.doubleValue = 0.0
+                self?.playbackProgressIndicator.isEnabled = false
+            } else {
+                self?.playbackProgressIndicator.isEnabled = true
+            }
         })
 
         playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, options: .new, changeHandler: { [weak self] _, percentage in
