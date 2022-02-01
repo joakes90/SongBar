@@ -107,18 +107,6 @@ class PlaybackView: NSView {
         addSubview(view)
     }
 
-    private func attributedText(from string: String, withSize fontSize: CGFloat = 24.0) -> NSAttributedString {
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.alignment = .center
-        let attributedString = NSAttributedString(string: string,
-                                                  attributes: [.strokeWidth: -1.0,
-                                                               .strokeColor: NSColor.white,
-                                                               .foregroundColor: NSColor.black,
-                                                               .paragraphStyle: pStyle,
-                                                               .font: NSFont.boldSystemFont(ofSize: fontSize)])
-        return attributedString
-    }
-
     private func playbackButton(for state: MusicEPlS) {
         switch state {
         // Playing
