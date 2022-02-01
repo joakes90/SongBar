@@ -22,9 +22,9 @@ class SongBarSliderCell: NSSliderCell {
     override func drawBar(inside rect: NSRect, flipped: Bool) {
         let playedRect = NSRect(origin: rect.origin, size: CGSize(width: playedWidth, height: rect.height))
         let unplayedRect = NSRect(x: playedWidth, y: rect.origin.y, width: unplayedWidth, height: rect.height)
-        NSColor.darkGray.set()
+        NSColor.textColor.set()
         playedRect.fill()
-        NSColor.lightGray.set()
+        NSColor.textBackgroundColor.set()
         unplayedRect.fill()
     }
 
