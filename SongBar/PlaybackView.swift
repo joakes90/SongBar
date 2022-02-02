@@ -117,9 +117,9 @@ class PlaybackView: NSView {
         switch state {
         // Playing
         case MusicEPlS(rawValue: MusicEPlSPlaying.rawValue):
-            pausePlayButton.image = NSImage(systemSymbolName: "pause.fill", accessibilityDescription: "Pause")
+            pausePlayButton.image = NSImage(named: "pauseplaybackcontrol")
         default:
-            pausePlayButton.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: "Play")
+            pausePlayButton.image = NSImage(named: "playplaybackcontol")
         }
     }
 

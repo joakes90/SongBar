@@ -62,50 +62,47 @@
                                 <action selector="sliderValueDidChange:" target="-2" id="dBC-7W-TtZ"/>
                             </connections>
                         </slider>
-                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmg-fa-wKX">
-                            <rect key="frame" x="110" y="8" width="160" height="48"/>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmg-fa-wKX">
+                            <rect key="frame" x="102" y="8" width="176" height="48"/>
                             <subviews>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Biq-eR-z9h">
-                                    <rect key="frame" x="0.0" y="-1.5" width="48" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="AgL-th-NZn"/>
                                         <constraint firstAttribute="height" constant="48" id="C7n-85-o4c"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="backward.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" alternateImage="backward.fill" catalog="system" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <color key="contentTintColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <action selector="rewindButtonClicked:" target="-2" id="bu8-Ua-1lK"/>
                                     </connections>
                                 </button>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="QVl-mh-d8K">
-                                    <rect key="frame" x="56" y="-2" width="48.5" height="52"/>
+                                    <rect key="frame" x="64" y="0.0" width="48" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="0FR-WB-Rv8"/>
                                         <constraint firstAttribute="width" constant="48" id="ayv-Oi-Lf8"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4Bv-Rr-OV1">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="playplaybackcontol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4Bv-Rr-OV1">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <color key="contentTintColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <action selector="pausePlayButtonClicked:" target="-2" id="s67-e7-kHj"/>
                                     </connections>
                                 </button>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="l9s-YQ-vQi">
-                                    <rect key="frame" x="112" y="-1.5" width="48" height="51"/>
+                                    <rect key="frame" x="128" y="0.0" width="48" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="5uX-xw-43k"/>
                                         <constraint firstAttribute="width" constant="48" id="Aaa-M4-IMQ"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="forward.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" alternateImage="forward.fill" catalog="system" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <color key="contentTintColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
                                         <action selector="fastForwardButtonClicked:" target="-2" id="MAX-iS-VOa"/>
                                     </connections>
@@ -154,13 +151,15 @@
                 <constraint firstItem="MZf-DW-112" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" symbolic="YES" id="xwn-us-ZPi"/>
                 <constraint firstAttribute="trailing" secondItem="MZf-DW-112" secondAttribute="trailing" constant="20" symbolic="YES" id="zmZ-0g-qY3"/>
             </constraints>
-            <point key="canvasLocation" x="-296.5" y="247.5"/>
+            <point key="canvasLocation" x="-297" y="247.5"/>
         </customView>
     </objects>
     <resources>
         <image name="backward.fill" catalog="system" width="19" height="12"/>
+        <image name="fastforwardplaybackcontrol" width="34" height="32"/>
         <image name="forward.fill" catalog="system" width="19" height="12"/>
         <image name="missingArtwork" width="420" height="420"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="playplaybackcontol" width="29" height="32"/>
+        <image name="rewindplaybackcontrol" width="34" height="32"/>
     </resources>
 </document>
