@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="420" height="429"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="missingArtwork" id="eBw-6w-6pN"/>
                 </imageView>
-                <visualEffectView blendingMode="withinWindow" material="HUDWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="MZf-DW-112">
+                <visualEffectView wantsLayer="YES" blendingMode="withinWindow" material="HUDWindow" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="MZf-DW-112">
                     <rect key="frame" x="20" y="20" width="380" height="149"/>
                     <subviews>
                         <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzo-1l-oFC">
