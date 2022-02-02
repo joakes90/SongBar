@@ -71,7 +71,7 @@
                                         <constraint firstAttribute="width" constant="48" id="AgL-th-NZn"/>
                                         <constraint firstAttribute="height" constant="48" id="C7n-85-o4c"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" alternateImage="backward.fill" catalog="system" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="rewindplaybackcontrol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qZh-O6-hGg">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -99,7 +99,7 @@
                                         <constraint firstAttribute="height" constant="48" id="5uX-xw-43k"/>
                                         <constraint firstAttribute="width" constant="48" id="Aaa-M4-IMQ"/>
                                     </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" alternateImage="forward.fill" catalog="system" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="fastforwardplaybackcontrol" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="3zK-Jd-qwT">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -155,9 +155,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="backward.fill" catalog="system" width="19" height="12"/>
         <image name="fastforwardplaybackcontrol" width="34" height="32"/>
-        <image name="forward.fill" catalog="system" width="19" height="12"/>
         <image name="missingArtwork" width="420" height="420"/>
         <image name="playplaybackcontol" width="29" height="32"/>
         <image name="rewindplaybackcontrol" width="34" height="32"/>
