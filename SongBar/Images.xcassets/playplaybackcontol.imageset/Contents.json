@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "PlayIconTemplate_Normal.png",
+      "filename" : "Regular-Sm.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "PlayIconTemplate_Normal@2x.png",
+      "filename" : "Regular-S.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

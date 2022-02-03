@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "rewind.png",
+      "filename" : "left-Sm.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "RewindIconTemplate_Normal.png",
+      "filename" : "path115_ls.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "rewind@2x.png",
+      "filename" : "left-S.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "RewindIconTemplate_Normal@2x.png",
+      "filename" : "path115_l.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

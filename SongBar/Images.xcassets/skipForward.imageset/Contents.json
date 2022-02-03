@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Regular-Sm.png",
+      "filename" : "skipforward.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "path115_sm.png",
+      "filename" : "skipForward_d.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "Regular-S.png",
+      "filename" : "skipForward@2x.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "path115.png",
+      "filename" : "skipForward_d@2x.png",
       "idiom" : "mac",
       "scale" : "2x"
     }
