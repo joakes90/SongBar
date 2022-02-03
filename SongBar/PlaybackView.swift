@@ -152,6 +152,14 @@ class PlaybackView: NSView {
         playbackListener.fastForwardPlayback()
     }
 
+    @IBAction func skipForwardButtonClicked(_ sender: Any) {
+        playbackListener.skipForward()
+    }
+
+    @IBAction func skipBackwardButttonClicked(_ sender: Any) {
+        playbackListener.skipBackward()
+    }
+    
     @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false

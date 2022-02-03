@@ -20,12 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSNumber *playbackState;
 @property (strong, nonatomic, readonly) NSNumber *playbackHeadPosition;
 
-- (void) populateMusicData;
+- (void)populateMusicData;
 - (void)pausePlayPlayback;
 - (void)rewindPlayback;
 - (void)fastForwardPlayback;
-- (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application;
-- (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track;
+- (void)skipForward;
+- (void)skipBackward;
+
+//- (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application;
+//- (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track;
 - (void) incrementPlayHeadPosition;
 - (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage;
 

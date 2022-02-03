@@ -75,6 +75,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="skipBackwardButttonClicked:" target="-2" id="PY1-Uc-EUA"/>
+                                    </connections>
                                 </button>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Biq-eR-z9h">
                                     <rect key="frame" x="40" y="0.0" width="48" height="48"/>
@@ -128,6 +131,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="skipForwardButtonClicked:" target="-2" id="xpB-6V-Lej"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>

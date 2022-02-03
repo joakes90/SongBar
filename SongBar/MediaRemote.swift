@@ -36,10 +36,6 @@ import Kingfisher
     
     private var lastUpdate: Date?
     
-    private var supportsSkip: Bool = false
-    
-    private var supportsFastForward: Bool = false
-    
     private var supportsRewind: Bool = false
     
     private var cancelables = Set<AnyCancellable>()
@@ -230,12 +226,32 @@ import Kingfisher
         let command: MRMediaRemoteCommand = /*.MRMediaRemoteCommandFastForward15Seconds / MRMediaRemoteCommandFastForward30Seconds :*/ .MRMediaRemoteCommandNextTrack
         send(command: command)
     }
+
+    func skipForward() {
+        lastUpdate = Date()
+        let elapsedTime = (elapsedTime ?? 0.0) + 15.0
+        MRMediaRemoteSetElapsedTime(elapsedTime)
+        self.elapsedTime = elapsedTime
+        incrementPlayHeadPosition(forceUpdate: true)
+    }
+    
+    func skipBackward() {
+        lastUpdate = Date()
+        let elapsedTime = (elapsedTime ?? 0.0) - 15.0
+        MRMediaRemoteSetElapsedTime(elapsedTime)
+        self.elapsedTime = elapsedTime
+        incrementPlayHeadPosition(forceUpdate: true)
+    }
     
     func incrementPlayHeadPosition() {
+        incrementPlayHeadPosition(forceUpdate: false)
+    }
+
+    func incrementPlayHeadPosition(forceUpdate: Bool = false) {
         guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
         let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
         let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
-        if !debounceHeadPosition {
+        if !debounceHeadPosition || forceUpdate {
             playbackHeadPosition = NSNumber(value: percentage)
         }
     }
@@ -245,14 +261,6 @@ import Kingfisher
         let time = (duration / 100) * percentage.doubleValue
         lastUpdate = Date()
         MRMediaRemoteSetElapsedTime(time)
-    }
-    
-    func playbackHeadPosition(at percentage: NSNumber, in track: MusicTrack) -> NSNumber {
-        return NSNumber(value: 42)
-    }
-    
-    func playbackHeadPercentage(for track: MusicTrack, in application: MusicApplication) -> NSNumber {
-        return NSNumber(value: 42)
     }
 }
 
