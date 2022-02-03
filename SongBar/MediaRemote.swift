@@ -246,15 +246,6 @@ import Kingfisher
     func incrementPlayHeadPosition() {
         incrementPlayHeadPosition(forceUpdate: false)
     }
-
-    func incrementPlayHeadPosition(forceUpdate: Bool = false) {
-        guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
-        let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
-        let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
-        if !debounceHeadPosition || forceUpdate {
-            playbackHeadPosition = NSNumber(value: percentage)
-        }
-    }
     
     func setPlaybackToPercentage(_ percentage: NSNumber) {
         guard let duration = trackDuration else { return }
@@ -306,6 +297,15 @@ private extension MediaRemoteListner {
     
     func lastUpdate(from metaData: [String: Any]) -> Date? {
         metaData["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date
+    }
+
+    func incrementPlayHeadPosition(forceUpdate: Bool = false) {
+        guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
+        let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
+        let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
+        if !debounceHeadPosition || forceUpdate {
+            playbackHeadPosition = NSNumber(value: percentage)
+        }
     }
 }
 
