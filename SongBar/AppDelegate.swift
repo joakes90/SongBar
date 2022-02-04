@@ -17,7 +17,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     private var settings: NSWindow?
 
-    var playbackListener = PlaybackListener()
+    #if APPSTORE
+        @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
+    #else
+        @objc dynamic var playbackListener: MediaWatching? = MediaRemoteListner()
+    #endif
+
     var sysBar: NSStatusItem!
     private var menuTitleObserver: NSKeyValueObservation?
     // magic number
@@ -25,14 +30,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
-        sysBar.title = "SongBar"
+        sysBar.button?.title = "SongBar"
         sysBar.menu = menu
         sysBar.isVisible = true
-        menuTitleObserver = playbackListener.observe(\PlaybackListener.menuTitle,
-                                options: .new) { (_, title) in
-            self.sysBar.title = self.menuTitleOfMaximumLength(title: title.newValue)
-        }
-        playbackListener.populateMusicData()
+        menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
+            guard let self = self,
+                  let title = title.newValue else { return }
+            self.sysBar.button?.title = self.menuTitleOfMaximumLength(title: title)
+        })
+        playbackListener?.populateMusicData()
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
@@ -63,7 +69,15 @@ extension AppDelegate {
             settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
             settings?.minSize = CGSize(width: 480.0, height: 270.0)
             settings?.title = "Preferences"
+            settings?.styleMask = [.closable, .resizable, .titled]
         }
+        NSApp.setActivationPolicy(.regular)
+        NSApp.presentationOptions = []
+        NSApp.activate(ignoringOtherApps: true)
         settings?.makeKeyAndOrderFront(self)
+    }
+    
+    func becomeAccessory() {
+        NSApp.setActivationPolicy(.accessory)
     }
 }
