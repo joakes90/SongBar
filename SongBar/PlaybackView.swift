@@ -29,8 +29,6 @@ class PlaybackView: NSView {
     private var songTitleObserver: NSKeyValueObservation?
     private var artistObserver: NSKeyValueObservation?
     private var artObserver: NSKeyValueObservation?
-//    private var spotifyArtworkObserver: NSKeyValueObservation?
-//    private var iTunesArtworkObserver: NSKeyValueObservation?
     private var playbackStateObserver: NSKeyValueObservation?
     private var playHeadPositionObserver: NSKeyValueObservation?
     private var dragging: Bool = false
@@ -64,19 +62,6 @@ class PlaybackView: NSView {
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
             self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
         })
-
-//        spotifyArtworkObserver = observe(\.playbackListener.spotifyArtworkURL, options: .new, changeHandler: { [weak self] _, url in
-//            guard let url = url.newValue as? String else {
-//                self?.imageView?.image = NSImage(named: "missingArtwork")
-//                return
-//            }
-//            self?.imageView.kf.setImage(with: URL(string: url))
-//        })
-//
-//        iTunesArtworkObserver = observe(\.playbackListener.iTunesArt, options: .new, changeHandler: { [weak self] _, image in
-//            guard let image = image.newValue as? NSImage else { return }
-//            self?.imageView?.image = image
-//        })
 
 
         playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in

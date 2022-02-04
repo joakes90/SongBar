@@ -96,6 +96,7 @@ typedef enum observedApplication {
         _observedApplication = none;
         [self setTrackInfoFrom:nil];
         [self setArtworkUsing:nil];
+        [self setValue:[NSNumber numberWithInt:MusicEPlSStopped] forKey:@"playbackState"];
         return;
     }
     if ([notificationName isEqualToString:@"com.apple.iTunes.playerInfo"]) {
@@ -167,45 +168,56 @@ typedef enum observedApplication {
 
 - (NSImage *) setiTunesArtUsing:(MusicApplication *)application {
     MusicTrack *currentTrack = application.currentTrack;
-
-    MusicArtwork *artwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
-    if ([artwork.data isKindOfClass:[NSImage class]]) {
-        return artwork.data;
+    MusicPlaylist *playlist = [application currentPlaylist];
+    MusicArtwork *trackArtwork = (MusicArtwork *)[[currentTrack artworks] objectAtIndex:0];
+    MusicArtwork *playlistArtwork = (MusicArtwork *)[[playlist artworks] objectAtIndex:0];
+    _spotifyArtworkURL = nil;
+    if ([trackArtwork.data isKindOfClass:[NSImage class]]) {
+        return trackArtwork.data;
+    } else if ([playlistArtwork.data isKindOfClass:[NSImage class]]) {
+        return playlistArtwork.data;
     } else {
         return nil;
     }
 }
 
 - (void)pausePlayPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
-    
-    if (iTunesOpen && !spotifyOpen) {
-        [_musicApplication playpause];
-    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
-        [_spotifyApplication playpause];
+    switch(_observedApplication) {
+        case spotify:
+            [_spotifyApplication playpause];
+            break;
+        case music:
+            [_musicApplication playpause];
+            break;
+        default:
+            [_musicApplication playpause];
+            break;
     }
 }
 
 - (void)rewindPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
-    
-    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
-        [_musicApplication backTrack];
-    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
-        [_spotifyApplication previousTrack];
+    switch(_observedApplication) {
+        case spotify:
+            [_spotifyApplication previousTrack];
+            break;
+        case music:
+            [_musicApplication previousTrack];
+            break;
+        default:
+            break;
     }
 }
 
 - (void)fastForwardPlayback {
-    BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
-    BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
-    
-    if (iTunesOpen && (_musicApplication.playerState == MusicEPlSPlaying || _musicApplication.playerState == MusicEPlSPaused)) {
-        [_musicApplication nextTrack];
-    } else if (spotifyOpen && (_spotifyApplication.playerState == SpotifyEPlSPlaying || _spotifyApplication.playerState == SpotifyEPlSPaused)) {
-        [_spotifyApplication nextTrack];
+    switch(_observedApplication) {
+        case spotify:
+            [_spotifyApplication nextTrack];
+            break;
+        case music:
+            [_musicApplication nextTrack];
+            break;
+        default:
+            break;
     }
 }
 

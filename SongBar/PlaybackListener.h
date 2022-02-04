@@ -26,9 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fastForwardPlayback;
 - (void)skipForward;
 - (void)skipBackward;
-
-//- (NSNumber *)playbackHeadPercentageFor:(MusicTrack *) track in:(MusicApplication *) application;
-//- (NSNumber *)playbackHeadPositionAt:(NSNumber *)percentage in:(MusicTrack *) track;
 - (void) incrementPlayHeadPosition;
 - (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage;
 
