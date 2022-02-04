@@ -291,7 +291,6 @@ typedef enum observedApplication {
 }
 
 - (void)skipBackward {
-    [self populateMusicData];
     MusicApplication *musicApp;
     MusicTrack *track;
     double trackDurationSeconds;
@@ -313,11 +312,11 @@ typedef enum observedApplication {
     NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
     double updatedElapsedTimeSeconds = ((trackDurationSeconds / 100) * headPercentage.doubleValue) - 15.0;
     [musicApp setPlayerPosition:updatedElapsedTimeSeconds];
+    [self incrementPlayHeadPosition];
 }
 
 
 - (void)skipForward {
-    [self populateMusicData];
     MusicApplication *musicApp;
     MusicTrack *track;
     double trackDurationSeconds;
@@ -339,6 +338,7 @@ typedef enum observedApplication {
     NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
     double updatedElapsedTimeSeconds = ((trackDurationSeconds / 100) * headPercentage.doubleValue) + 15.0;
     [musicApp setPlayerPosition:updatedElapsedTimeSeconds];
+    [self incrementPlayHeadPosition];
 }
 
 @end
