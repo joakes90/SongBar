@@ -7,29 +7,32 @@
 //
 
 #import "Cocoa/Cocoa.h"
-#import "ScriptingBridge/ScriptingBridge.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlaybackListener : NSObject
+@protocol MediaWatching <NSObject>
 
-@property (strong, readonly) NSString *menuTitle;
-@property (strong, readonly) NSString *trackName;
-@property (strong, readonly) NSString *artistName;
-@property (strong, readonly) NSImage *iTunesArt;
-@property (strong, readonly) NSString *spotifyArtworkURL;
-@property (strong, readonly) NSNumber *playbackState;
-@property (strong, readonly) NSNumber *playbackHeadPosition;
+@required
+@property (strong, nonatomic, readonly) NSString *menuTitle;
+@property (strong, nonatomic, readonly) NSString *trackName;
+@property (strong, nonatomic, readonly) NSString *artistName;
+@property (strong, nonatomic, readonly) NSImage *art;
+@property (strong, nonatomic, readonly) NSNumber *playbackState;
+@property (strong, nonatomic, readonly) NSNumber *playbackHeadPosition;
 
-@property( class, copy ) NSString* musicBundleIdentifier;
-@property( class, copy ) NSString* spotifyBundleIdentifier;
-
-- (void) populateMusicData;
-- (void) pausePlayPlayback;
-- (void) rewindPlayback;
-- (void) fastForwardPlayback;
+- (void)populateMusicData;
+- (void)pausePlayPlayback;
+- (void)rewindPlayback;
+- (void)fastForwardPlayback;
+- (void)skipForward;
+- (void)skipBackward;
 - (void) incrementPlayHeadPosition;
-- (void) setPlaybackto:(NSNumber *) percentage;
+- (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage;
+
+@end
+
+@interface PlaybackListener : NSObject <MediaWatching>
+
 @end
 
 NS_ASSUME_NONNULL_END
