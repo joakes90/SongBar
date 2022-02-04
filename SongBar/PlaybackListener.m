@@ -177,7 +177,6 @@ typedef enum observedApplication {
 }
 
 - (void)pausePlayPlayback {
-    // TODO: controll correct app
     BOOL iTunesOpen = [self applicationOpenWithBundleId:[PlaybackListener musicBundleIdentifier]];
     BOOL spotifyOpen = [self applicationOpenWithBundleId:[PlaybackListener spotifyBundleIdentifier]];
     
@@ -277,6 +276,57 @@ typedef enum observedApplication {
     track = [application performSelector:@selector(currentTrack)];
     NSNumber *position = [self playbackHeadPositionAt:percentage in:track];
     [application setPlayerPosition:position.doubleValue];
+}
+
+- (void)skipBackward {
+    [self populateMusicData];
+    MusicApplication *musicApp;
+    MusicTrack *track;
+    double trackDurationSeconds;
+    switch (_observedApplication) {
+        case spotify:
+            musicApp = (MusicApplication *)_spotifyApplication;
+            track = [musicApp performSelector:@selector(currentTrack)];
+            NSInteger trackDuration = ((SpotifyTrack *)track).duration;
+            trackDurationSeconds = trackDuration / 1000;
+            break;
+        case music:
+            musicApp = _musicApplication;
+            track = [musicApp performSelector:@selector(currentTrack)];
+            trackDurationSeconds = track.duration;
+            break;
+        default:
+            return;
+    }
+    NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
+    double updatedElapsedTimeSeconds = ((trackDurationSeconds / 100) * headPercentage.doubleValue) - 15.0;
+    [musicApp setPlayerPosition:updatedElapsedTimeSeconds];
+}
+
+
+- (void)skipForward {
+    [self populateMusicData];
+    MusicApplication *musicApp;
+    MusicTrack *track;
+    double trackDurationSeconds;
+    switch (_observedApplication) {
+        case spotify:
+            musicApp = (MusicApplication *)_spotifyApplication;
+            track = [musicApp performSelector:@selector(currentTrack)];
+            NSInteger trackDuration = ((SpotifyTrack *)track).duration;
+            trackDurationSeconds = trackDuration / 1000;
+            break;
+        case music:
+            musicApp = _musicApplication;
+            track = [musicApp performSelector:@selector(currentTrack)];
+            trackDurationSeconds = track.duration;
+            break;
+        default:
+            return;
+    }
+    NSNumber *headPercentage = [self playbackHeadPercentageFor:track in:musicApp];
+    double updatedElapsedTimeSeconds = ((trackDurationSeconds / 100) * headPercentage.doubleValue) + 15.0;
+    [musicApp setPlayerPosition:updatedElapsedTimeSeconds];
 }
 
 @end
