@@ -228,17 +228,17 @@ import Kingfisher
     }
 
     func skipForward() {
-        lastUpdate = Date()
-        let elapsedTime = (elapsedTime ?? 0.0) + 15.0
-        MRMediaRemoteSetElapsedTime(elapsedTime)
+        populateMusicData()
+        guard let elapsedTime = elapsedTime else { return }
+        MRMediaRemoteSetElapsedTime(elapsedTime + 15.0)
         self.elapsedTime = elapsedTime
         incrementPlayHeadPosition(forceUpdate: true)
     }
     
     func skipBackward() {
-        lastUpdate = Date()
-        let elapsedTime = (elapsedTime ?? 0.0) - 15.0
-        MRMediaRemoteSetElapsedTime(elapsedTime)
+        populateMusicData()
+        guard let elapsedTime = elapsedTime else { return }
+        MRMediaRemoteSetElapsedTime(elapsedTime - 15.0)
         self.elapsedTime = elapsedTime
         incrementPlayHeadPosition(forceUpdate: true)
     }
@@ -318,18 +318,6 @@ private extension MediaRemoteListner {
                 $0.processIdentifier == pid
             })
             .first
-    }
-}
-
-// Notification handling
-private extension MediaRemoteListner {
-    
-    @objc func nowPlayingDidUpdate(_ notification: NSNotification) {
-        populateMusicData()
-    }
-    
-    @objc func isPlayingDidUpdate(_ notification: NSNotification) {
-        print("play/pause")
     }
 }
 

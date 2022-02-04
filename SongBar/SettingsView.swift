@@ -11,6 +11,8 @@ import Combine
 import LaunchAtLogin
 class SettingsView: NSViewController {
 
+    @IBOutlet weak var displayTrackCheckbox: NSButton!
+    @IBOutlet weak var displayControlsCheckbox: NSButton!
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
 
     override func viewDidLoad() {
@@ -18,4 +20,8 @@ class SettingsView: NSViewController {
         // Do view setup here.
     }
 
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        (NSApp.delegate as? AppDelegate)?.becomeAccessory()
+    }
 }

@@ -69,7 +69,15 @@ extension AppDelegate {
             settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
             settings?.minSize = CGSize(width: 480.0, height: 270.0)
             settings?.title = "Preferences"
+            settings?.styleMask = [.closable, .resizable, .titled]
         }
+        NSApp.setActivationPolicy(.regular)
+        NSApp.presentationOptions = []
+        NSApp.activate(ignoringOtherApps: true)
         settings?.makeKeyAndOrderFront(self)
+    }
+    
+    func becomeAccessory() {
+        NSApp.setActivationPolicy(.accessory)
     }
 }
