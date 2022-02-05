@@ -81,9 +81,10 @@ typedef enum observedApplication {
         _observedApplication = music;
     } else {
         [self setValue:@"SongBar" forKey:@"menuTitle"];
-        [self setValue:nil forKey:@"trackName"];
+        [self setValue:@"SongBar" forKey:@"trackName"];
         [self setValue:nil forKey:@"artistName"];
         [self setValue:nil forKey:@"art"];
+        [self setValue:[NSNumber numberWithInt:MusicEPlSStopped] forKey:@"playbackState"];
         _observedApplication = none;
     }
 }
