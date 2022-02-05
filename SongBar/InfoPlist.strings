@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  SongBar
+
+  Created by Justin Oakes on 2/4/22.
+  Copyright © 2022 corpe. All rights reserved.
+*/
+"CFBundleDisplayName" = "SongBar";
