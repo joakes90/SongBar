@@ -15,7 +15,7 @@ class DefaultsController: ObservableObject {
     private let userDefaults = UserDefaults.standard
 
     // This will be handled by IAP or registration check in the future
-    @Published var isPremium: Bool = false
+    @Published var isPremium: Bool = true
 
     func trackInfoEnabled() -> AnyPublisher<Bool, Never> {
         userDefaults.publisher(for: \.trackInfo)

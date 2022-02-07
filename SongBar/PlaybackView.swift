@@ -99,7 +99,14 @@ class PlaybackView: NSView {
             .map { !$0 }
             .assign(to: \.isTransparent, on: skipBackwardButton)
             .store(in: &cancelables)
-        
+        defaultsController.trackInfoEnabled()
+            .removeDuplicates()
+            .sink { print("New info value set \($0)!")}
+            .store(in: &cancelables)
+        defaultsController.controlsEnabled()
+            .removeDuplicates()
+            .sink { print("New controls value set \($0)!")}
+            .store(in: &cancelables)
     }
 
     private func loadFromNib() {
