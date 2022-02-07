@@ -15,6 +15,8 @@
                 <outlet property="nextButton" destination="l9s-YQ-vQi" id="9Rj-rP-Uth"/>
                 <outlet property="pausePlayButton" destination="QVl-mh-d8K" id="CVz-Gw-2Sf"/>
                 <outlet property="playbackProgressIndicator" destination="hR1-rS-P1B" id="sui-1H-Kpe"/>
+                <outlet property="skipBackwardButton" destination="es9-wa-B0E" id="ecJ-7n-oSU"/>
+                <outlet property="skipForwardButton" destination="PbO-gV-wTe" id="8mJ-nP-Y6m"/>
                 <outlet property="titleTextField" destination="zzo-1l-oFC" id="2bw-7F-53I"/>
             </connections>
         </customObject>

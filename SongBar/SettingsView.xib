@@ -41,6 +41,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="displayTrackStateDidChanges:" target="-2" id="pcS-Dl-nJH"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sha-x5-Z1h">
                                 <rect key="frame" x="18" y="137" width="181" height="18"/>
@@ -49,6 +52,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="displayControlsStateDidChange:" target="-2" id="3Xz-AZ-jZa"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

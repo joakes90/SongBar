@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Combine
 import Kingfisher
 
 class PlaybackView: NSView {
@@ -19,6 +20,8 @@ class PlaybackView: NSView {
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
     @IBOutlet weak var contentEffectsView: NSVisualEffectView!
+    @IBOutlet weak var skipForwardButton: NSButton!
+    @IBOutlet weak var skipBackwardButton: NSButton!
     
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
@@ -33,6 +36,8 @@ class PlaybackView: NSView {
     private var playHeadPositionObserver: NSKeyValueObservation?
     private var dragging: Bool = false
     private var timer: Timer?
+    private var defaultsController = DefaultsController.shared
+    private var cancelables = Set<AnyCancellable>()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -86,6 +91,15 @@ class PlaybackView: NSView {
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
         imageView.image = playbackListener.art
         playbackListener.populateMusicData()
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipForwardButton)
+            .store(in: &cancelables)
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipBackwardButton)
+            .store(in: &cancelables)
+        
     }
 
     private func loadFromNib() {

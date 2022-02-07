@@ -26,10 +26,40 @@ class SettingsView: NSViewController {
         defaultsController.$isPremium
             .assign(to: \.isEnabled, on: displayControlsCheckbox)
             .store(in: &cancelables)
+        defaultsController.trackInfoEnabled()
+            .sink { self.displayTrackCheckbox.state = $0 ? .on : .off }
+            .store(in: &cancelables)
+        defaultsController.controlsEnabled()
+            .sink { self.displayControlsCheckbox.state = $0 ? .on : .off }
+            .store(in: &cancelables)
     }
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
         (NSApp.delegate as? AppDelegate)?.becomeAccessory()
+    }
+    
+    @IBAction func displayTrackStateDidChanges(_ sender: Any) {
+        let newValue = displayTrackCheckbox.state
+        switch newValue {
+        case .on:
+            defaultsController.setTrackValue(newValue: true)
+        case .off:
+            defaultsController.setTrackValue(newValue: false)
+        default:
+            defaultsController.setTrackValue(newValue: true)
+        }
+        
+    }
+    @IBAction func displayControlsStateDidChange(_ sender: Any) {
+        let newValue = displayControlsCheckbox.state
+        switch newValue {
+        case .on:
+            defaultsController.setControlsValue(newValue: true)
+        case .off:
+            defaultsController.setControlsValue(newValue: false)
+        default:
+            defaultsController.setControlsValue(newValue: true)
+        }
     }
 }
