@@ -9,15 +9,23 @@
 import Cocoa
 import Combine
 import LaunchAtLogin
+
 class SettingsView: NSViewController {
 
     @IBOutlet weak var displayTrackCheckbox: NSButton!
     @IBOutlet weak var displayControlsCheckbox: NSButton!
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
+    private var defaultsController = DefaultsController.shared
+    private var cancelables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        defaultsController.$isPremium
+            .assign(to: \.isEnabled, on: displayTrackCheckbox)
+            .store(in: &cancelables)
+        defaultsController.$isPremium
+            .assign(to: \.isEnabled, on: displayControlsCheckbox)
+            .store(in: &cancelables)
     }
 
     override func viewDidDisappear() {

@@ -37,7 +37,7 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Adb-jg-jl5">
                                 <rect key="frame" x="18" y="159" width="172" height="18"/>
-                                <buttonCell key="cell" type="check" title="Display track infomation" bezelStyle="regularSquare" imagePosition="left" state="on" transparent="YES" inset="2" id="oFg-6t-eTX">
+                                <buttonCell key="cell" type="check" title="Display track infomation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oFg-6t-eTX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -45,7 +45,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sha-x5-Z1h">
                                 <rect key="frame" x="18" y="137" width="181" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Display playback controls" bezelStyle="regularSquare" imagePosition="left" state="on" transparent="YES" inset="2" id="oY7-Yr-LJT">
+                                <buttonCell key="cell" type="check" title="Display playback controls" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oY7-Yr-LJT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
