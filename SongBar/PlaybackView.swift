@@ -22,6 +22,8 @@ class PlaybackView: NSView {
     @IBOutlet weak var contentEffectsView: NSVisualEffectView!
     @IBOutlet weak var skipForwardButton: NSButton!
     @IBOutlet weak var skipBackwardButton: NSButton!
+    @IBOutlet weak var trackInfoView: NSView!
+    @IBOutlet weak var controlsView: NSView!
     
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
@@ -101,11 +103,11 @@ class PlaybackView: NSView {
             .store(in: &cancelables)
         defaultsController.trackInfoEnabled()
             .removeDuplicates()
-            .sink { print("New info value set \($0)!")}
+            .sink { self.trackInfoView.isHidden = !$0 }
             .store(in: &cancelables)
         defaultsController.controlsEnabled()
             .removeDuplicates()
-            .sink { print("New controls value set \($0)!")}
+            .sink { self.controlsView.isHidden = !$0 }
             .store(in: &cancelables)
     }
 
