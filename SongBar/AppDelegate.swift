@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #if APPSTORE
         @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
     #else
-    @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
+        @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
 
     var sysBar: NSStatusItem!
@@ -76,7 +76,7 @@ extension AppDelegate {
         NSApp.activate(ignoringOtherApps: true)
         settings?.makeKeyAndOrderFront(self)
     }
-    
+
     func becomeAccessory() {
         NSApp.setActivationPolicy(.accessory)
     }

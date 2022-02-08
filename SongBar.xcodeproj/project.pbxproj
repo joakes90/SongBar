@@ -243,8 +243,8 @@
 			buildConfigurationList = 36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar(AppStore)" */;
 			buildPhases = (
 				D02A849C2530BB9300BDF7D6 /* Bump build number */,
-				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
 				D0ADE5A4273B2D2B0060AAE8 /* Headers */,
+				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
 				36491D2C19F6F3330083A49D /* Sources */,
 				36491D2D19F6F3330083A49D /* Frameworks */,
 				36491D2E19F6F3330083A49D /* Resources */,
@@ -495,7 +495,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

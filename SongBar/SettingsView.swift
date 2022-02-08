@@ -38,7 +38,7 @@ class SettingsView: NSViewController {
         super.viewDidDisappear()
         (NSApp.delegate as? AppDelegate)?.becomeAccessory()
     }
-    
+
     @IBAction func displayTrackStateDidChanges(_ sender: Any) {
         let newValue = displayTrackCheckbox.state
         switch newValue {
@@ -49,7 +49,7 @@ class SettingsView: NSViewController {
         default:
             defaultsController.setTrackValue(newValue: true)
         }
-        
+
     }
     @IBAction func displayControlsStateDidChange(_ sender: Any) {
         let newValue = displayControlsCheckbox.state

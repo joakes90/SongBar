@@ -24,7 +24,7 @@ class PlaybackView: NSView {
     @IBOutlet weak var skipBackwardButton: NSButton!
     @IBOutlet weak var trackInfoView: NSView!
     @IBOutlet weak var controlsView: NSView!
-    
+
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
     #else
@@ -52,6 +52,7 @@ class PlaybackView: NSView {
         commonInit()
     }
 
+    // swiftlint:disable:next function_body_length
     private func commonInit() {
         loadFromNib()
         contentEffectsView.wantsLayer = true
@@ -69,7 +70,6 @@ class PlaybackView: NSView {
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
             self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
         })
-
 
         playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
             guard let intValue = state.newValue?.uint32Value else { return }
@@ -170,7 +170,7 @@ class PlaybackView: NSView {
     @IBAction func skipBackwardButttonClicked(_ sender: Any) {
         playbackListener.skipBackward()
     }
-    
+
     @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false

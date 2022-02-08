@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 class DefaultsController: ObservableObject {
-    
+
     static let shared = DefaultsController()
     private let userDefaults = UserDefaults.standard
 
@@ -40,7 +40,7 @@ class DefaultsController: ObservableObject {
     func setTrackValue(newValue: Bool) {
         userDefaults.trackInfo = newValue
     }
-    
+
     func setControlsValue(newValue: Bool) {
         userDefaults.controls = newValue
     }
@@ -52,7 +52,7 @@ extension UserDefaults {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
     }
-    
+
     @objc dynamic var trackInfo: Bool {
         get {
             guard value(forKey: Keys.trackInfo) != nil else { return true }
@@ -61,7 +61,7 @@ extension UserDefaults {
             set(newValue, forKey: Keys.trackInfo)
         }
     }
-    
+
     @objc dynamic var controls: Bool {
         get {
             guard value(forKey: Keys.controls) != nil else { return true }
@@ -71,4 +71,3 @@ extension UserDefaults {
         }
     }
 }
-
