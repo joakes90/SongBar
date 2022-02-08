@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Combine
 import Kingfisher
 
 class PlaybackView: NSView {
@@ -19,11 +20,15 @@ class PlaybackView: NSView {
     @IBOutlet weak var artistTextField: NSTextField!
     @IBOutlet weak var playbackProgressIndicator: NSSlider!
     @IBOutlet weak var contentEffectsView: NSVisualEffectView!
-    
+    @IBOutlet weak var skipForwardButton: NSButton!
+    @IBOutlet weak var skipBackwardButton: NSButton!
+    @IBOutlet weak var trackInfoView: NSView!
+    @IBOutlet weak var controlsView: NSView!
+
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
     #else
-        @objc private dynamic var playbackListener: MediaWatching = MediaRemoteListner()
+    @objc private dynamic var playbackListener: MediaWatching = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
 
     private var songTitleObserver: NSKeyValueObservation?
@@ -33,6 +38,8 @@ class PlaybackView: NSView {
     private var playHeadPositionObserver: NSKeyValueObservation?
     private var dragging: Bool = false
     private var timer: Timer?
+    private var defaultsController = DefaultsController.shared
+    private var cancelables = Set<AnyCancellable>()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -45,6 +52,7 @@ class PlaybackView: NSView {
         commonInit()
     }
 
+    // swiftlint:disable:next function_body_length
     private func commonInit() {
         loadFromNib()
         contentEffectsView.wantsLayer = true
@@ -62,7 +70,6 @@ class PlaybackView: NSView {
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
             self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
         })
-
 
         playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
             guard let intValue = state.newValue?.uint32Value else { return }
@@ -86,6 +93,25 @@ class PlaybackView: NSView {
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
         imageView.image = playbackListener.art
         playbackListener.populateMusicData()
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipForwardButton)
+            .store(in: &cancelables)
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipBackwardButton)
+            .store(in: &cancelables)
+        defaultsController.trackInfoEnabled()
+            .removeDuplicates()
+            .sink { self.trackInfoView.isHidden = !$0 }
+            .store(in: &cancelables)
+        defaultsController.controlsEnabled()
+            .removeDuplicates()
+            .sink { self.controlsView.isHidden = !$0 }
+            .store(in: &cancelables)
+        defaultsController.premiumFeaturesEnabled()
+            .sink { self.contentEffectsView.isHidden = !$0 }
+            .store(in: &cancelables)
     }
 
     private func loadFromNib() {
@@ -144,7 +170,7 @@ class PlaybackView: NSView {
     @IBAction func skipBackwardButttonClicked(_ sender: Any) {
         playbackListener.skipBackward()
     }
-    
+
     @IBAction func sliderValueDidChange(_ sender: NSSlider) {
         guard let event = NSApplication.shared.currentEvent else {
             dragging = false

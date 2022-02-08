@@ -34,6 +34,8 @@
 		D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 		D051B41F27AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
 		D051B42027AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
+		D07DDDF327B176980092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
+		D07DDDF427B1782F0092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
 		D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */; };
 		D0ADE5A5273B2D760060AAE8 /* SongBar-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */; };
@@ -77,6 +79,7 @@
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D051B41E27AE3C0C00E572BB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D0780445273B50E2009A7CB9 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		D07DDDF227B176980092998B /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
 		D0C8E6B41B3E1F3B00E200A5 /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SongBar.entitlements; sourceTree = "<group>"; };
 		D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongBarSliderCell.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 			children = (
 				D03BE46A26BDC5EB00364177 /* SettingsView.swift */,
 				D03BE46B26BDC5EB00364177 /* SettingsView.xib */,
+				D07DDDF227B176980092998B /* DefaultsController.swift */,
 			);
 			name = "Settings View";
 			sourceTree = "<group>";
@@ -239,8 +243,8 @@
 			buildConfigurationList = 36491D4A19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBar(AppStore)" */;
 			buildPhases = (
 				D02A849C2530BB9300BDF7D6 /* Bump build number */,
-				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
 				D0ADE5A4273B2D2B0060AAE8 /* Headers */,
+				D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */,
 				36491D2C19F6F3330083A49D /* Sources */,
 				36491D2D19F6F3330083A49D /* Frameworks */,
 				36491D2E19F6F3330083A49D /* Resources */,
@@ -309,7 +313,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 1250;
-				ORGANIZATIONNAME = corpe;
+				ORGANIZATIONNAME = joakes;
 				TargetAttributes = {
 					36491D2F19F6F3330083A49D = {
 						CreatedOnToolsVersion = 6.1;
@@ -455,7 +459,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		D05118082739BF5100B34BF4 /* Launch on Login helper */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -491,7 +495,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -503,6 +507,7 @@
 				36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */,
 				D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */,
 				D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */,
+				D07DDDF427B1782F0092998B /* DefaultsController.swift in Sources */,
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
 				D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */,
@@ -528,6 +533,7 @@
 				D05117FD2739BF5100B34BF4 /* PlaybackMenuItem.swift in Sources */,
 				D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */,
 				D05117FE2739BF5100B34BF4 /* SongBarSliderCell.swift in Sources */,
+				D07DDDF327B176980092998B /* DefaultsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +681,7 @@
 				OTHER_SWIFT_FLAGS = "-DAPPSTORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -700,6 +707,7 @@
 				OTHER_SWIFT_FLAGS = "-DAPPSTORE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
