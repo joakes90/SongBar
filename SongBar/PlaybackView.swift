@@ -109,6 +109,9 @@ class PlaybackView: NSView {
             .removeDuplicates()
             .sink { self.controlsView.isHidden = !$0 }
             .store(in: &cancelables)
+        defaultsController.premiumFeaturesEnabled()
+            .sink { self.contentEffectsView.isHidden = !$0 }
+            .store(in: &cancelables)
     }
 
     private func loadFromNib() {

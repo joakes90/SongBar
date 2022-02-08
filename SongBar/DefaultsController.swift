@@ -28,7 +28,15 @@ class DefaultsController: ObservableObject {
             .map { self.isPremium ? $0 : true }
             .eraseToAnyPublisher()
     }
-    
+
+    func premiumFeaturesEnabled() -> AnyPublisher<Bool, Never> {
+        userDefaults.publisher(for: \.trackInfo)
+            .combineLatest(userDefaults.publisher(for: \.controls))
+            .map { self.isPremium ? $0 || $1 : true}
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+
     func setTrackValue(newValue: Bool) {
         userDefaults.trackInfo = newValue
     }
