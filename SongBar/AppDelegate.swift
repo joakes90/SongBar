@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     #if APPSTORE
         @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
     #else
-        @objc dynamic var playbackListener: MediaWatching? = MediaRemoteListner()
+    @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
 
     var sysBar: NSStatusItem!
