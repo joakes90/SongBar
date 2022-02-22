@@ -17,6 +17,7 @@ class SettingsView: NSViewController {
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
     private var defaultsController = DefaultsController.shared
     private var cancelables = Set<AnyCancellable>()
+    private var purchaseController = PurchaseController.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,16 @@ class SettingsView: NSViewController {
             defaultsController.setControlsValue(newValue: false)
         default:
             defaultsController.setControlsValue(newValue: true)
+        }
+    }
+    @IBAction func purchaseDidClick(_ sender: Any) {
+        Task {
+            do {
+                let success = try await purchaseController.purchaseDeluxe()
+                print(success)
+            } catch {
+                print(error)
+            }
         }
     }
 }

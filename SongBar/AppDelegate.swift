@@ -40,15 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.sysBar.button?.title = self.menuTitleOfMaximumLength(title: title)
         })
         playbackListener?.populateMusicData()
-        Purchases.logLevel = .debug
-        Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM")
-
-        // TEST ONLY
-        Purchases.shared.offerings { offers, _ in
-            if let offers = offers {
-                print(offers)
-            }
-        }
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {

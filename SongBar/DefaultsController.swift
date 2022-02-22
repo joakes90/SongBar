@@ -13,9 +13,19 @@ class DefaultsController: ObservableObject {
 
     static let shared = DefaultsController()
     private let userDefaults = UserDefaults.standard
+    private let purchaseController = PurchaseController.shared
 
     // This will be handled by IAP or registration check in the future
     @Published var isPremium: Bool = false
+
+    init() {
+        Task {
+            let isPremium = await purchaseController.deluxeEnabled()
+            DispatchQueue.main.async {
+                self.isPremium = isPremium
+            }
+        }
+    }
 
     func trackInfoEnabled() -> AnyPublisher<Bool, Never> {
         userDefaults.publisher(for: \.trackInfo)

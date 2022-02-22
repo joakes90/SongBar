@@ -47,6 +47,7 @@
 		D0DA5E9727C3F1AF00F2B321 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */; };
 		D0DA5E9927C3F4A500F2B321 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = D0DA5E9827C3F4A500F2B321 /* Purchases */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
+		D0E5153027C57A6B00E058EB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -548,6 +549,7 @@
 				D05117FD2739BF5100B34BF4 /* PlaybackMenuItem.swift in Sources */,
 				D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */,
 				D05117FE2739BF5100B34BF4 /* SongBarSliderCell.swift in Sources */,
+				D0E5153027C57A6B00E058EB /* PurchaseController.swift in Sources */,
 				D07DDDF327B176980092998B /* DefaultsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -56,8 +56,20 @@
                                     <action selector="displayControlsStateDidChange:" target="-2" id="3Xz-AZ-jZa"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PA7-3w-NLg">
+                                <rect key="frame" x="13" y="13" width="91" height="32"/>
+                                <buttonCell key="cell" type="push" title="Purchase" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Oj0-U0-j2S">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="purchaseDidClick:" target="-2" id="nVP-QY-Kex"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="PA7-3w-NLg" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="2DJ-Ph-jMx"/>
+                            <constraint firstAttribute="bottom" secondItem="PA7-3w-NLg" secondAttribute="bottom" constant="20" symbolic="YES" id="Hbm-cr-po6"/>
                             <constraint firstItem="Uog-qI-w6g" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="KrK-yx-A2i"/>
                             <constraint firstItem="Uog-qI-w6g" firstAttribute="top" secondItem="uCK-dO-es9" secondAttribute="top" constant="20" symbolic="YES" id="ajo-Jg-hge"/>
                             <constraint firstItem="Adb-jg-jl5" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="qwa-E7-OMs"/>
