@@ -12,6 +12,9 @@ import Purchases
 class PurchaseController {
 
     static let shared = PurchaseController()
+    private lazy var defaultsController: DefaultsController = {
+        DefaultsController.shared
+    }()
 
     init() {
         Purchases.logLevel = .debug
@@ -22,11 +25,14 @@ class PurchaseController {
         return try await Purchases.shared.offerings().current?.lifetime
     }
 
-    func purchaseDeluxe() async throws -> Bool {
+    func purchaseDeluxe() async throws {
+        // TODO: make an error to respond to
         guard let package = try await package() else { throw NSError()}
-        print(Purchases.shared.appUserID)
         let transaction = try await Purchases.shared.purchasePackage(package)
-        return transaction.2
+        let success = transaction.1.entitlements["pro"]?.periodType == .normal
+        DispatchQueue.main.async {
+            self.defaultsController.isPremium = success
+        }
     }
 
     func deluxeEnabled() async -> Bool {

@@ -15,7 +15,6 @@ class DefaultsController: ObservableObject {
     private let userDefaults = UserDefaults.standard
     private let purchaseController = PurchaseController.shared
 
-    // This will be handled by IAP or registration check in the future
     @Published var isPremium: Bool = false
 
     init() {

@@ -66,8 +66,7 @@ class SettingsView: NSViewController {
     @IBAction func purchaseDidClick(_ sender: Any) {
         Task {
             do {
-                let success = try await purchaseController.purchaseDeluxe()
-                print(success)
+                try await purchaseController.purchaseDeluxe()
             } catch {
                 print(error)
             }
