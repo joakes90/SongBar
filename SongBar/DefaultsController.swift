@@ -18,6 +18,11 @@ class DefaultsController: ObservableObject {
     @Published var isPremium: Bool = false
 
     init() {
+        userDefaults.register(
+            defaults: [
+                UserDefaults.Keys.controls: true,
+                UserDefaults.Keys.trackInfo: true
+            ])
         Task {
             let isPremium = await purchaseController.deluxeEnabled()
             DispatchQueue.main.async {
