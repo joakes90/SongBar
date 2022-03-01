@@ -14,13 +14,20 @@ class SettingsView: NSViewController {
 
     @IBOutlet weak var displayTrackCheckbox: NSButton!
     @IBOutlet weak var displayControlsCheckbox: NSButton!
+    @IBOutlet weak var deluxeOwnerView: NSView!
+    @IBOutlet weak var purchaseView: NSView!
+    @IBOutlet weak var purchaseLabel: NSTextField!
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
     private var defaultsController = DefaultsController.shared
     private var cancelables = Set<AnyCancellable>()
     private var purchaseController = PurchaseController.shared
+    private let currencyFormater = NumberFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        currencyFormater.numberStyle = .currency
+        currencyFormater.usesGroupingSeparator = true
         defaultsController.$isPremium
             .assign(to: \.isEnabled, on: displayTrackCheckbox)
             .store(in: &cancelables)
@@ -33,6 +40,30 @@ class SettingsView: NSViewController {
         defaultsController.controlsEnabled()
             .sink { self.displayControlsCheckbox.state = $0 ? .on : .off }
             .store(in: &cancelables)
+
+        #if APPSTORE
+        defaultsController.$isPremium
+            .assign(to: \.isHidden, on: purchaseView)
+            .store(in: &cancelables)
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isHidden, on: deluxeOwnerView)
+            .store(in: &cancelables)
+        purchaseController.$price
+            .sink {
+                if let number = $0 as NSNumber?,
+                let formattedCurrency = self.currencyFormater.string(from: number) {
+                    // TODO: This will need to be fully localized later on
+                    self.purchaseLabel.stringValue = "Purchase SongBar Deluxe for \(formattedCurrency)"
+                    self.purchaseView.isHidden = self.defaultsController.isPremium
+                } else {
+                    self.purchaseView.isHidden = true
+                }
+            }
+            .store(in: &cancelables)
+        #else
+
+        #endif
     }
 
     override func viewDidDisappear() {
@@ -63,11 +94,23 @@ class SettingsView: NSViewController {
             defaultsController.setControlsValue(newValue: true)
         }
     }
-    @IBAction func purchaseDidClick(_ sender: Any) {
+    @IBAction func didClickBuy(_ sender: Any) {
         Task {
             do {
                 try await purchaseController.purchaseDeluxe()
             } catch {
+                // TODO: Handle error
+                print(error)
+            }
+        }
+    }
+
+    @IBAction func didClickRestore(_ sender: Any) {
+        Task {
+            do {
+                try await purchaseController.restorePurchases()
+            } catch {
+                // TODO: Handle error
                 print(error)
             }
         }
