@@ -99,8 +99,8 @@ class SettingsView: NSViewController {
             do {
                 try await purchaseController.purchaseDeluxe()
             } catch {
-                // TODO: Handle error
-                print(error)
+                let alert = NSAlert(error: error)
+                alert.runModal()
             }
         }
     }
@@ -110,8 +110,11 @@ class SettingsView: NSViewController {
             do {
                 try await purchaseController.restorePurchases()
             } catch {
-                // TODO: Handle error
-                print(error)
+                DispatchQueue.main.async {
+                    let alert = NSAlert(error: error)
+                    alert.runModal()
+                }
+
             }
         }
     }

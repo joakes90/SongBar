@@ -48,7 +48,10 @@ class PurchaseController {
     func restorePurchases() async throws {
         let transaction = try await Purchases.shared.restoreTransactions()
         let success = transaction.entitlements["pro"]?.periodType == .normal
-        // TODO: throw error if nothing found
+        if !success {
+            throw PurchaseErrors.purchasesNotFound
+
+        }
         DispatchQueue.main.async {
             self.defaultsController.isPremium = success
         }
@@ -62,7 +65,45 @@ class PurchaseController {
 }
 
 extension PurchaseController {
-    enum PurchaseErrors: Error {
+    enum PurchaseErrors: LocalizedError {
         case packageNotAvailable
+        case purchasesNotFound
+
+        // TODO: Localize
+        var errorDescription: String? {
+            switch self {
+            case .packageNotAvailable:
+                return "Packages not available"
+            case .purchasesNotFound:
+                return "Purchases not found"
+            }
+        }
+
+        var failureReason: String? {
+            switch self {
+            case .packageNotAvailable:
+                return "SongBar Deluxe not available for purchase."
+            case .purchasesNotFound:
+                return "No previous purchases found"
+            }
+        }
+
+        var recoverySuggestion: String? {
+            switch self {
+            case .packageNotAvailable:
+                return "Check your network connection and try again later"
+            case .purchasesNotFound:
+                return "If you believe this to be an error please contact Apple support"
+            }
+        }
+
+        var localizedDescription: String {
+            switch self {
+            case .purchasesNotFound:
+                return "No previous purchases found. If you believe this to be an error please contact Apple support"
+            case .packageNotAvailable:
+                return "SongBar Deluxe not available for purchase. Check your network connection and try again later"
+            }
+        }
     }
 }
