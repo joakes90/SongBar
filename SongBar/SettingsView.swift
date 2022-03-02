@@ -55,7 +55,6 @@ class SettingsView: NSViewController {
                 let formattedCurrency = self.currencyFormater.string(from: number) {
                     // TODO: This will need to be fully localized later on
                     self.purchaseLabel.stringValue = "Purchase SongBar Deluxe for \(formattedCurrency)"
-                    self.purchaseView.isHidden = self.defaultsController.isPremium
                 } else {
                     self.purchaseView.isHidden = true
                 }
