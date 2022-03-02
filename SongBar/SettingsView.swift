@@ -9,6 +9,7 @@
 import Cocoa
 import Combine
 import LaunchAtLogin
+import os
 
 class SettingsView: NSViewController {
 
@@ -22,7 +23,7 @@ class SettingsView: NSViewController {
     private var cancelables = Set<AnyCancellable>()
     private var purchaseController = PurchaseController.shared
     private let currencyFormater = NumberFormatter()
-
+    private let logger = Logger(subsystem: "com.joakes.SongBar", category: "SettingsView")
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +43,7 @@ class SettingsView: NSViewController {
             .store(in: &cancelables)
 
         #if APPSTORE
+        logger.log("App Store specific configuration has started")
         defaultsController.$isPremium
             .assign(to: \.isHidden, on: purchaseView)
             .store(in: &cancelables)
@@ -51,17 +53,19 @@ class SettingsView: NSViewController {
             .store(in: &cancelables)
         purchaseController.$price
             .sink {
+                self.logger.log("Price information updated")
                 if let number = $0 as NSNumber?,
                 let formattedCurrency = self.currencyFormater.string(from: number) {
                     // TODO: This will need to be fully localized later on
                     self.purchaseLabel.stringValue = "Purchase SongBar Deluxe for \(formattedCurrency)"
                 } else {
+                    self.logger.error("could not retrieve price information")
                     self.purchaseView.isHidden = true
                 }
             }
             .store(in: &cancelables)
         #else
-
+        logger.log("Non App Store specific configuration has started")
         #endif
     }
 
