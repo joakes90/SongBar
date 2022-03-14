@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 import Purchases
+import StoreKit
 
 class PurchaseController {
 
@@ -25,7 +26,12 @@ class PurchaseController {
         Purchases.logLevel = .error
         #endif
 
+        #if AppStore
         Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM")
+        #else
+        // TODO: pull license from user defaults
+        Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM", appUserID: "C3RY-AXBL-QGV4-YW1W")
+        #endif
         Task {
             let package = try? await package()
             price = package?.product.price as? Double
@@ -58,9 +64,8 @@ class PurchaseController {
     }
 
     func deluxeEnabled() async -> Bool {
-        guard let transactions = try? await Purchases.shared.purchaserInfo().nonSubscriptionTransactions,
-              let package = try? await package() else { return false }
-        return transactions.contains(where: {$0.productId == package.product.productIdentifier})
+        guard let _ = try? await Purchases.shared.purchaserInfo().entitlements["pro"] else { return false }
+        return true
     }
 }
 
