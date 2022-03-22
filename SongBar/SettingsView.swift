@@ -18,6 +18,7 @@ class SettingsView: NSViewController {
     @IBOutlet weak var deluxeOwnerView: NSView!
     @IBOutlet weak var purchaseView: NSView!
     @IBOutlet weak var purchaseLabel: NSTextField!
+    @IBOutlet weak var registerView: NSView!
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
     private var defaultsController = DefaultsController.shared
     private var cancelables = Set<AnyCancellable>()
@@ -42,14 +43,15 @@ class SettingsView: NSViewController {
             .sink { self.displayControlsCheckbox.state = $0 ? .on : .off }
             .store(in: &cancelables)
 
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isHidden, on: deluxeOwnerView)
+            .store(in: &cancelables)
+
         #if APPSTORE
         logger.log("App Store specific configuration has started")
         defaultsController.$isPremium
             .assign(to: \.isHidden, on: purchaseView)
-            .store(in: &cancelables)
-        defaultsController.$isPremium
-            .map { !$0 }
-            .assign(to: \.isHidden, on: deluxeOwnerView)
             .store(in: &cancelables)
         purchaseController.$price
             .sink {
@@ -66,6 +68,9 @@ class SettingsView: NSViewController {
             .store(in: &cancelables)
         #else
         logger.log("Non App Store specific configuration has started")
+        defaultsController.$isPremium
+            .assign(to: \.isHidden, on: registerView)
+            .store(in: &cancelables)
         #endif
     }
 
@@ -120,5 +125,14 @@ class SettingsView: NSViewController {
 
             }
         }
+    }
+
+    @IBAction func didClickBuyWeb(_ sender: Any) {
+        guard let url = URL(string: "https://songbar.app") else {
+            let alert = NSAlert(error: PurchaseController.PurchaseErrors.badURL)
+            alert.runModal()
+            return
+        }
+        NSWorkspace.shared.open(url)
     }
 }

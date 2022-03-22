@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,7 @@
                 <outlet property="displayTrackCheckbox" destination="Adb-jg-jl5" id="rRC-Ld-sZY"/>
                 <outlet property="purchaseLabel" destination="gbd-r4-KEO" id="Wo9-S0-NVY"/>
                 <outlet property="purchaseView" destination="flm-v6-DRh" id="jwL-aI-b4w"/>
+                <outlet property="registerView" destination="Fpw-O9-OzM" id="qYA-H8-I0N"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -59,9 +60,65 @@
                                     <action selector="displayControlsStateDidChange:" target="-2" id="3Xz-AZ-jZa"/>
                                 </connections>
                             </button>
-                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6D-sI-f5q">
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="98" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6D-sI-f5q">
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="55"/>
                                 <subviews>
+                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-O9-OzM">
+                                        <rect key="frame" x="0.0" y="6" width="440" height="49"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="752" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1nu-BU-qrh">
+                                                <rect key="frame" x="1" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="rvg-1I-9n4"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Buy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="buM-EF-Avf">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickBuyWeb:" target="-2" id="Fbw-Yt-6SP"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-iI-tLH">
+                                                <rect key="frame" x="2" y="4" width="158" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Buy SongBar Deluxe on the web" id="muQ-sB-fcx">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-7r-uEM">
+                                                <rect key="frame" x="350" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="WCS-kI-q7v"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Register" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mhC-c8-sHB">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="SdK-c9-Yhk">
+                                                <rect key="frame" x="320" y="4" width="118" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Enter your license code" id="l9T-g0-viN">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="CdJ-7r-uEM" secondAttribute="trailing" constant="8" id="1ff-Ah-ygJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="SdK-c9-Yhk" secondAttribute="bottom" constant="4" id="4nc-st-RRh"/>
+                                            <constraint firstItem="1nu-BU-qrh" firstAttribute="top" secondItem="Fpw-O9-OzM" secondAttribute="top" constant="8" id="KIK-YV-6Bg"/>
+                                            <constraint firstItem="CdJ-7r-uEM" firstAttribute="top" secondItem="Fpw-O9-OzM" secondAttribute="top" constant="8" id="NBc-Vo-W6M"/>
+                                            <constraint firstAttribute="bottom" secondItem="lQQ-iI-tLH" secondAttribute="bottom" constant="4" id="bRy-bR-rDE"/>
+                                            <constraint firstItem="lQQ-iI-tLH" firstAttribute="leading" secondItem="Fpw-O9-OzM" secondAttribute="leading" constant="4" id="h1l-45-i75"/>
+                                            <constraint firstItem="lQQ-iI-tLH" firstAttribute="top" secondItem="1nu-BU-qrh" secondAttribute="bottom" constant="4" id="mmI-Zb-OSv"/>
+                                            <constraint firstItem="SdK-c9-Yhk" firstAttribute="top" secondItem="CdJ-7r-uEM" secondAttribute="bottom" constant="4" id="oiA-QE-kAZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="SdK-c9-Yhk" secondAttribute="trailing" constant="4" id="pDs-XD-gpW"/>
+                                            <constraint firstItem="1nu-BU-qrh" firstAttribute="leading" secondItem="Fpw-O9-OzM" secondAttribute="leading" constant="8" id="uQN-SR-xKe"/>
+                                        </constraints>
+                                    </customView>
                                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUS-sa-ozi">
                                         <rect key="frame" x="0.0" y="35" width="440" height="20"/>
                                         <subviews>
@@ -142,14 +199,18 @@
                                     <constraint firstAttribute="trailing" secondItem="flm-v6-DRh" secondAttribute="trailing" id="Cd0-Sh-3q9"/>
                                     <constraint firstAttribute="height" constant="55" id="Cig-mL-fg0"/>
                                     <constraint firstItem="AUS-sa-ozi" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="JW8-xr-SvG"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fpw-O9-OzM" secondAttribute="trailing" id="QGP-6M-17U"/>
+                                    <constraint firstItem="Fpw-O9-OzM" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="edj-9b-11x"/>
                                     <constraint firstAttribute="trailing" secondItem="AUS-sa-ozi" secondAttribute="trailing" id="mie-SC-6cY"/>
                                     <constraint firstItem="flm-v6-DRh" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="vBa-WZ-WA6"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>

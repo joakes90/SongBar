@@ -51,12 +51,21 @@ class DefaultsController: ObservableObject {
             .eraseToAnyPublisher()
     }
 
+    func userLicense() -> AnyPublisher<String?, Never> {
+        userDefaults.publisher(for: \.license)
+            .eraseToAnyPublisher()
+    }
+
     func setTrackValue(newValue: Bool) {
         userDefaults.trackInfo = newValue
     }
 
     func setControlsValue(newValue: Bool) {
         userDefaults.controls = newValue
+    }
+
+    func setLicense(newValue: String) {
+        userDefaults.license = newValue
     }
 }
 
@@ -65,6 +74,7 @@ extension UserDefaults {
     enum Keys {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
+        static var license = "license"
     }
 
     @objc dynamic var trackInfo: Bool {
@@ -82,6 +92,15 @@ extension UserDefaults {
             return bool(forKey: Keys.controls)
         } set {
             set(newValue, forKey: Keys.controls)
+        }
+    }
+
+    @objc dynamic var license: String? {
+        get {
+            string(forKey: Keys.license)
+        }
+        set {
+            set(newValue, forKey: Keys.license)
         }
     }
 }

@@ -15,6 +15,7 @@ class PurchaseController {
 
     static let shared = PurchaseController()
     @Published var price: Double?
+    private var cancelables = Set<AnyCancellable>()
     private lazy var defaultsController: DefaultsController = {
         DefaultsController.shared
     }()
@@ -29,8 +30,8 @@ class PurchaseController {
         #if AppStore
         Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM")
         #else
-        // TODO: pull license from user defaults
-        Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM", appUserID: "C3RY-AXBL-QGV4-YW1W")
+        let initalValue = UserDefaults.standard.license
+        Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM", appUserID: initalValue)
         #endif
         Task {
             let package = try? await package()
@@ -73,6 +74,7 @@ extension PurchaseController {
     enum PurchaseErrors: LocalizedError {
         case packageNotAvailable
         case purchasesNotFound
+        case badURL
 
         // TODO: Localize
         var errorDescription: String? {
@@ -81,6 +83,8 @@ extension PurchaseController {
                 return "Packages not available"
             case .purchasesNotFound:
                 return "Purchases not found"
+            case .badURL:
+                return "Website unreachable"
             }
         }
 
@@ -90,6 +94,8 @@ extension PurchaseController {
                 return "SongBar Deluxe not available for purchase."
             case .purchasesNotFound:
                 return "No previous purchases found"
+            case .badURL:
+                return "The SonBar webpage could not be reached"
             }
         }
 
@@ -99,6 +105,8 @@ extension PurchaseController {
                 return "Check your network connection and try again later"
             case .purchasesNotFound:
                 return "If you believe this to be an error please contact Apple support"
+            case .badURL:
+                return "Check your network connection and try again later"
             }
         }
 
@@ -108,6 +116,8 @@ extension PurchaseController {
                 return "No previous purchases found. If you believe this to be an error please contact Apple support"
             case .packageNotAvailable:
                 return "SongBar Deluxe not available for purchase. Check your network connection and try again later"
+            case .badURL:
+                return "Songbar.app could not be reached. Check your network connection and try again later"
             }
         }
     }
