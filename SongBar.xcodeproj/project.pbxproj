@@ -34,6 +34,7 @@
 		D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 		D051B41F27AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
 		D051B42027AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
+		D066E28D27ECB95A00367F60 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066E28C27ECB95A00367F60 /* RegisterView.swift */; };
 		D07DDDF327B176980092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
 		D07DDDF427B1782F0092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
@@ -83,6 +84,7 @@
 		D051180C2739BF5100B34BF4 /* SongBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D051B41E27AE3C0C00E572BB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D066E28C27ECB95A00367F60 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D0780445273B50E2009A7CB9 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		D07DDDF227B176980092998B /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
 		D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuItem.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		36491D3219F6F3330083A49D /* SongBar */ = {
 			isa = PBXGroup;
 			children = (
+				D066E28B27ECB90F00367F60 /* Register View */,
 				D03BE46926BDC59100364177 /* Settings View */,
 				D02A84BD2534FF7A00BDF7D6 /* Playback View */,
 				D02A84B02530DEF000BDF7D6 /* Playback Listner */,
@@ -222,6 +225,14 @@
 				D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */,
 			);
 			name = "Settings View";
+			sourceTree = "<group>";
+		};
+		D066E28B27ECB90F00367F60 /* Register View */ = {
+			isa = PBXGroup;
+			children = (
+				D066E28C27ECB95A00367F60 /* RegisterView.swift */,
+			);
+			name = "Register View";
 			sourceTree = "<group>";
 		};
 		E6B49CA74133F3CF05D6312F /* Frameworks */ = {
@@ -546,6 +557,7 @@
 				D05117FA2739BF5100B34BF4 /* PlaybackListener.m in Sources */,
 				D05117FB2739BF5100B34BF4 /* PlaybackView.swift in Sources */,
 				D05117FC2739BF5100B34BF4 /* SettingsView.swift in Sources */,
+				D066E28D27ECB95A00367F60 /* RegisterView.swift in Sources */,
 				D05117FD2739BF5100B34BF4 /* PlaybackMenuItem.swift in Sources */,
 				D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */,
 				D05117FE2739BF5100B34BF4 /* SongBarSliderCell.swift in Sources */,

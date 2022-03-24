@@ -10,6 +10,7 @@ import Cocoa
 import Combine
 import LaunchAtLogin
 import os
+import SwiftUI
 
 class SettingsView: NSViewController {
 
@@ -135,4 +136,9 @@ class SettingsView: NSViewController {
         }
         NSWorkspace.shared.open(url)
     }
+
+    @IBAction func didClickRegister(_ sender: Any) {
+        (NSApp.delegate as? AppDelegate)?.displayRegistration()
+    }
+
 }

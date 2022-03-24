@@ -9,6 +9,8 @@
 import Cocoa
 import AppKit
 import Purchases
+import SwiftUI
+import StoreKit
 
 @NSApplicationMain
 
@@ -17,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
     private var settings: NSWindow?
+    private var registration: NSWindow?
 
     #if APPSTORE
         @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
@@ -69,7 +72,7 @@ extension AppDelegate {
         if  settings == nil {
             settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
             settings?.minSize = CGSize(width: 480.0, height: 270.0)
-            settings?.title = "Preferences"
+            settings?.title = NSLocalizedString("preferences:window:title", value: "Preferences", comment: "Window title for preferences")
             settings?.styleMask = [.closable, .resizable, .titled]
         }
         NSApp.setActivationPolicy(.regular)
@@ -80,5 +83,20 @@ extension AppDelegate {
 
     func becomeAccessory() {
         NSApp.setActivationPolicy(.accessory)
+    }
+
+    func displayRegistration() {
+        #if !APPSTORE
+            if registration == nil {
+                registration = NSWindow(contentViewController: NSHostingController(rootView: RegisterView()))
+                registration?.minSize = CGSize(width: 480.0, height: 150.0)
+                registration?.title = NSLocalizedString("registration:window:title", value: "Registration", comment: "Window title for registration")
+                registration?.styleMask = [.closable, .resizable, .titled]
+            }
+            NSApp.setActivationPolicy(.regular)
+            NSApp.presentationOptions = []
+            NSApp.activate(ignoringOtherApps: true)
+            registration?.makeKeyAndOrderFront(self)
+        #endif
     }
 }
