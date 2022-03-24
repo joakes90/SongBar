@@ -7,51 +7,60 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RegisterView: View {
+    @ObservedObject var defaultsController = DefaultsController.shared
     @State var email = ""
-    @State var license = ""
-    @State var isRegistered = false
     @State var isValid = false
+
+    private func register() {
+        print("Set this up")
+    }
 
     var body: some View {
         VStack {
             Form {
-                if !isRegistered {
-                    Section(header: Text("Registration")
-                        .fontWeight(.bold)) {
-                        TextField(LocalizedStringKey(stringLiteral: "Email:"),
+                Section(header: Text("Registration")
+                    .fontWeight(.bold)) {
+                        TextField("Email:",
                                   text: $email)
                         .font(.callout)
-                        TextField(LocalizedStringKey(stringLiteral: "License:"),
-                                  text: $license)
+                        .onChange(of: email, perform: { value in
+                            email = value
+                                .trimmingCharacters(in: .whitespacesAndNewlines)
+                                .lowercased()
+                        })
+                        TextField("License:",
+                                  text: $defaultsController.license)
                         .font(.callout)
+                        .onChange(of: defaultsController.license, perform: { value in
+                            defaultsController.license = value.uppercased()
+                        })
 
                         Spacer()
                         HStack {
                             Spacer()
                             Button("Cancel") {
-                                // dismiss
+                                NSApp.keyWindow?.close()
                             }
                             Button("Register") {
                                 // register
                             }
+                            .disabled(!isValid)
                         }
                     }
-                }
+            }
+            .disableAutocorrection(true)
+            .onSubmit {
+                register()
             }
             .padding()
             .frame(minWidth: 480.0,
                    idealWidth: 480.0,
                    minHeight: 150.0,
                    idealHeight: 150.0,
-               alignment: .center)
+                   alignment: .center)
         }
-    }
-}
-
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterView()
     }
 }

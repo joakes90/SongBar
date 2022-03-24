@@ -14,8 +14,10 @@ class DefaultsController: ObservableObject {
     static let shared = DefaultsController()
     private let userDefaults = UserDefaults.standard
     private let purchaseController = PurchaseController.shared
+    private var cancelables = Set<AnyCancellable>()
 
     @Published var isPremium: Bool = false
+    @Published var license: String = ""
 
     init() {
         userDefaults.register(
@@ -23,6 +25,12 @@ class DefaultsController: ObservableObject {
                 UserDefaults.Keys.controls: true,
                 UserDefaults.Keys.trackInfo: true
             ])
+        userLicense()
+            .sink { string in
+                self.license = string
+            }
+            .store(in: &cancelables)
+
         Task {
             let isPremium = await purchaseController.deluxeEnabled()
             DispatchQueue.main.async {
@@ -51,8 +59,9 @@ class DefaultsController: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    func userLicense() -> AnyPublisher<String?, Never> {
+    func userLicense() -> AnyPublisher<String, Never> {
         userDefaults.publisher(for: \.license)
+            .map { $0 ?? "" }
             .eraseToAnyPublisher()
     }
 
