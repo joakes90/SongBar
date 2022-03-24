@@ -18,8 +18,19 @@ struct RegisterView: View {
         print("Set this up")
     }
 
-    private func license(for string: String) -> String {
-        
+    private func license(for string: String) -> String? {
+        guard let data = string.data(using: .utf8)?.base64EncodedString() else { return nil }
+
+        let subString = data
+            .trimmingCharacters(in: .alphanumerics.inverted)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .padding(toLength: 16, withPad: "0", startingAt: 0)
+            .uppercased()
+            .enumerated()
+            .map { ($0.isMultiple(of: 4) && $0 != 0 ? "-\($1)" : String($1)) }
+            .joined()
+            .prefix(19)
+        return String(subString)
     }
 
     var body: some View {
@@ -34,6 +45,8 @@ struct RegisterView: View {
                             email = value
                                 .trimmingCharacters(in: .whitespacesAndNewlines)
                                 .lowercased()
+
+                            isValid = license(for: email) == defaultsController.license
                         })
                         TextField("License:",
                                   text: $defaultsController.license)
@@ -50,6 +63,8 @@ struct RegisterView: View {
                                     .joined()
                                     .prefix(19)
                             )
+
+                            isValid = license(for: email) == defaultsController.license
                         })
 
                         Spacer()
@@ -59,7 +74,7 @@ struct RegisterView: View {
                                 NSApp.keyWindow?.close()
                             }
                             Button("Register") {
-                                // register
+                                register()
                             }
                             .disabled(!isValid)
                         }
