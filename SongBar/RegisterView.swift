@@ -18,6 +18,10 @@ struct RegisterView: View {
         print("Set this up")
     }
 
+    private func license(for string: String) -> String {
+        
+    }
+
     var body: some View {
         VStack {
             Form {
@@ -35,7 +39,17 @@ struct RegisterView: View {
                                   text: $defaultsController.license)
                         .font(.callout)
                         .onChange(of: defaultsController.license, perform: { value in
-                            defaultsController.license = value.uppercased()
+                            defaultsController.license = String(
+                                value
+                                    .replacingOccurrences(of: "-", with: "")
+                                    .uppercased()
+                                    .enumerated()
+                                    .map {
+                                        $0.isMultiple(of: 4) && $0 != 0 ? "-\($1)" : String($1)
+                                    }
+                                    .joined()
+                                    .prefix(19)
+                            )
                         })
 
                         Spacer()
