@@ -9,6 +9,7 @@
 import Cocoa
 import Combine
 import Kingfisher
+import StoreKit
 
 class PlaybackView: NSView {
 
@@ -28,7 +29,7 @@ class PlaybackView: NSView {
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
     #else
-    @objc private dynamic var playbackListener: MediaWatching = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
+    @objc private dynamic var playbackListener: MediaWatching = /*DefaultsController.shared.isPremium ? */MediaRemoteListner()// : PlaybackListener()
     #endif
 
     private var songTitleObserver: NSKeyValueObservation?
@@ -52,12 +53,44 @@ class PlaybackView: NSView {
         commonInit()
     }
 
-    // swiftlint:disable:next function_body_length
     private func commonInit() {
         loadFromNib()
         contentEffectsView.wantsLayer = true
         contentEffectsView.layer?.cornerRadius = 8.0
 
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipForwardButton)
+            .store(in: &cancelables)
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isTransparent, on: skipBackwardButton)
+            .store(in: &cancelables)
+        defaultsController.trackInfoEnabled()
+            .removeDuplicates()
+            .sink { self.trackInfoView.isHidden = !$0 }
+            .store(in: &cancelables)
+        defaultsController.controlsEnabled()
+            .removeDuplicates()
+            .sink { self.controlsView.isHidden = !$0 }
+            .store(in: &cancelables)
+        defaultsController.premiumFeaturesEnabled()
+            .sink { self.contentEffectsView.isHidden = !$0 }
+            .store(in: &cancelables)
+
+        #if !APPSTORE
+        defaultsController.$isPremium
+            .sink {
+                self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
+                self.configureListner()
+            }
+            .store(in: &cancelables)
+        #else
+        configureListner()
+        #endif
+    }
+
+    private func configureListner() {
         songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
             guard let self = self else { return }
             self.titleTextField.stringValue = name.newValue ?? ""
@@ -93,25 +126,6 @@ class PlaybackView: NSView {
         playbackButton(for: MusicEPlS(playbackListener.playbackState.uint32Value))
         imageView.image = playbackListener.art
         playbackListener.populateMusicData()
-        defaultsController.$isPremium
-            .map { !$0 }
-            .assign(to: \.isTransparent, on: skipForwardButton)
-            .store(in: &cancelables)
-        defaultsController.$isPremium
-            .map { !$0 }
-            .assign(to: \.isTransparent, on: skipBackwardButton)
-            .store(in: &cancelables)
-        defaultsController.trackInfoEnabled()
-            .removeDuplicates()
-            .sink { self.trackInfoView.isHidden = !$0 }
-            .store(in: &cancelables)
-        defaultsController.controlsEnabled()
-            .removeDuplicates()
-            .sink { self.controlsView.isHidden = !$0 }
-            .store(in: &cancelables)
-        defaultsController.premiumFeaturesEnabled()
-            .sink { self.contentEffectsView.isHidden = !$0 }
-            .store(in: &cancelables)
     }
 
     private func loadFromNib() {
