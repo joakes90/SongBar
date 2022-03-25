@@ -73,8 +73,9 @@ class DefaultsController: ObservableObject {
         userDefaults.controls = newValue
     }
 
-    func setLicense(newValue: String) {
+    func setLicense(newValue: String) async throws {
         userDefaults.license = newValue
+        try await purchaseController.update(with: newValue)
     }
 }
 

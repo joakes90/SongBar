@@ -64,9 +64,13 @@ class PurchaseController {
         }
     }
 
+    func update(with userID: String) async throws {
+        Purchases.configure(withAPIKey: "appl_ppUCCJCClgKiAnroBTkqUzBbuHM", appUserID: userID)
+        try await restorePurchases()
+    }
+
     func deluxeEnabled() async -> Bool {
-        guard let _ = try? await Purchases.shared.purchaserInfo().entitlements["pro"] else { return false }
-        return true
+        ((try? await Purchases.shared.purchaserInfo().entitlements["pro"] != nil) != nil)
     }
 }
 

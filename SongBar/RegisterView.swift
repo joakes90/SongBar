@@ -15,7 +15,10 @@ struct RegisterView: View {
     @State var isValid = false
 
     private func register() {
-        print("Set this up")
+        Task {
+            try await defaultsController.setLicense(newValue: defaultsController.license)
+            // TODO: Handle error
+        }
     }
 
     private func license(for string: String) -> String? {
