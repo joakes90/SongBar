@@ -13,11 +13,18 @@ struct RegisterView: View {
     @ObservedObject var defaultsController = DefaultsController.shared
     @State var email = ""
     @State var isValid = false
+    @State var processing = false
 
     private func register() {
         Task {
-            try await defaultsController.setLicense(newValue: defaultsController.license)
-            // TODO: Handle error
+            do {
+                processing = true
+                try await defaultsController.setLicense(newValue: defaultsController.license)
+                NSApp.keyWindow?.close()
+            } catch {
+                let alert = NSAlert(error: error)
+                alert.runModal()
+            }
         }
     }
 
@@ -73,13 +80,18 @@ struct RegisterView: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Button("Cancel") {
-                                NSApp.keyWindow?.close()
+                            if !processing {
+                                Button("Cancel") {
+                                    NSApp.keyWindow?.close()
+                                }
+                                Button("Register") {
+                                    register()
+                                }
+                                .disabled(!isValid)
+                            } else {
+                                ProgressView()
+                                    .scaleEffect(0.5)
                             }
-                            Button("Register") {
-                                register()
-                            }
-                            .disabled(!isValid)
                         }
                     }
             }

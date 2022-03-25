@@ -59,7 +59,7 @@ class SettingsView: NSViewController {
                 self.logger.log("Price information updated")
                 if let number = $0 as NSNumber?,
                 let formattedCurrency = self.currencyFormater.string(from: number) {
-                    // TODO: This will need to be fully localized later on
+                    // This will need to be fully localized later on
                     self.purchaseLabel.stringValue = "Purchase SongBar Deluxe for \(formattedCurrency)"
                 } else {
                     self.logger.error("could not retrieve price information")

@@ -70,7 +70,9 @@ class PurchaseController {
     }
 
     func deluxeEnabled() async -> Bool {
-        ((try? await Purchases.shared.purchaserInfo().entitlements["pro"] != nil) != nil)
+        // swiftlint:disable:next unused_optional_binding
+        guard let _ = try? await Purchases.shared.purchaserInfo().entitlements["pro"] else { return false }
+        return true
     }
 }
 
@@ -80,7 +82,7 @@ extension PurchaseController {
         case purchasesNotFound
         case badURL
 
-        // TODO: Localize
+        // These errors will need to be localized
         var errorDescription: String? {
             switch self {
             case .packageNotAvailable:
@@ -108,7 +110,7 @@ extension PurchaseController {
             case .packageNotAvailable:
                 return "Check your network connection and try again later"
             case .purchasesNotFound:
-                return "If you believe this to be an error please contact Apple support"
+                return "If you believe this to be an error please contact support"
             case .badURL:
                 return "Check your network connection and try again later"
             }
