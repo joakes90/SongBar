@@ -30,6 +30,8 @@ import Kingfisher
 
     private var sourceApp: NSRunningApplication?
 
+    private var nowPlayingInformation: [String: Any] = [:]
+
     private var trackDuration: Double?
 
     private var elapsedTime: Double?
@@ -168,9 +170,11 @@ import Kingfisher
                     self.playbackState = NSNumber(value: MusicEPlSPaused.rawValue)
                 default:
                     self.playbackState = NSNumber(value: MusicEPlSStopped.rawValue)
+                    self.nowPlayingInformation = [:]
                 }
             })
             .store(in: &cancelables)
+
         NotificationCenter.default.publisher(for: .mediaRemoteNowPlayingInfoDidChange)
             .debounce(for: .milliseconds(250),
                          scheduler: DispatchQueue.main)
@@ -191,6 +195,7 @@ import Kingfisher
             self.elapsedTime = self.elapsedTime(from: information)
             self.lastUpdate = self.lastUpdate(from: information)
             self.art = self.currentArt(from: information)
+            self.nowPlayingInformation = information
         })
 
         MRMediaRemoteGetNowPlayingApplicationPID(DispatchQueue.main, { [weak self] (pid) in
@@ -200,12 +205,12 @@ import Kingfisher
 
         MRMediaRemoteGetNowPlayingApplicationPlaybackState(DispatchQueue.main, { [weak self] (playing) in
             guard let self = self else { return }
-            switch (playing, self.sourceApp) {
+            switch (playing, (self.nowPlayingInformation.count > 0) ) {
             case (true, _):
                 self.playbackState = NSNumber(value: MusicEPlSPlaying.rawValue)
-            case (false, .some):
+            case (false, true):
                 self.playbackState = NSNumber(value: MusicEPlSPaused.rawValue)
-            case (false, .none):
+            case (false, false):
                 self.playbackState = NSNumber(value: MusicEPlSStopped.rawValue)
             }
         })
@@ -301,7 +306,8 @@ private extension MediaRemoteListner {
     }
 
     func incrementPlayHeadPosition(forceUpdate: Bool = false) {
-        guard let elapsedTime = self.elapsedTime, let trackDuration = self.trackDuration else { return }
+        guard let elapsedTime = self.elapsedTime,
+              let trackDuration = self.trackDuration else { return }
         let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
         let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
         if !debounceHeadPosition || forceUpdate {
