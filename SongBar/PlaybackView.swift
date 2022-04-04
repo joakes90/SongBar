@@ -29,7 +29,7 @@ class PlaybackView: NSView {
     #if APPSTORE
         @objc private dynamic var playbackListener: MediaWatching = PlaybackListener()
     #else
-    @objc private dynamic var playbackListener: MediaWatching = /*DefaultsController.shared.isPremium ? */MediaRemoteListner()// : PlaybackListener()
+        @objc private dynamic var playbackListener: MediaWatching = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
 
     private var songTitleObserver: NSKeyValueObservation?

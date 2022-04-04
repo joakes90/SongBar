@@ -11,6 +11,7 @@ import AppKit
 import Purchases
 import SwiftUI
 import StoreKit
+import Combine
 
 @NSApplicationMain
 
@@ -20,29 +21,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu!
     private var settings: NSWindow?
     private var registration: NSWindow?
-
+    private var cancelables = Set<AnyCancellable>()
+    private var menuTitleObserver: NSKeyValueObservation?
+    // magic number
+    private let variableStatusItemLength: CGFloat = -1
     #if APPSTORE
         @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
     #else
         @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
-
-    var sysBar: NSStatusItem!
-    private var menuTitleObserver: NSKeyValueObservation?
-    // magic number
-    private let variableStatusItemLength: CGFloat = -1
-
+    var sysBar: NSStatusItem?
     func applicationDidFinishLaunching(_ notification: Notification) {
+        #if !APPSTORE
+        DefaultsController.shared.$isPremium
+                .sink {
+                    self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
+                    self.configureListner()
+                }
+                .store(in: &cancelables)
+        #endif
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
-        sysBar.button?.title = "SongBar"
-        sysBar.menu = menu
-        sysBar.isVisible = true
+        sysBar?.button?.title = "SongBar"
+        sysBar?.menu = menu
+        sysBar?.isVisible = true
+        configureListner()
+    }
+
+    private func configureListner() {
+        playbackListener?.populateMusicData()
         menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
                   let title = title.newValue else { return }
-            self.sysBar.button?.title = self.menuTitleOfMaximumLength(title: title)
+            self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
         })
-        playbackListener?.populateMusicData()
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
