@@ -1,0 +1,6 @@
+/* Bundle name */
+"CFBundleName" = "SongBar";
+/* Privacy - AppleEvents Sending Usage Description */
+"NSAppleEventsUsageDescription" = "Songbar uses AppleEvents to see what song is playing and provide playback controlls to Apple Music and Spotify.";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2020 Justin Oakes. All rights reserved.";
