@@ -35,6 +35,7 @@
 		D051B41F27AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
 		D051B42027AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
 		D066E28D27ECB95A00367F60 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066E28C27ECB95A00367F60 /* RegisterView.swift */; };
+		D078498327FC7F3C00A32373 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D078498227FC7F3C00A32373 /* Sparkle */; };
 		D07DDDF327B176980092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
 		D07DDDF427B1782F0092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
 		D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D095683625364CB1009AA5CC /* PlaybackMenuItem.swift */; };
@@ -118,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D078498327FC7F3C00A32373 /* Sparkle in Frameworks */,
 				D05118002739BF5100B34BF4 /* LaunchAtLogin in Frameworks */,
 				D05118012739BF5100B34BF4 /* Kingfisher in Frameworks */,
 				D05118022739BF5100B34BF4 /* ScriptingBridge.framework in Frameworks */,
@@ -325,6 +327,7 @@
 				D05117F22739BF5100B34BF4 /* Kingfisher */,
 				D05117F42739BF5100B34BF4 /* LaunchAtLogin */,
 				D0DA5E9827C3F4A500F2B321 /* Purchases */,
+				D078498227FC7F3C00A32373 /* Sparkle */,
 			);
 			productName = SongBar;
 			productReference = D051180C2739BF5100B34BF4 /* SongBar.app */;
@@ -337,7 +340,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = joakes;
 				TargetAttributes = {
 					36491D2F19F6F3330083A49D = {
@@ -368,6 +371,7 @@
 				D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				D03BE46E26BDC6CF00364177 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				D0DA5E9127C3F12200F2B321 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+				D078498127FC7F3C00A32373 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 36491D3119F6F3330083A49D /* Products */;
 			projectDirPath = "";
@@ -805,7 +809,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C2NSPAKWYK;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "SongBar (app store) copy-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -830,7 +834,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C2NSPAKWYK;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "SongBar (app store) copy-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -920,6 +924,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		D078498127FC7F3C00A32373 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		D0DA5E9127C3F12200F2B321 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
@@ -950,6 +962,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D05117F52739BF5100B34BF4 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
+		};
+		D078498227FC7F3C00A32373 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D078498127FC7F3C00A32373 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 		D0DA5E9227C3F12200F2B321 /* Purchases */ = {
 			isa = XCSwiftPackageProductDependency;

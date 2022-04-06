@@ -16,7 +16,13 @@ class DefaultsController: ObservableObject {
     private let purchaseController = PurchaseController.shared
     private var cancelables = Set<AnyCancellable>()
 
-    @Published var isPremium: Bool = false
+    @Published var isPremium: Bool = false {
+        didSet {
+            setTrackValue(newValue: self.isPremium ? userDefaults.trackInfo : true)
+            setControlsValue(newValue: self.isPremium ? userDefaults.controls : true)
+        }
+    }
+
     @Published var license: String = ""
 
     init() {
