@@ -33,7 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
     #endif
     var sysBar: NSStatusItem?
+
     func applicationDidFinishLaunching(_ notification: Notification) {
+        FirebaseApp.configure()
         #if !APPSTORE
         updateMenuItem.isHidden = false
         DefaultsController.shared.$isPremium
@@ -43,7 +45,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 .store(in: &cancelables)
         #endif
-        FirebaseApp.configure()
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar?.button?.title = "SongBar"
         sysBar?.menu = menu
@@ -52,12 +53,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func configureListner() {
-        playbackListener?.populateMusicData()
         menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
                   let title = title.newValue else { return }
             self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
         })
+        playbackListener?.populateMusicData()
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
