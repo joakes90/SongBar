@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>170</string>
+	<string>171</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.music</string>
 	<key>LSHasLocalizedDisplayName</key>
@@ -41,6 +41,8 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>https://songbar.app/appcast.xml</string>
+	<string>https://songbar.app/releases/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>mq+FjAXR6xjXiczhGFVf+jUEFgZIVVKK6k8pJNQAFLM=</string>
 </dict>
 </plist>

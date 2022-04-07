@@ -19,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var menu: NSMenu!
+    @IBOutlet weak var updateMenuItem: NSMenuItem!
     private var settings: NSWindow?
     private var registration: NSWindow?
     private var cancelables = Set<AnyCancellable>()
@@ -33,6 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var sysBar: NSStatusItem?
     func applicationDidFinishLaunching(_ notification: Notification) {
         #if !APPSTORE
+        updateMenuItem.isHidden = false
         DefaultsController.shared.$isPremium
                 .sink {
                     self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
