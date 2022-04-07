@@ -12,6 +12,7 @@ import Purchases
 import SwiftUI
 import StoreKit
 import Combine
+import Firebase
 
 @NSApplicationMain
 
@@ -42,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 .store(in: &cancelables)
         #endif
+        FirebaseApp.configure()
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar?.button?.title = "SongBar"
         sysBar?.menu = menu
