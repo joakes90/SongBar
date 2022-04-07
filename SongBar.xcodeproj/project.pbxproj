@@ -766,6 +766,7 @@
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
@@ -793,6 +794,7 @@
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
@@ -868,6 +870,7 @@
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C2NSPAKWYK;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -893,6 +896,7 @@
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C2NSPAKWYK;
 				ENABLE_HARDENED_RUNTIME = YES;
