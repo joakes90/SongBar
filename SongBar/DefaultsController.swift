@@ -29,7 +29,8 @@ class DefaultsController: ObservableObject {
         userDefaults.register(
             defaults: [
                 UserDefaults.Keys.controls: true,
-                UserDefaults.Keys.trackInfo: true
+                UserDefaults.Keys.trackInfo: true,
+                UserDefaults.Keys.exceptions: true
             ])
         userLicense()
             .sink { string in
@@ -91,6 +92,7 @@ extension UserDefaults {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
         static var license = "license"
+        static var exceptions = "NSApplicationCrashOnExceptions"
     }
 
     @objc dynamic var trackInfo: Bool {

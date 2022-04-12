@@ -41,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DefaultsController.shared.$isPremium
                 .sink {
                     self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
-                    self.configureListner()
+//                    self.configureListner()
                 }
                 .store(in: &cancelables)
         #endif
@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sysBar?.menu = menu
         sysBar?.isVisible = true
         configureListner()
+        FirebaseAnalytics.Analytics.logEvent("test_event", parameters: ["pram1": 1])
     }
 
     private func configureListner() {
