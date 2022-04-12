@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>392418271121-e9od18a5k1ol51mqvvfg5g6n6pmvoa7q.apps.googleusercontent.com</string>
+	<string>156001161689-v65j56f1qfoj35hb0ve0uefe4j1ct4du.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.392418271121-e9od18a5k1ol51mqvvfg5g6n6pmvoa7q</string>
+	<string>com.googleusercontent.apps.156001161689-v65j56f1qfoj35hb0ve0uefe4j1ct4du</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAYBvKc43UJGJJ1H3jCgmprEjgbZGZD3Oc</string>
+	<string>AIzaSyDVRwLXiXnFq2sbeZPu5gS-LDEiZgbGlxk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>392418271121</string>
+	<string>156001161689</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.joakes.SongBar</string>
 	<key>PROJECT_ID</key>
-	<string>songbar-8b808</string>
+	<string>songbar-eacbf</string>
 	<key>STORAGE_BUCKET</key>
-	<string>songbar-8b808.appspot.com</string>
+	<string>songbar-eacbf.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:392418271121:ios:15aacdb9d3807ca408c430</string>
+	<string>1:156001161689:ios:4a9a3e0cc67639da2609c8</string>
 </dict>
 </plist>

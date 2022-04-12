@@ -50,7 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sysBar?.menu = menu
         sysBar?.isVisible = true
         configureListner()
-        FirebaseAnalytics.Analytics.logEvent("test_event", parameters: ["pram1": 1])
     }
 
     private func configureListner() {
