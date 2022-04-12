@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import Firebase
 
 struct RegisterView: View {
     @ObservedObject var defaultsController = DefaultsController.shared
@@ -20,6 +21,7 @@ struct RegisterView: View {
             do {
                 processing = true
                 try await defaultsController.setLicense(newValue: defaultsController.license)
+                Analytics.logEvent(event: .registerApp, parameters: ["license": defaultsController.license])
                 NSApp.keyWindow?.close()
             } catch {
                 let alert = NSAlert(error: error)

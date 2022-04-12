@@ -16,6 +16,8 @@
 		D016912428060F3B005A7623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D016912228060F3B005A7623 /* GoogleService-Info.plist */; };
 		D016912728060F89005A7623 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D016912628060F89005A7623 /* FirebaseAnalytics */; };
 		D016912928060F9C005A7623 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D016912828060F9C005A7623 /* FirebaseAnalytics */; };
+		D016912B280620AA005A7623 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016912A280620AA005A7623 /* Analytics.swift */; };
+		D016912C280620AA005A7623 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016912A280620AA005A7623 /* Analytics.swift */; };
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
@@ -78,6 +80,7 @@
 		36491D4519F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36491D4619F6F3330083A49D /* SongBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongBarTests.swift; sourceTree = "<group>"; };
 		D016912228060F3B005A7623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D016912A280620AA005A7623 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		D02A849E2530BD0600BDF7D6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		D02A84A12530D75A00BDF7D6 /* Music.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		D02A84A22530D76B00BDF7D6 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 				36491D3919F6F3330083A49D /* MainMenu.xib */,
 				36491D3319F6F3330083A49D /* Supporting Files */,
 				D02A849E2530BD0600BDF7D6 /* README.md */,
+				D016912A280620AA005A7623 /* Analytics.swift */,
 			);
 			path = SongBar;
 			sourceTree = "<group>";
@@ -555,6 +559,7 @@
 				D095683725364CB1009AA5CC /* PlaybackMenuItem.swift in Sources */,
 				D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */,
 				D0ADE5A3273B2A060060AAE8 /* PlaybackListener.m in Sources */,
+				D016912B280620AA005A7623 /* Analytics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +579,7 @@
 				D05117FA2739BF5100B34BF4 /* PlaybackListener.m in Sources */,
 				D05117FB2739BF5100B34BF4 /* PlaybackView.swift in Sources */,
 				D05117FC2739BF5100B34BF4 /* SettingsView.swift in Sources */,
+				D016912C280620AA005A7623 /* Analytics.swift in Sources */,
 				D066E28D27ECB95A00367F60 /* RegisterView.swift in Sources */,
 				D05117FD2739BF5100B34BF4 /* PlaybackMenuItem.swift in Sources */,
 				D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */,

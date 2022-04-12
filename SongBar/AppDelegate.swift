@@ -24,13 +24,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var settings: NSWindow?
     private var registration: NSWindow?
     private var cancelables = Set<AnyCancellable>()
-    private var menuTitleObserver: NSKeyValueObservation?
+    private var observers = Set<NSKeyValueObservation>()
+    private var isPremium = false {
+        didSet {
+            populate()
+        }
+    }
     // magic number
     private let variableStatusItemLength: CGFloat = -1
-    #if APPSTORE
-        @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
-    #else
-        @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
+    @objc dynamic var playbackListener: MediaWatching = PlaybackListener()
+    #if !APPSTORE
+    @objc dynamic var mediaRemoteListner: MediaWatching = MediaRemoteListner()
     #endif
     var sysBar: NSStatusItem?
 
@@ -39,28 +43,48 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         #if !APPSTORE
         updateMenuItem.isHidden = false
         DefaultsController.shared.$isPremium
-                .sink {
-                    self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
-//                    self.configureListner()
-                }
-                .store(in: &cancelables)
+            .assign(to: \.isPremium, on: self)
+            .store(in: &cancelables)
+        Analytics.logEvent(event: .launchDirectDownload, parameters: nil)
+        #else
+        Analytics.logEvent(Event.launchMAS, parameters: nil)
         #endif
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar?.button?.title = "SongBar"
         sysBar?.menu = menu
         sysBar?.isVisible = true
         configureListner()
+        populate()
     }
 
     private func configureListner() {
-        menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
+        let playbackListenerMenuTitleObserver = observe(\.playbackListener.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
                   let title = title.newValue else { return }
-            self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            #if APPSTORE
+                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            #else
+            if !self.isPremium { self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title) }
+            #endif
         })
-        playbackListener?.populateMusicData()
+        observers.insert(playbackListenerMenuTitleObserver)
+        #if !APPSTORE
+            let mediaRemoteMenuTitleObserver = observe(\.mediaRemoteListner.menuTitle, options: .new, changeHandler: { [weak self] _, title in
+                guard let self = self,
+                      self.isPremium,
+                      let title = title.newValue else { return }
+                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            })
+            observers.insert(mediaRemoteMenuTitleObserver)
+        #endif
     }
 
+    private func populate() {
+        playbackListener.populateMusicData()
+        #if !AppStore
+        mediaRemoteListner.populateMusicData()
+        #endif
+    }
     private func menuTitleOfMaximumLength(title: String?) -> String {
         let maximumLength = 57
         let ellipsesLength = 3
