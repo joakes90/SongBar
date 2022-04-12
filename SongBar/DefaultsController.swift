@@ -13,9 +13,37 @@ class DefaultsController: ObservableObject {
 
     static let shared = DefaultsController()
     private let userDefaults = UserDefaults.standard
+    private let purchaseController = PurchaseController.shared
+    private var cancelables = Set<AnyCancellable>()
 
-    // This will be handled by IAP or registration check in the future
-    @Published var isPremium: Bool = false
+    @Published var isPremium: Bool = false {
+        didSet {
+            setTrackValue(newValue: self.isPremium ? userDefaults.trackInfo : true)
+            setControlsValue(newValue: self.isPremium ? userDefaults.controls : true)
+        }
+    }
+
+    @Published var license: String = ""
+
+    init() {
+        userDefaults.register(
+            defaults: [
+                UserDefaults.Keys.controls: true,
+                UserDefaults.Keys.trackInfo: true
+            ])
+        userLicense()
+            .sink { string in
+                self.license = string
+            }
+            .store(in: &cancelables)
+
+        Task {
+            let isPremium = await purchaseController.deluxeEnabled()
+            DispatchQueue.main.async {
+                self.isPremium = isPremium
+            }
+        }
+    }
 
     func trackInfoEnabled() -> AnyPublisher<Bool, Never> {
         userDefaults.publisher(for: \.trackInfo)
@@ -37,12 +65,23 @@ class DefaultsController: ObservableObject {
             .eraseToAnyPublisher()
     }
 
+    func userLicense() -> AnyPublisher<String, Never> {
+        userDefaults.publisher(for: \.license)
+            .map { $0 ?? "" }
+            .eraseToAnyPublisher()
+    }
+
     func setTrackValue(newValue: Bool) {
         userDefaults.trackInfo = newValue
     }
 
     func setControlsValue(newValue: Bool) {
         userDefaults.controls = newValue
+    }
+
+    func setLicense(newValue: String) async throws {
+        userDefaults.license = newValue
+        try await purchaseController.update(with: newValue)
     }
 }
 
@@ -51,6 +90,7 @@ extension UserDefaults {
     enum Keys {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
+        static var license = "license"
     }
 
     @objc dynamic var trackInfo: Bool {
@@ -68,6 +108,15 @@ extension UserDefaults {
             return bool(forKey: Keys.controls)
         } set {
             set(newValue, forKey: Keys.controls)
+        }
+    }
+
+    @objc dynamic var license: String? {
+        get {
+            string(forKey: Keys.license)
+        }
+        set {
+            set(newValue, forKey: Keys.license)
         }
     }
 }

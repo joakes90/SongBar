@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
-                <outlet property="updateMenuItem" destination="OIc-EE-uD6" id="cga-tI-O3f"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -16,7 +16,6 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SongBar" customModuleProvider="target">
             <connections>
                 <outlet property="menu" destination="La1-uj-7QE" id="6NI-bo-v3x"/>
-                <outlet property="updateMenuItem" destination="OIc-EE-uD6" id="qPf-wl-7eE"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -34,12 +33,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Check for Updates..." hidden="YES" id="OIc-EE-uD6">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="checkForUpdates:" target="jW8-B7-9XQ" id="j9X-i9-1Nn"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -448,6 +442,5 @@
             </connections>
             <point key="canvasLocation" x="-91" y="245.5"/>
         </menu>
-        <customObject id="jW8-B7-9XQ" customClass="SPUStandardUpdaterController"/>
     </objects>
 </document>

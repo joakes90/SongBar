@@ -9,17 +9,28 @@
 import Cocoa
 import Combine
 import LaunchAtLogin
+import os
+import SwiftUI
 
 class SettingsView: NSViewController {
 
     @IBOutlet weak var displayTrackCheckbox: NSButton!
     @IBOutlet weak var displayControlsCheckbox: NSButton!
+    @IBOutlet weak var deluxeOwnerView: NSView!
+    @IBOutlet weak var purchaseView: NSView!
+    @IBOutlet weak var purchaseLabel: NSTextField!
+    @IBOutlet weak var registerView: NSView!
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
     private var defaultsController = DefaultsController.shared
     private var cancelables = Set<AnyCancellable>()
-
+    private var purchaseController = PurchaseController.shared
+    private let currencyFormater = NumberFormatter()
+    private let logger = Logger(subsystem: "com.joakes.SongBar", category: "SettingsView")
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        currencyFormater.numberStyle = .currency
+        currencyFormater.usesGroupingSeparator = true
         defaultsController.$isPremium
             .assign(to: \.isEnabled, on: displayTrackCheckbox)
             .store(in: &cancelables)
@@ -32,6 +43,36 @@ class SettingsView: NSViewController {
         defaultsController.controlsEnabled()
             .sink { self.displayControlsCheckbox.state = $0 ? .on : .off }
             .store(in: &cancelables)
+
+        defaultsController.$isPremium
+            .map { !$0 }
+            .assign(to: \.isHidden, on: deluxeOwnerView)
+            .store(in: &cancelables)
+
+        #if APPSTORE
+        logger.log("App Store specific configuration has started")
+        defaultsController.$isPremium
+            .assign(to: \.isHidden, on: purchaseView)
+            .store(in: &cancelables)
+        purchaseController.$price
+            .sink {
+                self.logger.log("Price information updated")
+                if let number = $0 as NSNumber?,
+                let formattedCurrency = self.currencyFormater.string(from: number) {
+                    // This will need to be fully localized later on
+                    self.purchaseLabel.stringValue = "Purchase SongBar Deluxe for \(formattedCurrency)"
+                } else {
+                    self.logger.error("could not retrieve price information")
+                    self.purchaseView.isHidden = true
+                }
+            }
+            .store(in: &cancelables)
+        #else
+        logger.log("Non App Store specific configuration has started")
+        defaultsController.$isPremium
+            .assign(to: \.isHidden, on: registerView)
+            .store(in: &cancelables)
+        #endif
     }
 
     override func viewDidDisappear() {
@@ -62,4 +103,42 @@ class SettingsView: NSViewController {
             defaultsController.setControlsValue(newValue: true)
         }
     }
+    @IBAction func didClickBuy(_ sender: Any) {
+        Task {
+            do {
+                try await purchaseController.purchaseDeluxe()
+            } catch {
+                let alert = NSAlert(error: error)
+                alert.runModal()
+            }
+        }
+    }
+
+    @IBAction func didClickRestore(_ sender: Any) {
+        Task {
+            do {
+                try await purchaseController.restorePurchases()
+            } catch {
+                DispatchQueue.main.async {
+                    let alert = NSAlert(error: error)
+                    alert.runModal()
+                }
+
+            }
+        }
+    }
+
+    @IBAction func didClickBuyWeb(_ sender: Any) {
+        guard let url = URL(string: "https://songbar.app") else {
+            let alert = NSAlert(error: PurchaseController.PurchaseErrors.badURL)
+            alert.runModal()
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+
+    @IBAction func didClickRegister(_ sender: Any) {
+        (NSApp.delegate as? AppDelegate)?.displayRegistration()
+    }
+
 }

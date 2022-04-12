@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsView" customModule="SongBar" customModuleProvider="target">
             <connections>
+                <outlet property="deluxeOwnerView" destination="AUS-sa-ozi" id="3iz-VX-S4w"/>
                 <outlet property="displayControlsCheckbox" destination="sha-x5-Z1h" id="JeY-Lm-Fhe"/>
                 <outlet property="displayTrackCheckbox" destination="Adb-jg-jl5" id="rRC-Ld-sZY"/>
+                <outlet property="purchaseLabel" destination="gbd-r4-KEO" id="Wo9-S0-NVY"/>
+                <outlet property="purchaseView" destination="flm-v6-DRh" id="jwL-aI-b4w"/>
+                <outlet property="registerView" destination="Fpw-O9-OzM" id="qYA-H8-I0N"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -37,7 +41,7 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Adb-jg-jl5">
                                 <rect key="frame" x="18" y="159" width="172" height="18"/>
-                                <buttonCell key="cell" type="check" title="Display track infomation" bezelStyle="regularSquare" imagePosition="left" state="on" transparent="YES" inset="2" id="oFg-6t-eTX">
+                                <buttonCell key="cell" type="check" title="Display track infomation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oFg-6t-eTX">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -48,7 +52,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sha-x5-Z1h">
                                 <rect key="frame" x="18" y="137" width="181" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Display playback controls" bezelStyle="regularSquare" imagePosition="left" state="on" transparent="YES" inset="2" id="oY7-Yr-LJT">
+                                <buttonCell key="cell" type="check" title="Display playback controls" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oY7-Yr-LJT">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -56,12 +60,173 @@
                                     <action selector="displayControlsStateDidChange:" target="-2" id="3Xz-AZ-jZa"/>
                                 </connections>
                             </button>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="98" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6D-sI-f5q">
+                                <rect key="frame" x="0.0" y="0.0" width="440" height="55"/>
+                                <subviews>
+                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-O9-OzM">
+                                        <rect key="frame" x="0.0" y="6" width="440" height="49"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="752" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1nu-BU-qrh">
+                                                <rect key="frame" x="1" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="rvg-1I-9n4"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Buy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="buM-EF-Avf">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickBuyWeb:" target="-2" id="Fbw-Yt-6SP"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-iI-tLH">
+                                                <rect key="frame" x="2" y="4" width="158" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Buy SongBar Deluxe on the web" id="muQ-sB-fcx">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-7r-uEM">
+                                                <rect key="frame" x="350" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="WCS-kI-q7v"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Register" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mhC-c8-sHB">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickRegister:" target="-2" id="1Pi-a4-pQN"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="SdK-c9-Yhk">
+                                                <rect key="frame" x="320" y="4" width="118" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Enter your license code" id="l9T-g0-viN">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="CdJ-7r-uEM" secondAttribute="trailing" constant="8" id="1ff-Ah-ygJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="SdK-c9-Yhk" secondAttribute="bottom" constant="4" id="4nc-st-RRh"/>
+                                            <constraint firstItem="1nu-BU-qrh" firstAttribute="top" secondItem="Fpw-O9-OzM" secondAttribute="top" constant="8" id="KIK-YV-6Bg"/>
+                                            <constraint firstItem="CdJ-7r-uEM" firstAttribute="top" secondItem="Fpw-O9-OzM" secondAttribute="top" constant="8" id="NBc-Vo-W6M"/>
+                                            <constraint firstAttribute="bottom" secondItem="lQQ-iI-tLH" secondAttribute="bottom" constant="4" id="bRy-bR-rDE"/>
+                                            <constraint firstItem="lQQ-iI-tLH" firstAttribute="leading" secondItem="Fpw-O9-OzM" secondAttribute="leading" constant="4" id="h1l-45-i75"/>
+                                            <constraint firstItem="lQQ-iI-tLH" firstAttribute="top" secondItem="1nu-BU-qrh" secondAttribute="bottom" constant="4" id="mmI-Zb-OSv"/>
+                                            <constraint firstItem="SdK-c9-Yhk" firstAttribute="top" secondItem="CdJ-7r-uEM" secondAttribute="bottom" constant="4" id="oiA-QE-kAZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="SdK-c9-Yhk" secondAttribute="trailing" constant="4" id="pDs-XD-gpW"/>
+                                            <constraint firstItem="1nu-BU-qrh" firstAttribute="leading" secondItem="Fpw-O9-OzM" secondAttribute="leading" constant="8" id="uQN-SR-xKe"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUS-sa-ozi">
+                                        <rect key="frame" x="0.0" y="35" width="440" height="20"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uLo-ZY-Kff">
+                                                <rect key="frame" x="158" y="4" width="124" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="You own SongBar Deluxe" id="Yji-F9-2UF">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Fjk-9Q-hBL"/>
+                                            <constraint firstAttribute="bottom" secondItem="uLo-ZY-Kff" secondAttribute="bottom" constant="4" id="Gb2-0k-dkz"/>
+                                            <constraint firstItem="uLo-ZY-Kff" firstAttribute="centerX" secondItem="AUS-sa-ozi" secondAttribute="centerX" id="LmR-O8-Onm"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView hidden="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="flm-v6-DRh">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="55"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wvI-Nd-TTJ">
+                                                <rect key="frame" x="1" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="HRZ-Ss-Dbu"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Buy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="91X-3d-kZJ">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickBuy:" target="-2" id="HI9-Zr-U3i"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gbd-r4-KEO">
+                                                <rect key="frame" x="2" y="4" width="176" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Purchase SongBar Deluxe for $8.99" id="Bas-qj-eJX">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IDM-0F-5y7">
+                                                <rect key="frame" x="305" y="4" width="133" height="13"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Restore previous purchase" id="O7k-kN-Fry">
+                                                    <font key="font" textStyle="footnote" name=".SFNS-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0uZ-oc-rcb">
+                                                <rect key="frame" x="350" y="14" width="89" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="fso-x8-0Oy"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="push" title="Restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ejc-F1-RCk">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickRestore:" target="-2" id="0zs-Lq-7gk"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="0uZ-oc-rcb" secondAttribute="trailing" constant="8" id="1Lw-4U-yjF"/>
+                                            <constraint firstAttribute="bottom" secondItem="IDM-0F-5y7" secondAttribute="bottom" constant="4" id="76P-OH-Rmb"/>
+                                            <constraint firstItem="wvI-Nd-TTJ" firstAttribute="leading" secondItem="flm-v6-DRh" secondAttribute="leading" constant="8" id="E92-kR-XGJ"/>
+                                            <constraint firstItem="gbd-r4-KEO" firstAttribute="top" secondItem="wvI-Nd-TTJ" secondAttribute="bottom" constant="4" id="Q8M-fr-yE8"/>
+                                            <constraint firstAttribute="bottom" secondItem="gbd-r4-KEO" secondAttribute="bottom" constant="4" id="WWW-Iw-dUH"/>
+                                            <constraint firstAttribute="trailing" secondItem="IDM-0F-5y7" secondAttribute="trailing" constant="4" id="iCV-Nr-WZe"/>
+                                            <constraint firstItem="IDM-0F-5y7" firstAttribute="top" secondItem="0uZ-oc-rcb" secondAttribute="bottom" constant="4" id="pRZ-v5-zpJ"/>
+                                            <constraint firstItem="gbd-r4-KEO" firstAttribute="leading" secondItem="flm-v6-DRh" secondAttribute="leading" constant="4" id="shc-JH-SH6"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="flm-v6-DRh" secondAttribute="trailing" id="Cd0-Sh-3q9"/>
+                                    <constraint firstAttribute="height" constant="55" id="Cig-mL-fg0"/>
+                                    <constraint firstItem="AUS-sa-ozi" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="JW8-xr-SvG"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fpw-O9-OzM" secondAttribute="trailing" id="QGP-6M-17U"/>
+                                    <constraint firstItem="Fpw-O9-OzM" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="edj-9b-11x"/>
+                                    <constraint firstAttribute="trailing" secondItem="AUS-sa-ozi" secondAttribute="trailing" id="mie-SC-6cY"/>
+                                    <constraint firstItem="flm-v6-DRh" firstAttribute="leading" secondItem="G6D-sI-f5q" secondAttribute="leading" id="vBa-WZ-WA6"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="G6D-sI-f5q" secondAttribute="trailing" id="4N7-rn-jny"/>
                             <constraint firstItem="Uog-qI-w6g" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="KrK-yx-A2i"/>
                             <constraint firstItem="Uog-qI-w6g" firstAttribute="top" secondItem="uCK-dO-es9" secondAttribute="top" constant="20" symbolic="YES" id="ajo-Jg-hge"/>
+                            <constraint firstAttribute="bottom" secondItem="G6D-sI-f5q" secondAttribute="bottom" id="izc-gD-lv7"/>
                             <constraint firstItem="Adb-jg-jl5" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" constant="20" symbolic="YES" id="qwa-E7-OMs"/>
                             <constraint firstItem="Adb-jg-jl5" firstAttribute="top" secondItem="Uog-qI-w6g" secondAttribute="bottom" constant="6" symbolic="YES" id="vT9-QI-00R"/>
+                            <constraint firstItem="G6D-sI-f5q" firstAttribute="leading" secondItem="uCK-dO-es9" secondAttribute="leading" id="vgG-84-WaX"/>
                         </constraints>
                     </view>
                 </box>
