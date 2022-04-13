@@ -21,6 +21,8 @@
 		D02A84BF2534FFA400BDF7D6 /* PlaybackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */; };
 		D02A84C32534FFB800BDF7D6 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
+		D02F3D132807197C00DE70D6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D02F3D122807197C00DE70D6 /* FirebaseCrashlytics */; };
+		D02F3D152807198800DE70D6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D02F3D142807198800DE70D6 /* FirebaseCrashlytics */; };
 		D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03BE46A26BDC5EB00364177 /* SettingsView.swift */; };
 		D03BE46D26BDC5EB00364177 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03BE46B26BDC5EB00364177 /* SettingsView.xib */; };
 		D03BE47026BDC6CF00364177 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D03BE46F26BDC6CF00364177 /* LaunchAtLogin */; };
@@ -111,6 +113,7 @@
 				D03BE47026BDC6CF00364177 /* LaunchAtLogin in Frameworks */,
 				D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */,
 				D016912728060F89005A7623 /* FirebaseAnalytics in Frameworks */,
+				D02F3D132807197C00DE70D6 /* FirebaseCrashlytics in Frameworks */,
 				D0DA5E9527C3F14D00F2B321 /* StoreKit.framework in Frameworks */,
 				36070F9019F7695200E5B0CD /* ScriptingBridge.framework in Frameworks */,
 				D0DA5E9327C3F12200F2B321 /* Purchases in Frameworks */,
@@ -131,6 +134,7 @@
 				D078498327FC7F3C00A32373 /* Sparkle in Frameworks */,
 				D05118002739BF5100B34BF4 /* LaunchAtLogin in Frameworks */,
 				D016912928060F9C005A7623 /* FirebaseAnalytics in Frameworks */,
+				D02F3D152807198800DE70D6 /* FirebaseCrashlytics in Frameworks */,
 				D05118012739BF5100B34BF4 /* Kingfisher in Frameworks */,
 				D05118022739BF5100B34BF4 /* ScriptingBridge.framework in Frameworks */,
 				D0DA5E9927C3F4A500F2B321 /* Purchases in Frameworks */,
@@ -297,6 +301,7 @@
 				D03BE46F26BDC6CF00364177 /* LaunchAtLogin */,
 				D0DA5E9227C3F12200F2B321 /* Purchases */,
 				D016912628060F89005A7623 /* FirebaseAnalytics */,
+				D02F3D122807197C00DE70D6 /* FirebaseCrashlytics */,
 			);
 			productName = SongBar;
 			productReference = 36491D3019F6F3330083A49D /* SongBar(AppStore).app */;
@@ -330,6 +335,7 @@
 				D05117FF2739BF5100B34BF4 /* Frameworks */,
 				D05118032739BF5100B34BF4 /* Resources */,
 				D05118082739BF5100B34BF4 /* Launch on Login helper */,
+				D02F3D1628071A1200DE70D6 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -342,6 +348,7 @@
 				D0DA5E9827C3F4A500F2B321 /* Purchases */,
 				D078498227FC7F3C00A32373 /* Sparkle */,
 				D016912828060F9C005A7623 /* FirebaseAnalytics */,
+				D02F3D142807198800DE70D6 /* FirebaseCrashlytics */,
 			);
 			productName = SongBar;
 			productReference = D051180C2739BF5100B34BF4 /* SongBar.app */;
@@ -453,6 +460,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Increments build number\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		D02F3D1628071A1200DE70D6 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		D03BE47126BDCACF00364177 /* Launch on Login helper */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -641,6 +668,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -992,6 +1020,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D02A84C62535037200BDF7D6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		D02F3D122807197C00DE70D6 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D016912528060F89005A7623 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		D02F3D142807198800DE70D6 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D016912528060F89005A7623 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		D03BE46F26BDC6CF00364177 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
