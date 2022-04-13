@@ -11,6 +11,7 @@ import Combine
 import LaunchAtLogin
 import os
 import SwiftUI
+import Firebase
 
 class SettingsView: NSViewController {
 
@@ -90,8 +91,9 @@ class SettingsView: NSViewController {
         default:
             defaultsController.setTrackValue(newValue: true)
         }
-
+        Analytics.logEvent(event: .toggleTrackInfo, parameters: nil)
     }
+
     @IBAction func displayControlsStateDidChange(_ sender: Any) {
         let newValue = displayControlsCheckbox.state
         switch newValue {
@@ -102,6 +104,7 @@ class SettingsView: NSViewController {
         default:
             defaultsController.setControlsValue(newValue: true)
         }
+        Analytics.logEvent(event: .toggleControlls, parameters: nil)
     }
     @IBAction func didClickBuy(_ sender: Any) {
         Task {
@@ -135,6 +138,7 @@ class SettingsView: NSViewController {
             return
         }
         NSWorkspace.shared.open(url)
+        Analytics.logEvent(event: .launchWeb, parameters: nil)
     }
 
     @IBAction func didClickRegister(_ sender: Any) {
