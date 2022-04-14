@@ -24,41 +24,66 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var settings: NSWindow?
     private var registration: NSWindow?
     private var cancelables = Set<AnyCancellable>()
-    private var menuTitleObserver: NSKeyValueObservation?
+    private var observers = Set<NSKeyValueObservation>()
+    private var isPremium = false
     // magic number
     private let variableStatusItemLength: CGFloat = -1
-    #if APPSTORE
-        @objc dynamic var playbackListener: MediaWatching? = PlaybackListener()
-    #else
-        @objc dynamic var playbackListener: MediaWatching? = DefaultsController.shared.isPremium ? MediaRemoteListner() : PlaybackListener()
-    #endif
+    @objc dynamic var playbackListener: MediaWatching = PlaybackListener()
+#if !APPSTORE
+    @objc dynamic var mediaRemoteListner: MediaWatching = MediaRemoteListner()
+    private let isAppstore = false
+#else
+    private let isAppstore = true
+#endif
     var sysBar: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         FirebaseApp.configure()
-        #if !APPSTORE
-        updateMenuItem.isHidden = false
-        DefaultsController.shared.$isPremium
-                .sink {
-                    self.playbackListener = $0 ? MediaRemoteListner() : PlaybackListener()
-                    self.configureListner()
-                }
+        if !isAppstore {
+            updateMenuItem.isHidden = false
+            DefaultsController.shared.$isPremium
+                .sink(receiveValue: {
+                    self.isPremium = $0
+                    self.populate()
+                })
                 .store(in: &cancelables)
-        #endif
+            Analytics.logEvent(event: .launchDirectDownload, parameters: nil)
+        } else {
+            Analytics.logEvent(event: .launchMAS, parameters: nil)
+        }
         sysBar = NSStatusBar.system.statusItem(withLength: variableStatusItemLength)
         sysBar?.button?.title = "SongBar"
         sysBar?.menu = menu
         sysBar?.isVisible = true
         configureListner()
+        populate()
     }
 
     private func configureListner() {
-        menuTitleObserver = observe(\.playbackListener?.menuTitle, options: .new, changeHandler: { [weak self] _, title in
+        let playbackListenerMenuTitleObserver = observe(\.playbackListener.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
+                  let title = title.newValue else { return }
+            if self.isAppstore || !self.isPremium {
+                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            }
+        })
+        observers.insert(playbackListenerMenuTitleObserver)
+#if !APPSTORE
+        let mediaRemoteMenuTitleObserver = observe(\.mediaRemoteListner.menuTitle, options: .new, changeHandler: { [weak self] _, title in
+            guard let self = self,
+                  self.isPremium,
                   let title = title.newValue else { return }
             self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
         })
-        playbackListener?.populateMusicData()
+        observers.insert(mediaRemoteMenuTitleObserver)
+#endif
+    }
+
+    private func populate() {
+        playbackListener.populateMusicData()
+#if !APPSTORE
+        mediaRemoteListner.populateMusicData()
+#endif
     }
 
     private func menuTitleOfMaximumLength(title: String?) -> String {
@@ -102,17 +127,17 @@ extension AppDelegate {
     }
 
     func displayRegistration() {
-        #if !APPSTORE
-            if registration == nil {
-                registration = NSWindow(contentViewController: NSHostingController(rootView: RegisterView()))
-                registration?.minSize = CGSize(width: 480.0, height: 150.0)
-                registration?.title = NSLocalizedString("registration:window:title", value: "Registration", comment: "Window title for registration")
-                registration?.styleMask = [.closable, .resizable, .titled]
-            }
-            NSApp.setActivationPolicy(.regular)
-            NSApp.presentationOptions = []
-            NSApp.activate(ignoringOtherApps: true)
-            registration?.makeKeyAndOrderFront(self)
-        #endif
+#if !APPSTORE
+        if registration == nil {
+            registration = NSWindow(contentViewController: NSHostingController(rootView: RegisterView()))
+            registration?.minSize = CGSize(width: 480.0, height: 150.0)
+            registration?.title = NSLocalizedString("registration:window:title", value: "Registration", comment: "Window title for registration")
+            registration?.styleMask = [.closable, .resizable, .titled]
+        }
+        NSApp.setActivationPolicy(.regular)
+        NSApp.presentationOptions = []
+        NSApp.activate(ignoringOtherApps: true)
+        registration?.makeKeyAndOrderFront(self)
+#endif
     }
 }

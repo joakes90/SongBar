@@ -234,16 +234,14 @@ import Kingfisher
     }
 
     func skipForward() {
-        populateMusicData()
-        guard let elapsedTime = elapsedTime else { return }
+        guard let elapsedTime = currentElapsedTime() else { return }
         MRMediaRemoteSetElapsedTime(elapsedTime + 15.0)
         self.elapsedTime = elapsedTime
         incrementPlayHeadPosition(forceUpdate: true)
     }
 
     func skipBackward() {
-        populateMusicData()
-        guard let elapsedTime = elapsedTime else { return }
+        guard let elapsedTime = currentElapsedTime() else { return }
         MRMediaRemoteSetElapsedTime(elapsedTime - 15.0)
         self.elapsedTime = elapsedTime
         incrementPlayHeadPosition(forceUpdate: true)
@@ -306,13 +304,20 @@ private extension MediaRemoteListner {
     }
 
     func incrementPlayHeadPosition(forceUpdate: Bool = false) {
-        guard let elapsedTime = self.elapsedTime,
+        guard let elapsedTime = currentElapsedTime(),
               let trackDuration = self.trackDuration else { return }
-        let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
-        let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
+        let percentage = (elapsedTime / trackDuration) * 100
         if !debounceHeadPosition || forceUpdate {
             playbackHeadPosition = NSNumber(value: percentage)
         }
+    }
+
+    func currentElapsedTime() -> Double? {
+        if case MusicEPlSPlaying.rawValue = playbackState.uint32Value {
+            let timeInterval = (lastUpdate?.timeIntervalSinceNow ?? 0.0) * -1
+            return (elapsedTime ?? 0.0) + timeInterval
+        }
+        return elapsedTime
     }
 }
 
