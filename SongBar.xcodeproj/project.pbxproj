@@ -11,7 +11,6 @@
 		36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D3519F6F3330083A49D /* AppDelegate.swift */; };
 		36491D3819F6F3330083A49D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3719F6F3330083A49D /* Images.xcassets */; };
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
-		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
 		D016912328060F3B005A7623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D016912228060F3B005A7623 /* GoogleService-Info.plist */; };
 		D016912428060F3B005A7623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D016912228060F3B005A7623 /* GoogleService-Info.plist */; };
 		D016912728060F89005A7623 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D016912628060F89005A7623 /* FirebaseAnalytics */; };
@@ -23,6 +22,10 @@
 		D02A84C82535037200BDF7D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D02A84C72535037200BDF7D6 /* Kingfisher */; };
 		D02F3D132807197C00DE70D6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D02F3D122807197C00DE70D6 /* FirebaseCrashlytics */; };
 		D02F3D152807198800DE70D6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D02F3D142807198800DE70D6 /* FirebaseCrashlytics */; };
+		D02F3D1A28086D9C00DE70D6 /* DefaultsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02F3D1928086D9C00DE70D6 /* DefaultsControllerTests.swift */; };
+		D02F3D1C28086DB700DE70D6 /* PurchaseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02F3D1B28086DB700DE70D6 /* PurchaseControllerTests.swift */; };
+		D02F3D1E28086DDB00DE70D6 /* PlaybackListnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02F3D1D28086DDB00DE70D6 /* PlaybackListnerTests.swift */; };
+		D02F3D2028086DF600DE70D6 /* MediaRemoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02F3D1F28086DF600DE70D6 /* MediaRemoteTests.swift */; };
 		D03BE46C26BDC5EB00364177 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03BE46A26BDC5EB00364177 /* SettingsView.swift */; };
 		D03BE46D26BDC5EB00364177 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03BE46B26BDC5EB00364177 /* SettingsView.xib */; };
 		D03BE47026BDC6CF00364177 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D03BE46F26BDC6CF00364177 /* LaunchAtLogin */; };
@@ -80,7 +83,6 @@
 		36491D3A19F6F3330083A49D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		36491D4019F6F3330083A49D /* SongBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SongBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36491D4519F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		36491D4619F6F3330083A49D /* SongBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongBarTests.swift; sourceTree = "<group>"; };
 		D016912228060F3B005A7623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D016912A280620AA005A7623 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		D02A849E2530BD0600BDF7D6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -90,13 +92,16 @@
 		D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackListener.m; sourceTree = "<group>"; };
 		D02A84BE2534FFA400BDF7D6 /* PlaybackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaybackView.xib; sourceTree = "<group>"; };
 		D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		D02F3D1928086D9C00DE70D6 /* DefaultsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsControllerTests.swift; sourceTree = "<group>"; };
+		D02F3D1B28086DB700DE70D6 /* PurchaseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseControllerTests.swift; sourceTree = "<group>"; };
+		D02F3D1D28086DDB00DE70D6 /* PlaybackListnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackListnerTests.swift; sourceTree = "<group>"; };
+		D02F3D1F28086DF600DE70D6 /* MediaRemoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemoteTests.swift; sourceTree = "<group>"; };
 		D03BE46A26BDC5EB00364177 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D03BE46B26BDC5EB00364177 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		D051180C2739BF5100B34BF4 /* SongBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D051B41E27AE3C0C00E572BB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D051C48F2804711B009C18AF /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SongBar.entitlements; sourceTree = "<group>"; };
-		D05B6A9E27FF3C2B008B6FF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D066E28C27ECB95A00367F60 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D0780445273B50E2009A7CB9 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		D07DDDF227B176980092998B /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
@@ -199,8 +204,11 @@
 		36491D4319F6F3330083A49D /* SongBarTests */ = {
 			isa = PBXGroup;
 			children = (
-				36491D4619F6F3330083A49D /* SongBarTests.swift */,
 				36491D4419F6F3330083A49D /* Supporting Files */,
+				D02F3D1928086D9C00DE70D6 /* DefaultsControllerTests.swift */,
+				D02F3D1B28086DB700DE70D6 /* PurchaseControllerTests.swift */,
+				D02F3D1D28086DDB00DE70D6 /* PlaybackListnerTests.swift */,
+				D02F3D1F28086DF600DE70D6 /* MediaRemoteTests.swift */,
 			);
 			path = SongBarTests;
 			sourceTree = "<group>";
@@ -448,7 +456,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D02A849C2530BB9300BDF7D6 /* Bump build number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -460,7 +468,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Increments build number\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -504,7 +512,7 @@
 		};
 		D05117F62739BF5100B34BF4 /* Bump build number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -516,7 +524,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Increments build number\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -597,7 +605,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */,
+				D02F3D1E28086DDB00DE70D6 /* PlaybackListnerTests.swift in Sources */,
+				D02F3D1A28086D9C00DE70D6 /* DefaultsControllerTests.swift in Sources */,
+				D02F3D1C28086DB700DE70D6 /* PurchaseControllerTests.swift in Sources */,
+				D02F3D2028086DF600DE70D6 /* MediaRemoteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
