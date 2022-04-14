@@ -304,10 +304,9 @@ private extension MediaRemoteListner {
     }
 
     func incrementPlayHeadPosition(forceUpdate: Bool = false) {
-        guard let elapsedTime = self.elapsedTime,
+        guard let elapsedTime = currentElapsedTime(),
               let trackDuration = self.trackDuration else { return }
-        let timeInterval = (self.playbackState.uint32Value == MusicEPlSPlaying.rawValue) ? Date().timeIntervalSince(self.lastUpdate ?? Date()) : 0
-        let percentage = ((elapsedTime + timeInterval) / trackDuration) * 100
+        let percentage = (elapsedTime / trackDuration) * 100
         if !debounceHeadPosition || forceUpdate {
             playbackHeadPosition = NSNumber(value: percentage)
         }
