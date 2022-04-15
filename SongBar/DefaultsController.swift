@@ -12,21 +12,22 @@ import Combine
 class DefaultsController: ObservableObject {
 
     static let shared = DefaultsController()
-    private let userDefaults = UserDefaults.standard
+    private var defaultsProvider: DefaultsProviding
     private let purchaseController = PurchaseController.shared
     private var cancelables = Set<AnyCancellable>()
 
     @Published var isPremium: Bool = false {
         didSet {
-            setTrackValue(newValue: self.isPremium ? userDefaults.trackInfo : true)
-            setControlsValue(newValue: self.isPremium ? userDefaults.controls : true)
+            setTrackValue(newValue: self.isPremium ? defaultsProvider.trackInfo : true)
+            setControlsValue(newValue: self.isPremium ? defaultsProvider.controls : true)
         }
     }
 
     @Published var license: String = ""
 
-    init() {
-        userDefaults.register(
+    init(_ defaultsProvider: DefaultsProviding = UserDefaults.standard) {
+        self.defaultsProvider = defaultsProvider
+        defaultsProvider.register(
             defaults: [
                 UserDefaults.Keys.controls: true,
                 UserDefaults.Keys.trackInfo: true,
@@ -47,52 +48,84 @@ class DefaultsController: ObservableObject {
     }
 
     func trackInfoEnabled() -> AnyPublisher<Bool, Never> {
-        userDefaults.publisher(for: \.trackInfo)
+        defaultsProvider.trackInfoEnabledPublisher()
             .map { self.isPremium ? $0 : true}
             .eraseToAnyPublisher()
     }
 
     func controlsEnabled() -> AnyPublisher<Bool, Never> {
-        userDefaults.publisher(for: \.controls)
+        defaultsProvider.controlsEnabledPublisher()
             .map { self.isPremium ? $0 : true }
             .eraseToAnyPublisher()
     }
 
     func premiumFeaturesEnabled() -> AnyPublisher<Bool, Never> {
-        userDefaults.publisher(for: \.trackInfo)
-            .combineLatest(userDefaults.publisher(for: \.controls))
+        defaultsProvider.premiumFeaturesEnabledPublisher()
+            .combineLatest(defaultsProvider.controlsEnabledPublisher())
             .map { self.isPremium ? $0 || $1 : true}
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
 
     func userLicense() -> AnyPublisher<String, Never> {
-        userDefaults.publisher(for: \.license)
+        defaultsProvider.licensePublisher()
             .map { $0 ?? "" }
             .eraseToAnyPublisher()
     }
 
     func setTrackValue(newValue: Bool) {
-        userDefaults.trackInfo = newValue
+        defaultsProvider.trackInfo = newValue
     }
 
     func setControlsValue(newValue: Bool) {
-        userDefaults.controls = newValue
+        defaultsProvider.controls = newValue
     }
 
     func setLicense(newValue: String) async throws {
-        userDefaults.license = newValue
+        defaultsProvider.license = newValue
         try await purchaseController.update(with: newValue)
     }
 }
 
-extension UserDefaults {
+protocol DefaultsProviding {
+    var trackInfo: Bool { get set }
+    var controls: Bool { get set }
+    var license: String? { get set }
+
+    func register(defaults: [String: Any])
+    func trackInfoEnabledPublisher() -> AnyPublisher<Bool, Never>
+    func controlsEnabledPublisher() -> AnyPublisher<Bool, Never>
+    func premiumFeaturesEnabledPublisher() -> AnyPublisher<Bool, Never>
+    func licensePublisher() -> AnyPublisher<String?, Never>
+}
+
+extension UserDefaults: DefaultsProviding {
 
     enum Keys {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
         static var license = "license"
         static var exceptions = "NSApplicationCrashOnExceptions"
+    }
+
+    func trackInfoEnabledPublisher() -> AnyPublisher<Bool, Never> {
+        publisher(for: \.trackInfo)
+            .eraseToAnyPublisher()
+    }
+
+    func controlsEnabledPublisher() -> AnyPublisher<Bool, Never> {
+        publisher(for: \.controls)
+            .eraseToAnyPublisher()
+    }
+
+    func premiumFeaturesEnabledPublisher() -> AnyPublisher<Bool, Never> {
+        publisher(for: \.trackInfo)
+            .eraseToAnyPublisher()
+    }
+
+    func licensePublisher() -> AnyPublisher<String?, Never> {
+        publisher(for: \.license)
+            .eraseToAnyPublisher()
     }
 
     @objc dynamic var trackInfo: Bool {
