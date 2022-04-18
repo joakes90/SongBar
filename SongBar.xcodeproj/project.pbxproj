@@ -11,7 +11,6 @@
 		36491D3619F6F3330083A49D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D3519F6F3330083A49D /* AppDelegate.swift */; };
 		36491D3819F6F3330083A49D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3719F6F3330083A49D /* Images.xcassets */; };
 		36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36491D3919F6F3330083A49D /* MainMenu.xib */; };
-		36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D4619F6F3330083A49D /* SongBarTests.swift */; };
 		D016912328060F3B005A7623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D016912228060F3B005A7623 /* GoogleService-Info.plist */; };
 		D016912428060F3B005A7623 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D016912228060F3B005A7623 /* GoogleService-Info.plist */; };
 		D016912728060F89005A7623 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D016912628060F89005A7623 /* FirebaseAnalytics */; };
@@ -60,16 +59,6 @@
 		D0E5153027C57A6B00E058EB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		36491D4119F6F3330083A49D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 36491D2819F6F3330083A49D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 36491D2F19F6F3330083A49D;
-			remoteInfo = SongBar;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		36070F8F19F7695200E5B0CD /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		36070F9319F7761200E5B0CD /* SongBar-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SongBar-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -78,7 +67,6 @@
 		36491D3519F6F3330083A49D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36491D3719F6F3330083A49D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		36491D3A19F6F3330083A49D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		36491D4019F6F3330083A49D /* SongBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SongBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36491D4519F6F3330083A49D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36491D4619F6F3330083A49D /* SongBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongBarTests.swift; sourceTree = "<group>"; };
 		D016912228060F3B005A7623 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -96,7 +84,6 @@
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D051B41E27AE3C0C00E572BB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D051C48F2804711B009C18AF /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SongBar.entitlements; sourceTree = "<group>"; };
-		D05B6A9E27FF3C2B008B6FF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D066E28C27ECB95A00367F60 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D0780445273B50E2009A7CB9 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		D07DDDF227B176980092998B /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
@@ -119,13 +106,6 @@
 				D0DA5E9527C3F14D00F2B321 /* StoreKit.framework in Frameworks */,
 				36070F9019F7695200E5B0CD /* ScriptingBridge.framework in Frameworks */,
 				D0DA5E9327C3F12200F2B321 /* Purchases in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		36491D3D19F6F3330083A49D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				36491D3019F6F3330083A49D /* SongBar(AppStore).app */,
-				36491D4019F6F3330083A49D /* SongBarTests.xctest */,
 				D051180C2739BF5100B34BF4 /* SongBar.app */,
 			);
 			name = Products;
@@ -310,24 +289,6 @@
 			productReference = 36491D3019F6F3330083A49D /* SongBar(AppStore).app */;
 			productType = "com.apple.product-type.application";
 		};
-		36491D3F19F6F3330083A49D /* SongBarTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 36491D4D19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBarTests" */;
-			buildPhases = (
-				36491D3C19F6F3330083A49D /* Sources */,
-				36491D3D19F6F3330083A49D /* Frameworks */,
-				36491D3E19F6F3330083A49D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				36491D4219F6F3330083A49D /* PBXTargetDependency */,
-			);
-			name = SongBarTests;
-			productName = SongBarTests;
-			productReference = 36491D4019F6F3330083A49D /* SongBarTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		D05117F12739BF5100B34BF4 /* SongBar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D05118092739BF5100B34BF4 /* Build configuration list for PBXNativeTarget "SongBar" */;
@@ -376,10 +337,6 @@
 							};
 						};
 					};
-					36491D3F19F6F3330083A49D = {
-						CreatedOnToolsVersion = 6.1;
-						TestTargetID = 36491D2F19F6F3330083A49D;
-					};
 				};
 			};
 			buildConfigurationList = 36491D2B19F6F3330083A49D /* Build configuration list for PBXProject "SongBar" */;
@@ -404,7 +361,6 @@
 			targets = (
 				36491D2F19F6F3330083A49D /* SongBar(AppStore) */,
 				D05117F12739BF5100B34BF4 /* SongBar */,
-				36491D3F19F6F3330083A49D /* SongBarTests */,
 			);
 		};
 /* End PBXProject section */
@@ -420,13 +376,6 @@
 				36491D3B19F6F3330083A49D /* MainMenu.xib in Resources */,
 				D051B41F27AE3C0C00E572BB /* InfoPlist.strings in Resources */,
 				D016912328060F3B005A7623 /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		36491D3E19F6F3330083A49D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,14 +542,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		36491D3C19F6F3330083A49D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				36491D4719F6F3330083A49D /* SongBarTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D05117F82739BF5100B34BF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -620,14 +561,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		36491D4219F6F3330083A49D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 36491D2F19F6F3330083A49D /* SongBar(AppStore) */;
-			targetProxy = 36491D4119F6F3330083A49D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		36491D3919F6F3330083A49D /* MainMenu.xib */ = {
@@ -764,7 +697,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -793,7 +726,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -803,54 +736,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		36491D4E19F6F3330083A49D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SongBarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
-			};
-			name = Debug;
-		};
-		36491D4F19F6F3330083A49D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SongBarTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.corpe.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SongBar.app/Contents/MacOS/SongBar";
 			};
 			name = Release;
 		};
@@ -872,7 +757,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -900,7 +785,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -927,15 +812,6 @@
 			buildConfigurations = (
 				36491D4B19F6F3330083A49D /* Debug */,
 				36491D4C19F6F3330083A49D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		36491D4D19F6F3330083A49D /* Build configuration list for PBXNativeTarget "SongBarTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				36491D4E19F6F3330083A49D /* Debug */,
-				36491D4F19F6F3330083A49D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
