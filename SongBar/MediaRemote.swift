@@ -237,6 +237,7 @@ import Kingfisher
         guard let elapsedTime = currentElapsedTime() else { return }
         MRMediaRemoteSetElapsedTime(elapsedTime + 15.0)
         self.elapsedTime = elapsedTime
+        lastUpdate = Date()
         incrementPlayHeadPosition(forceUpdate: true)
     }
 
@@ -244,6 +245,7 @@ import Kingfisher
         guard let elapsedTime = currentElapsedTime() else { return }
         MRMediaRemoteSetElapsedTime(elapsedTime - 15.0)
         self.elapsedTime = elapsedTime
+        lastUpdate = Date()
         incrementPlayHeadPosition(forceUpdate: true)
     }
 

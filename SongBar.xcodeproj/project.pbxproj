@@ -96,7 +96,6 @@
 		D051180E2739C00800B34BF4 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		D051B41E27AE3C0C00E572BB /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D051C48F2804711B009C18AF /* SongBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SongBar.entitlements; sourceTree = "<group>"; };
-		D05B6A9E27FF3C2B008B6FF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D066E28C27ECB95A00367F60 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D0780445273B50E2009A7CB9 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		D07DDDF227B176980092998B /* DefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsController.swift; sourceTree = "<group>"; };
@@ -764,7 +763,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -793,7 +792,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -872,7 +871,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -900,7 +899,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
