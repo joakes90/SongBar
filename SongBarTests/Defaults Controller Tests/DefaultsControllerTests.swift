@@ -44,4 +44,121 @@ class DefaultsControllerTests: XCTestCase {
         wait(for: [expectation], timeout: 0.5)
     }
 
+    func testLicense() {
+        let expectation = XCTestExpectation(description: "Publishes license")
+        expectation.expectedFulfillmentCount = 2
+        var expectedValue = ""
+        sut?.$license
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+        expectedValue = "abcd-1234"
+        sut?.license = expectedValue
+        wait(for: [expectation], timeout: 0.5)
+
+    }
+
+    func testTrackInfoEnabled() {
+        let expectation = XCTestExpectation(description: "Publishes if track info is enabled")
+        expectation.expectedFulfillmentCount = 2
+        var expectedValue = true
+        sut?.trackInfoEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        sut?.isPremium = true
+        expectedValue = false
+        sut?.setTrackValue(newValue: false)
+
+        sut?.trackInfoEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        wait(for: [expectation], timeout: 0.5)
+    }
+
+    func testControlsEnabled() {
+        let expectation = XCTestExpectation(description: "Publishes if controls are is enabled")
+        expectation.expectedFulfillmentCount = 2
+        var expectedValue = true
+        sut?.controlsEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        sut?.isPremium = true
+        expectedValue = false
+        sut?.setControlsValue(newValue: false)
+
+        sut?.controlsEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        wait(for: [expectation], timeout: 0.5)
+    }
+
+    func testPremiumFeaturesEnabled() {
+        let expectation = XCTestExpectation(description: "Publishes if any premium features are enabled")
+        expectation.expectedFulfillmentCount = 2
+        var expectedValue = true
+
+        sut?.premiumFeaturesEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(expectedValue == value)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        sut?.isPremium = true
+        expectedValue = false
+        sut?.setTrackValue(newValue: false)
+
+        sut?.premiumFeaturesEnabled()
+            .sink(receiveValue: { value in
+                XCTAssert(expectedValue == value)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        wait(for: [expectation], timeout: 0.5)
+    }
+
+    func testUserLicense() async {
+        let expectation = XCTestExpectation(description: "Publishes license value")
+        expectation.expectedFulfillmentCount = 2
+        var expectedValue = ""
+
+        sut?.$license
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        sut?.isPremium = true
+        expectedValue = "abcd-1234"
+        sut?.license = "abcd-1234"
+
+        sut?.$license
+            .sink(receiveValue: { value in
+                XCTAssert(value == expectedValue)
+                expectation.fulfill()
+            })
+            .store(in: &cancelables)
+
+        wait(for: [expectation], timeout: 0.5)
+    }
 }
