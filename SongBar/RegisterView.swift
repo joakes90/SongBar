@@ -12,30 +12,18 @@ import Firebase
 
 struct RegisterView: View {
     @ObservedObject var defaultsController = DefaultsController.shared
-    @State var isValid = false
     @State var processing = false
+    @State var isValid = false
 
     private func register() {
         processing = true
         defaultsController.setEmail(newValue: defaultsController.email)
         defaultsController.setLicense(newValue: defaultsController.license)
-        Analytics.logEvent(event: .registerApp, parameters: ["license": defaultsController.license])
-        NSApp.keyWindow?.close()
-    }
-
-    private func license(for string: String) -> String? {
-        guard let data = string.data(using: .utf8)?.base64EncodedString() else { return nil }
-
-        let subString = data
-            .trimmingCharacters(in: .alphanumerics.inverted)
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .padding(toLength: 16, withPad: "0", startingAt: 0)
-            .uppercased()
-            .enumerated()
-            .map { ($0.isMultiple(of: 4) && $0 != 0 ? "-\($1)" : String($1)) }
-            .joined()
-            .prefix(19)
-        return String(subString)
+        if defaultsController.licenseMatches() {
+            defaultsController.isPremium = true
+            Analytics.logEvent(event: .registerApp, parameters: ["license": defaultsController.license])
+            NSApp.keyWindow?.close()
+        }
     }
 
     var body: some View {
@@ -52,7 +40,7 @@ struct RegisterView: View {
                                     .trimmingCharacters(in: .whitespacesAndNewlines)
                                     .lowercased()
                             )
-                            isValid = license(for: defaultsController.email) == defaultsController.license
+                            isValid = defaultsController.licenseMatches()
                         })
                         TextField("License:",
                                   text: $defaultsController.license)
@@ -70,7 +58,7 @@ struct RegisterView: View {
                                     .prefix(19)
                             )
 
-                            isValid = license(for: defaultsController.email) == defaultsController.license
+                            isValid = defaultsController.licenseMatches()
                         })
 
                         Spacer()

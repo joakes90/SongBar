@@ -8,13 +8,16 @@
 
 import Foundation
 import Combine
+import StoreKit
 
 class DefaultsController: ObservableObject {
 
     static let shared = DefaultsController()
     private let userDefaults = UserDefaults.standard
-    private let purchaseController = PurchaseController.shared
     private var cancelables = Set<AnyCancellable>()
+    #if APPSTORE
+    private let purchaseController = PurchaseController.shared
+    #endif
 
     @Published var isPremium: Bool = false {
         didSet {
@@ -44,13 +47,16 @@ class DefaultsController: ObservableObject {
                 self.email = string
             }
             .store(in: &cancelables)
-
+        #if APPSTORE
         Task {
             let isPremium = await purchaseController.deluxeEnabled()
             DispatchQueue.main.async {
                 self.isPremium = isPremium
             }
         }
+        #else
+        isPremium = licenseMatches()
+        #endif
     }
 
     func trackInfoEnabled() -> AnyPublisher<Bool, Never> {
@@ -100,6 +106,10 @@ class DefaultsController: ObservableObject {
     func setEmail(newValue: String) {
         userDefaults.email = newValue
     }
+
+    func licenseMatches() -> Bool {
+        return license(for: email) == license
+    }
 }
 
 extension UserDefaults {
@@ -146,5 +156,22 @@ extension UserDefaults {
         set {
             set(newValue, forKey: Keys.email)
         }
+    }
+}
+
+private extension DefaultsController {
+    func license(for string: String) -> String? {
+        guard let data = string.data(using: .utf8)?.base64EncodedString() else { return nil }
+
+        let subString = data
+            .trimmingCharacters(in: .alphanumerics.inverted)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .padding(toLength: 16, withPad: "0", startingAt: 0)
+            .uppercased()
+            .enumerated()
+            .map { ($0.isMultiple(of: 4) && $0 != 0 ? "-\($1)" : String($1)) }
+            .joined()
+            .prefix(19)
+        return String(subString)
     }
 }

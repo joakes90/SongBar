@@ -12,6 +12,7 @@ import LaunchAtLogin
 import os
 import SwiftUI
 import Firebase
+import StoreKit
 
 class SettingsView: NSViewController {
 
@@ -24,9 +25,9 @@ class SettingsView: NSViewController {
     @objc dynamic var launchAtLogin = LaunchAtLogin.kvo
     private var defaultsController = DefaultsController.shared
     private var cancelables = Set<AnyCancellable>()
-    private var purchaseController = PurchaseController.shared
     private let currencyFormater = NumberFormatter()
     private let logger = Logger(subsystem: "com.joakes.SongBar", category: "SettingsView")
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -106,6 +107,27 @@ class SettingsView: NSViewController {
         }
         Analytics.logEvent(event: .toggleControlls, parameters: nil)
     }
+
+    @IBAction func didClickBuyWeb(_ sender: Any) {
+        guard let url = URL(string: "https://songbar.app") else {
+            return
+        }
+        NSWorkspace.shared.open(url)
+        Analytics.logEvent(event: .launchWeb, parameters: nil)
+    }
+
+    @IBAction func didClickRegister(_ sender: Any) {
+        (NSApp.delegate as? AppDelegate)?.displayRegistration()
+    }
+
+}
+
+#if APPSTORE
+extension SettingsView {
+    private var purchaseController: PurchaseController {
+        PurchaseController.shared
+    }
+
     @IBAction func didClickBuy(_ sender: Any) {
         Task {
             do {
@@ -131,18 +153,5 @@ class SettingsView: NSViewController {
         }
     }
 
-    @IBAction func didClickBuyWeb(_ sender: Any) {
-        guard let url = URL(string: "https://songbar.app") else {
-            let alert = NSAlert(error: PurchaseController.PurchaseErrors.badURL)
-            alert.runModal()
-            return
-        }
-        NSWorkspace.shared.open(url)
-        Analytics.logEvent(event: .launchWeb, parameters: nil)
-    }
-
-    @IBAction func didClickRegister(_ sender: Any) {
-        (NSApp.delegate as? AppDelegate)?.displayRegistration()
-    }
-
 }
+#endif

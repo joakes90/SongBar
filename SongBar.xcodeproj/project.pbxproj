@@ -54,9 +54,7 @@
 		D0DA5E9327C3F12200F2B321 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = D0DA5E9227C3F12200F2B321 /* Purchases */; };
 		D0DA5E9527C3F14D00F2B321 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0DA5E9427C3F14D00F2B321 /* StoreKit.framework */; };
 		D0DA5E9727C3F1AF00F2B321 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */; };
-		D0DA5E9927C3F4A500F2B321 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = D0DA5E9827C3F4A500F2B321 /* Purchases */; };
 		D0DDFB19266EB9180059E2C3 /* SongBarSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DDFB18266EB9180059E2C3 /* SongBarSliderCell.swift */; };
-		D0E5153027C57A6B00E058EB /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5E9627C3F1AF00F2B321 /* PurchaseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,7 +117,6 @@
 				D02F3D152807198800DE70D6 /* FirebaseCrashlytics in Frameworks */,
 				D05118012739BF5100B34BF4 /* Kingfisher in Frameworks */,
 				D05118022739BF5100B34BF4 /* ScriptingBridge.framework in Frameworks */,
-				D0DA5E9927C3F4A500F2B321 /* Purchases in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +306,6 @@
 			packageProductDependencies = (
 				D05117F22739BF5100B34BF4 /* Kingfisher */,
 				D05117F42739BF5100B34BF4 /* LaunchAtLogin */,
-				D0DA5E9827C3F4A500F2B321 /* Purchases */,
 				D078498227FC7F3C00A32373 /* Sparkle */,
 				D016912828060F9C005A7623 /* FirebaseAnalytics */,
 				D02F3D142807198800DE70D6 /* FirebaseCrashlytics */,
@@ -555,7 +551,6 @@
 				D05117FD2739BF5100B34BF4 /* PlaybackMenuItem.swift in Sources */,
 				D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */,
 				D05117FE2739BF5100B34BF4 /* SongBarSliderCell.swift in Sources */,
-				D0E5153027C57A6B00E058EB /* PurchaseController.swift in Sources */,
 				D07DDDF327B176980092998B /* DefaultsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,7 +692,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.5;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -726,7 +721,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.5;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
@@ -757,7 +752,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -785,7 +780,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -933,11 +928,6 @@
 			productName = Sparkle;
 		};
 		D0DA5E9227C3F12200F2B321 /* Purchases */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D0DA5E9127C3F12200F2B321 /* XCRemoteSwiftPackageReference "purchases-ios" */;
-			productName = Purchases;
-		};
-		D0DA5E9827C3F4A500F2B321 /* Purchases */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0DA5E9127C3F12200F2B321 /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = Purchases;
