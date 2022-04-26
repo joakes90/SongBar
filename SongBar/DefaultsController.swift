@@ -24,6 +24,7 @@ class DefaultsController: ObservableObject {
     }
 
     @Published var license: String = ""
+    @Published var email: String = ""
 
     init() {
         userDefaults.register(
@@ -35,6 +36,12 @@ class DefaultsController: ObservableObject {
         userLicense()
             .sink { string in
                 self.license = string
+            }
+            .store(in: &cancelables)
+
+        userEmail()
+            .sink { string in
+                self.email = string
             }
             .store(in: &cancelables)
 
@@ -72,6 +79,12 @@ class DefaultsController: ObservableObject {
             .eraseToAnyPublisher()
     }
 
+    func userEmail() -> AnyPublisher<String, Never> {
+        userDefaults.publisher(for: \.email)
+            .map { $0 ?? "" }
+            .eraseToAnyPublisher()
+    }
+
     func setTrackValue(newValue: Bool) {
         userDefaults.trackInfo = newValue
     }
@@ -80,9 +93,12 @@ class DefaultsController: ObservableObject {
         userDefaults.controls = newValue
     }
 
-    func setLicense(newValue: String) async throws {
+    func setLicense(newValue: String) {
         userDefaults.license = newValue
-        try await purchaseController.update(with: newValue)
+    }
+
+    func setEmail(newValue: String) {
+        userDefaults.email = newValue
     }
 }
 
@@ -92,6 +108,7 @@ extension UserDefaults {
         static var trackInfo = "trackInfo"
         static var controls = "controls"
         static var license = "license"
+        static var email = "email"
         static var exceptions = "NSApplicationCrashOnExceptions"
     }
 
@@ -119,6 +136,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.license)
+        }
+    }
+
+    @objc dynamic var email: String? {
+        get {
+            string(forKey: Keys.email)
+        }
+        set {
+            set(newValue, forKey: Keys.email)
         }
     }
 }
