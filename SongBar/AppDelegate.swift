@@ -8,7 +8,6 @@
 
 import Cocoa
 import AppKit
-import Purchases
 import SwiftUI
 import StoreKit
 import Combine
