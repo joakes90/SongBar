@@ -46,6 +46,11 @@ import Kingfisher
         !(lastUpdate?.timeIntervalSinceNow  ?? -1 < -1)
     }
 
+    // macOS 12.4 fallback issue related
+    private lazy var spotify: SBApplication? = {
+        SBApplication(bundleIdentifier: "com.spotify.client")
+    }()
+
     // Listen to Notifications
     private typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void // swiftlint:disable:this type_name
     private let MRMediaRemoteRegisterForNowPlayingNotificationsPointer: UnsafeMutableRawPointer // swiftlint:disable:this identifier_name
@@ -188,14 +193,16 @@ import Kingfisher
     func populateMusicData() {
         MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { [weak self] (information) in
             guard let self = self else { return }
-            self.trackName = self.currentTrackName(from: information)
-            self.artistName = self.currentArtistName(from: information)
-            self.menuTitle = self.currentMenuTitle(from: information)
-            self.trackDuration = self.trackDuration(from: information)
-            self.elapsedTime = self.elapsedTime(from: information)
-            self.lastUpdate = self.lastUpdate(from: information)
-            self.art = self.currentArt(from: information)
-            self.nowPlayingInformation = information
+            Task {
+                self.trackName = self.currentTrackName(from: information)
+                self.artistName = self.currentArtistName(from: information)
+                self.menuTitle = self.currentMenuTitle(from: information)
+                self.trackDuration = self.trackDuration(from: information)
+                self.elapsedTime = self.elapsedTime(from: information)
+                self.lastUpdate = self.lastUpdate(from: information)
+                self.art = await self.currentArt(from: information)
+                self.nowPlayingInformation = information
+            }
         })
 
         MRMediaRemoteGetNowPlayingApplicationPID(DispatchQueue.main, { [weak self] (pid) in
@@ -285,12 +292,28 @@ private extension MediaRemoteListner {
         return trackName
     }
 
-    func currentArt(from metaData: [String: Any]) -> NSImage {
+    func currentArt(from metaData: [String: Any]) async -> NSImage {
+        // if OS > 12.4 && sourceApp.bundleIdentifier == com.spotify.client
+        if greaterThan12_4 && (sourceApp?.isSpotify ?? false) {
+            return await spotifyFallback()
+        }
         if let artworkData = metaData["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
-            return NSImage(data: artworkData) ?? NSImage(imageLiteralResourceName: "missingArtwork")
+            return NSImage(data: artworkData) ?? sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
         } else {
             return sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
         }
+    }
+
+    // This exists to deal with NSZeroData on kMRMediaRemoteNowPlayingInfoArtworkData keys on macOS 12.4
+    // Hopefully this will be torn out by 12.4.1 or 12.5 or at very worst 13.0
+    func spotifyFallback() async -> NSImage {
+        guard let track = spotify?.value(forKey: "currentTrack") as? AnyObject,
+              let imageUrl = track.value(forKey: "artworkUrl") as? String,
+              let url = URL(string: imageUrl) else {
+            return sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
+        }
+        let image = try? await fetchImage(with: url)
+        return image ?? sourceApp?.iconForPresenting ?? NSImage(imageLiteralResourceName: "missingArtwork")
     }
 
     func trackDuration(from metaData: [String: Any]) -> Double? {
@@ -333,6 +356,16 @@ private extension MediaRemoteListner {
             })
             .first
     }
+
+    func fetchImage(with url: URL) async throws -> NSImage? {
+        let (image, _) = try await URLSession.shared.data(from: url)
+            return NSImage(data: image)
+    }
+
+    var greaterThan12_4: Bool {
+        let version = ProcessInfo.processInfo.operatingSystemVersion
+        return (version.majorVersion >= 12) && (version.minorVersion >= 4)
+    }
 }
 
 private extension Notification.Name {
@@ -344,5 +377,9 @@ private extension Notification.Name {
 private extension NSRunningApplication {
     var iconForPresenting: NSImage? {
         self.bundleIdentifier == "com.apple.WebKit.GPU" ? NSImage(named: "safari") : icon
+    }
+
+    var isSpotify: Bool {
+        bundleIdentifier == "com.spotify.client"
     }
 }

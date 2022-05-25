@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 #endif
     var sysBar: NSStatusItem?
 
+    @MainActor
     func applicationDidFinishLaunching(_ notification: Notification) {
         FirebaseApp.configure()
         if !isAppstore {
@@ -58,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         populate()
     }
 
+    @MainActor
     private func configureListner() {
         let playbackListenerMenuTitleObserver = observe(\.playbackListener.menuTitle, options: .new, changeHandler: { [weak self] _, title in
             guard let self = self,
@@ -69,10 +71,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         observers.insert(playbackListenerMenuTitleObserver)
 #if !APPSTORE
         let mediaRemoteMenuTitleObserver = observe(\.mediaRemoteListner.menuTitle, options: .new, changeHandler: { [weak self] _, title in
-            guard let self = self,
-                  self.isPremium,
-                  let title = title.newValue else { return }
-            self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            DispatchQueue.main.async {
+                guard let self = self,
+                      self.isPremium,
+                      let title = title.newValue else { return }
+                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+            }
         })
         observers.insert(mediaRemoteMenuTitleObserver)
 #endif

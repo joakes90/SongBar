@@ -90,18 +90,25 @@ class PlaybackView: NSView {
         #endif
     }
 
+    @MainActor
     private func configureListner() {
         songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
-            guard let self = self else { return }
-            self.titleTextField.stringValue = name.newValue ?? ""
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.titleTextField.stringValue = name.newValue ?? ""
+            }
         })
 
         artistObserver = observe(\.playbackListener.artistName, options: .new, changeHandler: { [weak self] _, artist in
-            self?.artistTextField.stringValue = artist.newValue ?? ""
+            DispatchQueue.main.async {
+                self?.artistTextField.stringValue = artist.newValue ?? ""
+            }
         })
 
         artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
-            self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
+            DispatchQueue.main.async {
+                self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
+            }
         })
 
         playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
