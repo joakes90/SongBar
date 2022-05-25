@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fastForwardPlayback;
 - (void)skipForward;
 - (void)skipBackward;
-- (void) incrementPlayHeadPosition;
+- (void)incrementPlayHeadPosition;
 - (void)setPlaybackToPercentage:(NSNumber * _Nonnull)percentage;
 
 @end
