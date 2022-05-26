@@ -207,6 +207,7 @@ import Kingfisher
 
         MRMediaRemoteGetNowPlayingApplicationPID(DispatchQueue.main, { [weak self] (pid) in
             guard let self = self else { return }
+            // TODO: Identify safari
             self.sourceApp = self.application(for: pid)
         })
 

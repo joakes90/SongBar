@@ -11,6 +11,7 @@ import Combine
 import Kingfisher
 import StoreKit
 
+@MainActor
 class PlaybackView: NSView {
 
     @IBOutlet weak var imageView: NSImageView!
@@ -90,7 +91,6 @@ class PlaybackView: NSView {
         #endif
     }
 
-    @MainActor
     private func configureListner() {
         songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
             DispatchQueue.main.async {

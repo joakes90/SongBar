@@ -25,10 +25,12 @@ class PlaybackMenuItem: NSMenuItem {
 }
 
 extension PlaybackMenuItem: NSMenuDelegate {
+    @MainActor
     func menuWillOpen(_ menu: NSMenu) {
         playbackView?.beginPlayheadPolling()
     }
 
+    @MainActor
     func menuDidClose(_ menu: NSMenu) {
         playbackView?.endPlayheadPolling()
     }
