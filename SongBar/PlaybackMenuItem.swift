@@ -14,6 +14,7 @@ class PlaybackMenuItem: NSMenuItem {
         view as? PlaybackView
     }
 
+    @MainActor
     required init(coder: NSCoder) {
         super.init(coder: coder)
         let playbackView = PlaybackView(frame: NSRect(x: 0.0,
