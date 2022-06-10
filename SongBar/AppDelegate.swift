@@ -65,17 +65,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             guard let self = self,
                   let title = title.newValue else { return }
             if self.isAppstore || !self.isPremium {
-                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+                Task {
+                    await MainActor.run {
+                        self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+                    }
+                }
             }
         })
         observers.insert(playbackListenerMenuTitleObserver)
 #if !APPSTORE
-        let mediaRemoteMenuTitleObserver = observe(\.mediaRemoteListner.menuTitle, options: .new, changeHandler: { [weak self] _, title in
-            DispatchQueue.main.async {
-                guard let self = self,
-                      self.isPremium,
-                      let title = title.newValue else { return }
-                self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+        let mediaRemoteMenuTitleObserver = observe(\.mediaRemoteListner.menuTitle, options: .new, changeHandler: { _, title in
+            Task {
+                await MainActor.run {
+                    guard self.isPremium,
+                          let title = title.newValue else { return }
+                    self.sysBar?.button?.title = self.menuTitleOfMaximumLength(title: title)
+                }
             }
         })
         observers.insert(mediaRemoteMenuTitleObserver)
