@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -393,6 +393,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D02A849C2530BB9300BDF7D6 /* Bump build number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -411,6 +412,7 @@
 		};
 		D02F3D1628071A1200DE70D6 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -431,6 +433,7 @@
 		};
 		D03BE47126BDCACF00364177 /* Launch on Login helper */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -449,6 +452,7 @@
 		};
 		D05117F62739BF5100B34BF4 /* Bump build number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -467,6 +471,7 @@
 		};
 		D05117F72739BF5100B34BF4 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -485,6 +490,7 @@
 		};
 		D05118082739BF5100B34BF4 /* Launch on Login helper */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -503,6 +509,7 @@
 		};
 		D0B6D0B32673F1EE00C0B7B9 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
