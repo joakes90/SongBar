@@ -121,7 +121,7 @@ extension AppDelegate {
         if  settings == nil {
             settings = NSWindow(contentViewController: SettingsView(nibName: "SettingsView", bundle: nil))
             settings?.minSize = CGSize(width: 480.0, height: 270.0)
-            settings?.title = NSLocalizedString("preferences:window:title", value: "Preferences", comment: "Window title for preferences")
+            settings?.title = NSLocalizedString("preferences:window:title", value: "Settings", comment: "Window title for preferences")
             settings?.styleMask = [.closable, .resizable, .titled]
         }
         NSApp.setActivationPolicy(.regular)
