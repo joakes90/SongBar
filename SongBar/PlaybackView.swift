@@ -173,8 +173,8 @@ class PlaybackView: NSView {
         let timer = Timer(fire: Date(), interval: 0.250, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             Task {
-                if await !self.dragging {
-                    await self.playbackListener.incrementPlayHeadPosition()
+                if !self.dragging {
+                    self.playbackListener.incrementPlayHeadPosition()
                 }
             }
         }
