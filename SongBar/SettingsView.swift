@@ -134,7 +134,7 @@ extension SettingsView {
                 try await purchaseController.purchaseDeluxe()
             } catch {
                 let alert = NSAlert(error: error)
-                alert.runModal()
+                _ = alert.runModal()
             }
         }
     }
@@ -146,7 +146,7 @@ extension SettingsView {
             } catch {
                 DispatchQueue.main.async {
                     let alert = NSAlert(error: error)
-                    alert.runModal()
+                    _ = alert.runModal()
                 }
 
             }
