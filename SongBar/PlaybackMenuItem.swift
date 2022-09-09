@@ -16,11 +16,15 @@ class PlaybackMenuItem: NSMenuItem {
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        let playbackView = PlaybackView(frame: NSRect(x: 0.0,
-                                                      y: 0.0,
-                                                      width: 420.0,
-                                                      height: 420.0))
-        view = playbackView
+        Task {
+            await MainActor.run {
+                let playbackView = PlaybackView(frame: NSRect(x: 0.0,
+                                                              y: 0.0,
+                                                              width: 420.0,
+                                                              height: 420.0))
+                view = playbackView
+            }
+        }
     }
 }
 
