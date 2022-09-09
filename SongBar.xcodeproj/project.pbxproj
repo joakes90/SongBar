@@ -25,7 +25,6 @@
 		D03BE46D26BDC5EB00364177 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03BE46B26BDC5EB00364177 /* SettingsView.xib */; };
 		D03EC6852853868300E78561 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D03EC6842853868300E78561 /* Kingfisher */; };
 		D03EC687285386BE00E78561 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D03EC686285386BE00E78561 /* Kingfisher */; };
-		D03EC68A2853879F00E78561 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D03EC6892853879F00E78561 /* LaunchAtLogin */; };
 		D05117F92739BF5100B34BF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36491D3519F6F3330083A49D /* AppDelegate.swift */; };
 		D05117FA2739BF5100B34BF4 /* PlaybackListener.m in Sources */ = {isa = PBXBuildFile; fileRef = D02A84AC2530DEEA00BDF7D6 /* PlaybackListener.m */; };
 		D05117FB2739BF5100B34BF4 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A84C22534FFB800BDF7D6 /* PlaybackView.swift */; };
@@ -42,6 +41,7 @@
 		D051180F2739C00800B34BF4 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051180E2739C00800B34BF4 /* MediaRemote.swift */; };
 		D051B41F27AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
 		D051B42027AE3C0C00E572BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D051B41E27AE3C0C00E572BB /* InfoPlist.strings */; };
+		D054DB2828CBAE51000938CF /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D054DB2728CBAE51000938CF /* LaunchAtLogin */; };
 		D066E28D27ECB95A00367F60 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066E28C27ECB95A00367F60 /* RegisterView.swift */; };
 		D078498327FC7F3C00A32373 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D078498227FC7F3C00A32373 /* Sparkle */; };
 		D07DDDF327B176980092998B /* DefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07DDDF227B176980092998B /* DefaultsController.swift */; };
@@ -100,7 +100,7 @@
 			files = (
 				D016912728060F89005A7623 /* FirebaseAnalytics in Frameworks */,
 				D03EC687285386BE00E78561 /* Kingfisher in Frameworks */,
-				D03EC68A2853879F00E78561 /* LaunchAtLogin in Frameworks */,
+				D054DB2828CBAE51000938CF /* LaunchAtLogin in Frameworks */,
 				D02F3D132807197C00DE70D6 /* FirebaseCrashlytics in Frameworks */,
 				D0DA5E9527C3F14D00F2B321 /* StoreKit.framework in Frameworks */,
 				36070F9019F7695200E5B0CD /* ScriptingBridge.framework in Frameworks */,
@@ -282,7 +282,7 @@
 				D016912628060F89005A7623 /* FirebaseAnalytics */,
 				D02F3D122807197C00DE70D6 /* FirebaseCrashlytics */,
 				D03EC686285386BE00E78561 /* Kingfisher */,
-				D03EC6892853879F00E78561 /* LaunchAtLogin */,
+				D054DB2728CBAE51000938CF /* LaunchAtLogin */,
 			);
 			productName = SongBar;
 			productReference = 36491D3019F6F3330083A49D /* SongBar(AppStore).app */;
@@ -329,7 +329,6 @@
 				TargetAttributes = {
 					36491D2F19F6F3330083A49D = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = C2NSPAKWYK;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -352,7 +351,7 @@
 				D078498127FC7F3C00A32373 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				D016912528060F89005A7623 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D03EC6832853868300E78561 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				D03EC6882853879F00E78561 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				D054DB2628CBAE51000938CF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 36491D3119F6F3330083A49D /* Products */;
 			projectDirPath = "";
@@ -693,11 +692,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar_appstore.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = C2NSPAKWYK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -705,11 +706,12 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.6;
+				MARKETING_VERSION = 2.4.7;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APPSTORE DEBUG";
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
@@ -723,11 +725,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SongBar/SongBar_appstore.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = C2NSPAKWYK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = SongBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -735,11 +739,12 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 2.4.6;
+				MARKETING_VERSION = 2.4.7;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APPSTORE;
 				SWIFT_OBJC_BRIDGING_HEADER = "SongBar/SongBar-Bridging-Header.h";
@@ -767,7 +772,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.6;
+				MARKETING_VERSION = 2.4.7;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -796,7 +801,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 2.4.6;
+				MARKETING_VERSION = 2.4.7;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joakes.SongBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -855,14 +860,6 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		D03EC6882853879F00E78561 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:sindresorhus/LaunchAtLogin.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		D05117F32739BF5100B34BF4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:onevcat/Kingfisher.git";
@@ -877,6 +874,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
+			};
+		};
+		D054DB2628CBAE51000938CF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:sindresorhus/LaunchAtLogin.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
 			};
 		};
 		D078498127FC7F3C00A32373 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
@@ -928,11 +933,6 @@
 			package = D03EC6832853868300E78561 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		D03EC6892853879F00E78561 /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D03EC6882853879F00E78561 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
-		};
 		D05117F22739BF5100B34BF4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D05117F32739BF5100B34BF4 /* XCRemoteSwiftPackageReference "Kingfisher" */;
@@ -941,6 +941,11 @@
 		D05117F42739BF5100B34BF4 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D05117F52739BF5100B34BF4 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
+		D054DB2728CBAE51000938CF /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D054DB2628CBAE51000938CF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
 		};
 		D078498227FC7F3C00A32373 /* Sparkle */ = {

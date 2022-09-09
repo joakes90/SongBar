@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:sindresorhus/LaunchAtLogin.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "05168c04c91fdf6c432852c2fe0737af6437195c"
+        "revision" : "e8171b3e38a2816f579f58f3dac1522aa39efe41",
+        "version" : "4.2.0"
       }
     },
     {
