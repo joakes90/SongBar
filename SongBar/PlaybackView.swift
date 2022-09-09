@@ -92,40 +92,53 @@ class PlaybackView: NSView {
     }
 
     private func configureListner() {
-        songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: { [weak self] _, name in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                self.titleTextField.stringValue = name.newValue ?? ""
+        songTitleObserver = observe(\.playbackListener.trackName, options: .new, changeHandler: {  _, name in
+            Task {
+                await MainActor.run {
+                    self.titleTextField.stringValue = name.newValue ?? ""
+                }
             }
         })
 
-        artistObserver = observe(\.playbackListener.artistName, options: .new, changeHandler: { [weak self] _, artist in
-            DispatchQueue.main.async {
-                self?.artistTextField.stringValue = artist.newValue ?? ""
+        artistObserver = observe(\.playbackListener.artistName, options: .new, changeHandler: { _, artist in
+            Task {
+                await MainActor.run {
+                    self.artistTextField.stringValue = artist.newValue ?? ""
+                }
             }
         })
 
-        artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { [weak self] _, image in
-            DispatchQueue.main.async {
-                self?.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
+        artObserver = observe(\.playbackListener.art, options: .new, changeHandler: { _, image in
+            Task {
+                await MainActor.run {
+                    self.imageView.image = image.newValue ?? NSImage(imageLiteralResourceName: "missingArtwork")
+                }
             }
         })
 
-        playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { [weak self] _, state in
+        playbackStateObserver = observe(\.playbackListener.playbackState, options: .new, changeHandler: { _, state in
             guard let intValue = state.newValue?.uint32Value else { return }
             let playbackState = MusicEPlS(rawValue: intValue)
-            self?.playbackButton(for: playbackState)
-            if playbackState == MusicEPlSStopped {
-                self?.playbackProgressIndicator.doubleValue = 0.0
-                self?.playbackProgressIndicator.isEnabled = false
-            } else {
-                self?.playbackProgressIndicator.isEnabled = true
+            Task {
+                await MainActor.run {
+                    self.playbackButton(for: playbackState)
+                    if playbackState == MusicEPlSStopped {
+                        self.playbackProgressIndicator.doubleValue = 0.0
+                        self.playbackProgressIndicator.isEnabled = false
+                    } else {
+                        self.playbackProgressIndicator.isEnabled = true
+                    }
+                }
             }
         })
 
-        playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, options: .new, changeHandler: { [weak self] _, percentage in
+        playHeadPositionObserver = observe(\.playbackListener.playbackHeadPosition, options: .new, changeHandler: { _, percentage in
             guard let number = percentage.newValue else { return }
-            self?.playbackProgressIndicator?.doubleValue = Double(truncating: number)
+            Task {
+                await MainActor.run {
+                    self.playbackProgressIndicator?.doubleValue = Double(truncating: number)
+                }
+            }
         })
 
         titleTextField.stringValue = playbackListener.trackName.isEmpty ? "SongBar" : playbackListener.trackName
@@ -159,8 +172,10 @@ class PlaybackView: NSView {
         guard timer == nil else { return }
         let timer = Timer(fire: Date(), interval: 0.250, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            if !self.dragging {
-                self.playbackListener.incrementPlayHeadPosition()
+            Task {
+                if await !self.dragging {
+                    await self.playbackListener.incrementPlayHeadPosition()
+                }
             }
         }
         RunLoop.main.add(timer, forMode: .common)
